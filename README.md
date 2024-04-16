@@ -17,6 +17,7 @@ access () verifircation des droits du process appelant
 
 
 Gestion de process :
+
 wait()
 waitpid()
   https://www.man-linux-magique.net/man2/waitpid.html
