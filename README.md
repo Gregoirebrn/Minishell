@@ -38,5 +38,9 @@ wait3() attend n’importe quel fils
 wait4() attend un ou des fils spécifique(s)
 
       https://www.man-linux-magique.net/man2/wait3.html
+fork() creation d'une copie du process
+
+      http://manpagesfr.free.fr/man/man2/fork.2.html
 
 LEARN GIT : https://learngitbranching.js.org/?locale=fr_FR
+
