@@ -1,4 +1,4 @@
-Documentation pour les fonctions :
+                            Documentation pour les fonctions :
 
 
 Gestion des lignes recu en prompt :
