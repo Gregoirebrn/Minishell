@@ -13,5 +13,11 @@ Gestion de droits equivalant sudo :
 access () verifircation des droits du process appelant 
   https://linux.die.net/man/2/access
 
-
+Gestion de process :
+wait()
+waitpid()
+  https://www.man-linux-magique.net/man2/waitpid.html
+wait3() attend n’importe quel fils
+wait4() attend un ou des fils spécifique(s)
+  https://www.man-linux-magique.net/man2/wait3.html
 
