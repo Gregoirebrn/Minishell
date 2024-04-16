@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: beroy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:24:43 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/11 16:47:32 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/16 18:50:57 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 // COLOR CODES
 
@@ -27,5 +29,33 @@
 # define BLUE "\033[0;34m"
 # define PURPLE "\033[0;35m"
 # define CYAN "\033[0;36m"
+
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+	struct s_env	*prev;
+}	t_env;
+
+typedef struct s_redir
+{
+	int		type;
+	char	*arg;
+}	t_redir;
+
+typedef struct s_cmd
+{
+	char			**arg;
+	t_redir			*io;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+}	t_cmd;
+
+typedef struct s_head
+{
+	t_cmd	*cmd;
+	t_env	*env;
+}	t_head;
 
 #endif
