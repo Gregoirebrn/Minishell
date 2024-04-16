@@ -23,6 +23,10 @@ rl_redisplay () affiche une ancienne ligne
 
 Gestion de process :
 
+pipe () Créer un tube dans un sens de communication
+
+      http://manpagesfr.free.fr/man/man2/pipe.2.html
+      
 execve () execute un programme, une commande de shell par exemple
 
       http://manpagesfr.free.fr/man/man2/execve.2.html
