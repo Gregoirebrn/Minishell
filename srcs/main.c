@@ -51,12 +51,15 @@ void	ft_header(void)
 int	main(void)
 {
 	char	*input;
+	t_head	*head;
 
 	ft_header();
 	while (42)
 	{
 		input = readline("> ");
+		head = ft_parse(input);
 		printf("%s\n", input);
 		add_history("input");
+		free(head);
 	}
 }

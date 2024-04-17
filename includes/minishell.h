@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:24:43 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/16 18:50:57 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/17 13:22:40 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_redir
 typedef struct s_cmd
 {
 	char			**arg;
-	t_redir			*io;
+	t_redir			*redir;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
@@ -57,5 +57,9 @@ typedef struct s_head
 	t_cmd	*cmd;
 	t_env	*env;
 }	t_head;
+
+// parser.c
+
+t_head	*ft_parse(char *input);
 
 #endif
