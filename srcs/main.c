@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: beroy <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/11 18:40:37 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/16 16:52:10 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 char	*ft_color(int i)
 {
 	if (i % 6 == 0)
@@ -49,12 +50,16 @@ void	ft_header(void)
 
 int	main(void)
 {
-	char	input[1025];
-	size_t 	rd;
+	char	*input;
+	t_head	*head;
 
 	ft_header();
-	write(1, "> ", 2);
-	rd = read(1, input, 1024);
-	input[rd] = 0;
-	printf("%s", input);
+	while (42)
+	{
+		input = readline("> ");
+		head = ft_parse(input);
+		printf("%s\n", input);
+		add_history("input");
+		free(head);
+	}
 }

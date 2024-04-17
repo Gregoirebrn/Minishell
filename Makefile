@@ -14,7 +14,7 @@ HEAD		:=	includes/minishell.h
 
 HEAD_D		:=	.
 
-CFLAGS		:=	-Wall -Wextra -Werror -g3
+CFLAGS		:=	-Wall -Wextra -Werror -g3 -lreadline
 
 NAME		:=	minishell
 
