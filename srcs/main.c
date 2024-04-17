@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/16 16:52:10 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/17 13:22:40 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,11 @@ int	main(void)
 	{
 		input = readline("> ");
 		head = ft_parse(input);
-		printf("%s\n", input);
-		add_history("input");
-		free(head);
+		if (head != NULL)
+		{
+			printf("%s\n", input);
+			add_history("input");
+			free(head);
+		}
 	}
 }
