@@ -6,14 +6,13 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/17 17:33:15 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/17 21:41:00 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// chaque arg[i] est a 1 ou 0 il faut savoir si la commande sera dans les arg ou pas
-// les ecritures sont surement fausse il faudra se renseigner
+//echo a tester
 
 void	ft_echo(t_head *head)
 {
@@ -24,17 +23,17 @@ void	ft_echo(t_head *head)
 	copy = head->cmd;
 	while (copy->next != NULL)
 	{
-		if (i == 1 && ft_strncmp(copy->arg[i], "-n", ft_strlen(copy->arg[i])))
+		if (i == 1 &&  0 == ft_strncmp(copy->arg[i], "-n", ft_strlen(copy->arg[i])))
 			i = -1;
 		printf("%s ", copy->arg[i]);
 		copy = copy->next;
 		if (i > -1)
 			i++;
 	}
-	if (copy != NULL && i != -1)
-		printf("%s\n", copy->arg[i]);
-	else
+	if (0 == ft_strncmp(copy->arg[i], "-n", ft_strlen(copy->arg[i])))
 		printf("%s", copy->arg[i]);
+	else
+		printf("%s\n", copy->arg[i]);
 }
 
 int		get_path(char **str)
@@ -76,7 +75,7 @@ char	*ft_strcat(char *path, char *dir)
 	size_t	i;
 	size_t	x;
 
-	dest = malloc(sizeof (char) * (strlen(dir) + strlen(path) + 2));
+	dest = malloc(sizeof (char) * (ft_strlen(dir) + ft_strlen(path) + 2));
 	if (dest == NULL)
 		return (dest);
 	i = 0;
@@ -108,11 +107,11 @@ int	ft_cd(t_head *head)
 	str = NULL;
 	get_path(&str);
 	str = ft_strcat(str, head->cmd->arg[1]);
-	if (dest == NULL)
+	if (str == NULL)
 		return (printf("Crash of Malloc\n"), 2);
 	err = chdir(str);
 	free(str);
 	if (err != 0)
-		return (perror("cd"), 2);
+		return (write(1, "bash: cd: ", 10), perror(head->cmd->arg[1]), 2);
 	return (0);
 }
