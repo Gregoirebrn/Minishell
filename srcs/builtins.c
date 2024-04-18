@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/18 16:28:35 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:49:09 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	ft_cd(t_head *head)
 {
 	int		err;
 	char	*str;
-	int		len;
 
 	str = NULL;
 	get_path(&str);
@@ -82,30 +81,6 @@ void	ft_export(t_head *head)
 		return ;
 	}
 	printf("%s\n", str);
-}
-
-void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *, size_t))
-{
-	t_env	*remove;
-	t_env	*current;
-
-	current = *env;
-	while (current && current->next)
-	{
-		if ((*cmp)(current->next->name, ref, ft_strlen(ref)) == 0)
-		{
-			remove = current->next;
-			current->next = current->next->next;
-			free(remove);
-		}
-		current = current->next;
-	}
-	current = *env;
-	if (current && (*cmp)(current->name, ref, ft_strlen(ref)) == 0)
-	{
-		*env = current->next;
-		free(current);
-	}
 }
 
 void	ft_unset(t_head *head)
