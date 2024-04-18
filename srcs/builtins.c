@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/17 21:42:22 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:28:35 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,6 @@ void	ft_echo(t_head *head)
 		printf("%s\n", copy->arg[i]);
 }
 
-int		get_path(char **str)
-{
-	size_t	size;
-
-	size = 10;
-	while (!*(str))
-	{
-		*str = getcwd(*(str), size);
-		if (!*(str))
-		{
-			free(*(str));
-			*(str) = NULL;
-			if (errno != ERANGE)
-				return (2);
-		}
-		size += 10;
-	}
-	return (0);
-}
-
 void	ft_pwd(void)
 {
 	int		err;
@@ -70,34 +50,6 @@ void	ft_pwd(void)
 	}
 	printf("%s\n", str);
 	free(str);
-}
-
-char	*ft_strcat(char *path, char *dir)
-{
-	char	*dest;
-	size_t	i;
-	size_t	x;
-
-	dest = malloc(sizeof (char) * (ft_strlen(dir) + ft_strlen(path) + 2));
-	if (dest == NULL)
-		return (dest);
-	i = 0;
-	while (path && path[i])
-	{
-		dest[i] = path[i];
-		i++;
-	}
-	x = 0;
-	dest[i++] = '/';
-	while (dir && dir[x])
-	{
-		dest[i] = dir[x];
-		i++;
-		x++;
-	}
-	dest[i] = '\0';
-	free(path);
-	return (dest);
 }
 
 int	ft_cd(t_head *head)
@@ -117,4 +69,46 @@ int	ft_cd(t_head *head)
 	if (err != 0)
 		return (write(1, "bash: cd: ", 10), perror(head->cmd->arg[1]), 2);
 	return (0);
+}
+
+void	ft_export(t_head *head)
+{
+	char *str;
+
+	str = getenv(head->cmd->arg[1]);
+	if (str == NULL)
+	{
+		write(1, "\n", 1);
+		return ;
+	}
+	printf("%s\n", str);
+}
+
+void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *, size_t))
+{
+	t_env	*remove;
+	t_env	*current;
+
+	current = *env;
+	while (current && current->next)
+	{
+		if ((*cmp)(current->next->name, ref, ft_strlen(ref)) == 0)
+		{
+			remove = current->next;
+			current->next = current->next->next;
+			free(remove);
+		}
+		current = current->next;
+	}
+	current = *env;
+	if (current && (*cmp)(current->name, ref, ft_strlen(ref)) == 0)
+	{
+		*env = current->next;
+		free(current);
+	}
+}
+
+void	ft_unset(t_head *head)
+{
+	rem_env(&head->env, head->cmd->arg[1], &ft_strncmp);
 }
