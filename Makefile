@@ -15,7 +15,7 @@ HEAD		:=	includes/minishell.h
 
 HEAD_D		:=	.
 
-CFLAGS		:=	-Wall -Wextra -Werror -g3 -lreadline
+CFLAGS		:=	-Wall -Wextra -Werror -g3
 
 NAME		:=	minishell
 
@@ -44,7 +44,7 @@ lib			:
 				$(MAKE) -C $(LIB_D)
 
 $(NAME)		:	$(OBJS_D) $(OBJS) $(LIB_A) $(HEAD)
-				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB_A)
+				$(CC) $(CFLAGS) -lreadline -o $(NAME) $(OBJS) $(LIB_A)
 
 $(OBJS)		:	$(OBJS_D)%.o: $(SRCS_D)%.c $(HEAD) $(LIB_H)
 				$(CC) $(CFLAGS) -I/usr/include -Isuper_libft -c $< -o $@
