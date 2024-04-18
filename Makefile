@@ -11,7 +11,8 @@ OBJS_D		:=	objs/
 
 OBJS		:=	$(SRCS:%.c=$(OBJS_D)%.o)
 
-HEAD		:=	includes/minishell.h
+HEAD		:=	includes/minishell.h	\
+				includes/parser.h
 
 HEAD_D		:=	.
 

@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:24:43 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/17 13:24:06 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/18 14:49:39 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+//# include "builtins.h"
+# include "parser.h"
 
 // COLOR CODES
 
@@ -58,9 +60,5 @@ typedef struct s_head
 	t_cmd	*cmd;
 	t_env	*env;
 }	t_head;
-
-// parser.c
-
-t_head	*ft_parse(char *input);
 
 #endif

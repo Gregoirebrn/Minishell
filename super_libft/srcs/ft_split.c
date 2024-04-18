@@ -62,7 +62,7 @@ static char	*ft_superdup(char const *s, char c, size_t *j)
 	return (str);
 }
 
-static void	*ft_splitdestroy(char **split)
+void	*ft_splitdestroy(char **split)
 {
 	size_t	i;
 

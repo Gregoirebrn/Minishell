@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/17 19:07:39 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/18 18:29:13 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ int check_line(char *input)
 	return (0);
 }
 
-t_head	*ft_parse(char *input)
+t_cmd	*ft_parse(char *input, t_head *head)
 {
 	if (check_line(input) == 1)
 		return (NULL);
+	// split par rapport au pipe - un bloc par maillon de la liste
+	// split dans chaque bloc par rapport au whitespaces
+	// format le contenu des blocs - redirection + variable env etc
 	return (NULL);
 }
