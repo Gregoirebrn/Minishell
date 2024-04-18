@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/17 21:41:00 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/17 21:42:22 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void	ft_pwd(void)
 	str = NULL;
 	err = get_path(&str);
 	if (err == 2)
-		perror("Error from getcwd\n");
+	{
+		write(1, "bash: pwd: ", 10);
+		perror(str);
+	}
 	printf("%s\n", str);
 	free(str);
 }
