@@ -6,25 +6,25 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/22 13:53:42 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/22 16:56:07 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void quote_skip(char *input, int *i, char find)
+int	quote_skip(char *input, int *i, char find)
 {
 	*i += 1;
 	while (input[*i] != 0 && input[*i] != find)
 		*i += 1;
 	if (input[*i] == 0)
-		printf("Quote unterminated");
+		return (1);
+	return (0);
 }
 
 int check_line(char *input)
 {
 	int i;
-
 
 	i = 0;
 	while (input[i])
@@ -35,9 +35,15 @@ int check_line(char *input)
 				return (printf("double pipe not handled by minishell!\n"), 1);
 		}
 		else if (input[i] == 34)
-			quote_skip(input, &i, 34);
+		{
+			if (quote_skip(input, &i, 34) == 1)
+				return (printf("Quote unterminated!\n"), 1);
+		}
 		else if (input[i] == 39)
-			quote_skip(input, &i, 39);
+		{
+			if (quote_skip(input, &i, 39) == 1)
+				return (printf("Quote unterminated!\n"), 1);
+		}
 		i++;
 	}
 	return (0);
@@ -56,19 +62,16 @@ t_cmd	*split_pipe(char *input)
 	cmd = NULL;
 	while (input[i])
 	{
-		if (input[i] == '|' || input[i] == 0)
-		{
-			extract = ft_substr(input, offset, i - offset);
-			if (extract == NULL)
-				return (ft_free_cmd(cmd), NULL);
-			new = ft_cmd_new(extract);
-			ft_cmdadd_back(&cmd, new);
-			free (extract);
-			offset = i;
-		}
+		find_pipe(input, &i);
+		extract = ft_substr(input, offset, i - offset);
+		if (extract == NULL)
+			return (ft_free_cmd(cmd), NULL);
+		new = ft_cmd_new(extract);
+		ft_cmdadd_back(&cmd, new);
 		i++;
+		offset = i;
 	}
-	return (cmd)
+	return (cmd);
 }
 
 int	ft_parse(char *input, t_head *head)
@@ -80,6 +83,8 @@ int	ft_parse(char *input, t_head *head)
 	if (head->cmd == NULL)
 		return (1);
 	// split dans chaque bloc par rapport au whitespaces
+	if (split_ws(head->cmd) == 1)
+		return (1);
 	// format le contenu des blocs - redirection + variable env etc
-	return (NULL);
+	return (0);
 }

@@ -2,8 +2,12 @@
 #                                                       VARIABLE                                                       #
 ########################################################################################################################
 
-SRCS		:=	main.c	\
-				parser.c
+SRCS		:=	main.c				\
+				parser.c			\
+				init.c				\
+				parser_utils.c		\
+				parser_utils_2.c	\
+				parser_utils_3.c
 
 SRCS_D		:=	srcs/
 

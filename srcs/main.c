@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/18 17:48:24 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/22 17:42:10 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_free_cmd(t_cmd *cmd)
 {
 	t_redir	*tmp;
 
-	if(cmd->arg)
+	if (cmd->arg != NULL)
 		ft_splitdestroy(cmd->arg);
 	while (cmd->redir != NULL)
 	{
@@ -26,14 +26,15 @@ void	ft_free_cmd(t_cmd *cmd)
 		free(cmd->redir);
 		cmd->redir = tmp;
 	}
-	free(cmd);
+	if (cmd != NULL)
+		free(cmd);
 }
 
 void	ft_free_all(t_head *head)
 {
 	t_env	*tmp;
 
-	if (head->cmd)
+	if (head->cmd != NULL)
 		ft_free_cmd(head->cmd);
 	while (head->env != NULL)
 	{
@@ -43,7 +44,8 @@ void	ft_free_all(t_head *head)
 		free(head->env);
 		head->env = tmp;
 	}
-	free(head);
+	if (head != NULL)
+		free(head);
 }
 
 char	*ft_color(int i)
@@ -94,10 +96,19 @@ int	main(void)
 	while (42)
 	{
 		input = readline("> ");
-		if (ft_parse(input, head) == 1)
-			return (ft_free_all(head), 0);
-		printf("%s\n", input);
-		add_history("input");
-		ft_free_cmd(head->cmd);
+		add_history(input);
+		if (ft_parse(input, head) == 0)
+		{
+			while (head->cmd->next)
+			{
+				printf("%s\n", head->cmd->line);
+				head->cmd = head->cmd->next;
+				tab_display(head->cmd->arg);
+			}
+			printf("%s\n", head->cmd->line);
+			tab_display(head->cmd->arg);
+			ft_free_cmd(head->cmd);
+		}
 	}
+	return (ft_free_all(head), 0);
 }
