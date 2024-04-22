@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/18 15:23:38 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:37:06 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct s_head t_head;
 char	*ft_strcat(char *path, char *dir);
 int		get_path(char **str);
 void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *, size_t));
+void	change_old_pwd(t_head *head, char *old_pwd);
+void	replace_var(char **arg, char *result);
 
 void	ft_echo(t_head *head);
 void	ft_pwd(void);
