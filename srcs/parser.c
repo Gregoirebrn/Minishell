@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/18 18:29:13 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/22 13:53:42 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,42 @@ int check_line(char *input)
 	return (0);
 }
 
-t_cmd	*ft_parse(char *input, t_head *head)
+t_cmd	*split_pipe(char *input)
+{
+	t_cmd	*cmd;
+	t_cmd	*new;
+	char	*extract;
+	int offset;
+	int i;
+
+	offset = 0;
+	i = 0;
+	cmd = NULL;
+	while (input[i])
+	{
+		if (input[i] == '|' || input[i] == 0)
+		{
+			extract = ft_substr(input, offset, i - offset);
+			if (extract == NULL)
+				return (ft_free_cmd(cmd), NULL);
+			new = ft_cmd_new(extract);
+			ft_cmdadd_back(&cmd, new);
+			free (extract);
+			offset = i;
+		}
+		i++;
+	}
+	return (cmd)
+}
+
+int	ft_parse(char *input, t_head *head)
 {
 	if (check_line(input) == 1)
-		return (NULL);
+		return (1);
 	// split par rapport au pipe - un bloc par maillon de la liste
+	head->cmd = split_pipe(input);
+	if (head->cmd == NULL)
+		return (1);
 	// split dans chaque bloc par rapport au whitespaces
 	// format le contenu des blocs - redirection + variable env etc
 	return (NULL);

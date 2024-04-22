@@ -16,9 +16,11 @@ void	ft_free_cmd(t_cmd *cmd)
 {
 	t_redir	*tmp;
 
-	ft_splitdestroy(cmd->arg);
+	if(cmd->arg)
+		ft_splitdestroy(cmd->arg);
 	while (cmd->redir != NULL)
 	{
+		free(cmd->line);
 		tmp = cmd->redir->next;
 		free(cmd->redir->arg);
 		free(cmd->redir);
@@ -31,7 +33,8 @@ void	ft_free_all(t_head *head)
 {
 	t_env	*tmp;
 
-	ft_free_cmd(head->cmd);
+	if (head->cmd)
+		ft_free_cmd(head->cmd);
 	while (head->env != NULL)
 	{
 		tmp = head->env->next;
@@ -91,8 +94,7 @@ int	main(void)
 	while (42)
 	{
 		input = readline("> ");
-		head->cmd = ft_parse(input, head);
-		if (head == NULL)
+		if (ft_parse(input, head) == 1)
 			return (ft_free_all(head), 0);
 		printf("%s\n", input);
 		add_history("input");

@@ -49,6 +49,7 @@ typedef struct s_redir
 
 typedef struct s_cmd
 {
+	char 			*line;
 	char			**arg;
 	t_redir			*redir;
 	struct s_cmd	*next;
@@ -60,5 +61,10 @@ typedef struct s_head
 	t_cmd	*cmd;
 	t_env	*env;
 }	t_head;
+
+// main.c
+
+void	ft_free_cmd(t_cmd *cmd);
+void	ft_free_all(t_head *head);
 
 #endif
