@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/22 14:37:06 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:12:14 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,11 @@ void	ft_export(t_head *head);
 void	ft_unset(t_head *head);
 void	ft_env(t_head *head);
 void	ft_exit(t_head *head);
+
+int		our_cmd(t_head *head, char *str);
+void	find_cmd(t_head *head);
+char	**path_value(t_head *head);
+char	*find_path(t_head *head);
+char	*join_with_char(char const *s1, char const *s2, char c);
+
 #endif
