@@ -6,13 +6,11 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/18 18:26:22 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:34:07 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-//echo a tester
 
 void	ft_echo(t_head *head)
 {
@@ -76,6 +74,8 @@ int	ft_cd(t_head *head)
 
 void	ft_export(t_head *head)
 {
+//export without arg to do
+//display all var in alpa order with "declare -x" before
 	t_head	*copy;
 
 	copy = head;
