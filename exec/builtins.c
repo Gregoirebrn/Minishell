@@ -79,6 +79,8 @@ void	ft_export(t_head *head)
 	t_head	*copy;
 
 	copy = head;
+	if (!head->cmd->arg)
+		return (ex_no_args(head));
 	while (copy->env->name)
 	{
 		if (0 == strncmp(copy->env->name, copy->cmd->arg[0],

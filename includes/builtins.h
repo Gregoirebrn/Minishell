@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/23 15:12:14 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:37:33 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ void	find_cmd(t_head *head);
 char	**path_value(t_head *head);
 char	*find_path(t_head *head);
 char	*join_with_char(char const *s1, char const *s2, char c);
+void	ex_no_args(t_head *head);
+size_t	len_struct(t_env *env);
 
 #endif
