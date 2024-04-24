@@ -200,24 +200,45 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-int		main(int ac, char **av, char **env)
+int	ft_strncmp(char *s1, const char *s2, size_t n)
 {
-	char	**path;
-	char	*str;
-	int		i;
-	char	*cmd;
+	size_t	i;
 
-	if (ac < 2)
-		return (1);
-	str = getenv("PATH");
-	path = ft_split(str, ':');
 	i = 0;
-	while (path[i])
+	while ((s1[i] != 0 || s2[i] != 0) && i < n)
 	{
-		cmd = ft_strjoin(path[i], av[1]);
-		if (!(access(cmd, F_OK)))
-			execve(cmd, &av[1], env);
+		if (s1[i] != s2[i])
+			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
 		i++;
 	}
-	perror("execve");
+	return (0);
+}
+
+int	ft_strcmp(char *s1, const char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while (s1[i] != 0 || s2[i] != 0)
+	{
+		if (s1[i] != s2[i])
+			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+		i++;
+	}
+	return (0);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+int		main(int ac, char **av, char **env)
+{
+	printf("%d\n", ft_strcmp(av[1], av[2]));
 }

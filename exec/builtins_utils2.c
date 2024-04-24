@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:04:21 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/24 14:41:30 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:25:01 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,36 @@ void	replace_var(char **arg, char *result)
 	*(arg[z]) = '\0';
 }
 
-void	ex_no_args(t_head *head)
+void	ft_free_tab(char **tab, size_t i)
+{
+	while (i > 0)
+	{
+		free(tab[i])
+		i--;
+	}
+	free(tab);
+}
+
+void	print_in_order(char **tab)
+{
+	size_t	number;
+	size_t	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (0 < ft_strcmp(tab[i], tab[i + 1]))
+			number = i;
+		i++;
+		if (i == size)
+		{
+			i = 0;
+			printf("declare -x %s", tab[num]);
+		}
+	}
+}
+
+int	ex_no_args(t_head *head)
 {
 	t_env	*copy;
 	char	**tab;
@@ -53,11 +82,18 @@ void	ex_no_args(t_head *head)
 	copy = head->env;
 	size = len_struct(copy);
 	tab = malloc(sizeof(char *) * (size + 1));
+	if (!tab)
+		return (1);
 	i = 0;
 	while (i < size)
 	{
-		tab[i] = join_with_char(head->env->name, head->env->value, '');
+		tab[i] = join_with_char(head->env->name, head->env->value, '=');
+		if (!tab[i])
+			return (ft_free_tab(tab, i));
+		i++;
 	}
+	print_in_order(tab);
+	ft_free_tab(tab, i);
 	//find first line in alpha sorting
 	//display it with declare -x
 	//remove from the list the line and recall
