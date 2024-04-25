@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 13:21:52 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/22 16:56:07 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/22 17:39:47 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_cmdadd_back(t_cmd **lst, t_cmd *new)
 		{
 			last = ft_cmdlast(*lst);
 			last->next = new;
-			last->next->prev = last;
+			new->prev = last;
 		}
 	}
 }
@@ -57,7 +57,7 @@ void	index_up(char *input, int *i)
 {
 	if (input[*i] == 34)
 		quote_skip(input, i, 34);
-	if (input[*i] == 39)
+	else if (input[*i] == 39)
 		quote_skip(input, i, 39);
 	*i += 1;
 }

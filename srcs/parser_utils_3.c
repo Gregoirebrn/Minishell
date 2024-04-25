@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:36:26 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/22 17:36:26 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/22 17:39:47 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	tab_display(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		printf("%s\n", tab[i]);
+		printf("tab %d: %s\n", i, tab[i]);
 		i++;
 	}
 }

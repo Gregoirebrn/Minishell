@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/22 17:42:10 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/24 18:44:44 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,14 @@ int	main(void)
 		{
 			while (head->cmd->next)
 			{
-				printf("%s\n", head->cmd->line);
-				head->cmd = head->cmd->next;
+				printf("cacaline: %s\n", head->cmd->line);
 				tab_display(head->cmd->arg);
+				head->cmd = head->cmd->next;
 			}
-			printf("%s\n", head->cmd->line);
+			printf("line: %s\n", head->cmd->line);
 			tab_display(head->cmd->arg);
+			while (head->cmd->prev)
+				head->cmd = head->cmd->prev;
 			ft_free_cmd(head->cmd);
 		}
 	}

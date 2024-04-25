@@ -72,7 +72,8 @@ void	*ft_splitdestroy(char **split)
 		free(split[i]);
 		i++;
 	}
-	free(split);
+	if (split != NULL)
+		free(split);
 	return (NULL);
 }
 

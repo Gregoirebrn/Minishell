@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:18:25 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/22 17:47:21 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/25 14:13:44 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_wdlen(char *input, int j)
 	int	i;
 
 	i = j;
-	while (char_is_ws(input[i]) && input[i])
+	while (char_is_ws(input[i]) == 0 && input[i])
 		index_up(input, &i);
 	return (i);
 }
@@ -79,17 +79,17 @@ char	**split_ws_quote(char *input)
 	i = 0;
 	j = 0;
 	words = ft_countwords(input);
-	printf("wds = %d\n", words);
-	split = ft_calloc(words, sizeof(char*));
+	split = ft_calloc(words + 1, sizeof(char*));
 	if (split == NULL)
 		return (NULL);
 	while (i < words)
 	{
 		if (char_is_ws(input[j]) == 0)
 		{
-			split[i++] = ft_superdup(input, &j);
-			if (split[i - 1] == NULL)
+			split[i] = ft_superdup(input, &j);
+			if (split[i] == NULL)
 				return (ft_splitdestroy(split));
+			i++;
 		}
 		else
 			index_up(input, &j);
@@ -99,20 +99,16 @@ char	**split_ws_quote(char *input)
 
 int split_ws(t_cmd *cmd)
 {
-	char	**extract;
-
 	while (cmd->next)
 	{
-		extract = split_ws_quote(cmd->line);
-		if (extract == NULL)
+		cmd->arg = split_ws_quote(cmd->line);
+		if (cmd->arg == NULL)
 			return (1);
-		cmd->arg = extract;
 		cmd = cmd->next;
 	}
-	extract = split_ws_quote(cmd->line);
-	if (extract == NULL)
+	cmd->arg = split_ws_quote(cmd->line);
+	if (cmd->arg == NULL)
 		return (1);
-	cmd->arg = extract;
 	while (cmd->prev)
 		cmd = cmd->prev;
 	return (0);
