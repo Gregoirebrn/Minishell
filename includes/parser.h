@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:44:03 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/22 16:56:07 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/22 17:39:47 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,9 @@ int		split_ws(t_cmd *cmd);
 // parser_utils_3.c
 
 void	tab_display(char **tab);
+
+// format.c
+
+int		format(t_head *head);
 
 #endif
