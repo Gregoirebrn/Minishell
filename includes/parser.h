@@ -43,6 +43,7 @@ int		split_ws(t_cmd *cmd);
 // parser_utils_3.c
 
 void	tab_display(char **tab);
+int 	space_redir(t_cmd *cmd);
 
 // format.c
 

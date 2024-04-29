@@ -82,6 +82,9 @@ int	ft_parse(char *input, t_head *head)
 	head->cmd = split_pipe(input);
 	if (head->cmd == NULL)
 		return (1);
+	// Add spaces before and after redirs
+	if (space_redir(head->cmd) == 1)
+		return (1);
 	// split dans chaque bloc par rapport au whitespaces
 	if (split_ws(head->cmd) == 1)
 		return (1);
