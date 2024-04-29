@@ -5,6 +5,7 @@
 SRCS		:=	main.c				\
 				parser.c			\
 				init.c				\
+				init_utils.c		\
 				parser_utils.c		\
 				parser_utils_2.c	\
 				parser_utils_3.c	\

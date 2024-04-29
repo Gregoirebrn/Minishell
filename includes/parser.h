@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:44:03 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/22 17:39:47 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/29 16:23:59 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ typedef struct s_head	t_head;
 
 // init.c
 
-t_head	*head_init(void);
+t_head	*head_init(char **env);
+
+// init_utils.c
+
+int		find_equal(char *str);
 
 // parser.c
 

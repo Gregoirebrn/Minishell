@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/25 16:13:26 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/29 16:16:16 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,15 @@ void	ft_header(void)
 	printf("\033[0m\n");
 }
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
 	char	*input;
 	t_head	*head;
 
+	(void)ac;
+	(void)av;
 	ft_header();
-	head = head_init();
+	head = head_init(env);
 	if (head == NULL)
 		return (0);
 	while (42)

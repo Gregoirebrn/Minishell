@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/22 16:56:07 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/29 16:03:25 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ t_cmd	*split_pipe(char *input)
 		if (extract == NULL)
 			return (ft_free_cmd(cmd), NULL);
 		new = ft_cmd_new(extract);
+		if (new == NULL)
+			return (ft_free_cmd(cmd), NULL);
 		ft_cmdadd_back(&cmd, new);
 		i++;
 		offset = i;
