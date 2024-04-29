@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:00:48 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/25 16:10:49 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/25 16:11:49 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ char *trim_str(char *str)
 	int 	len;
 
 	i = 0;
-	printf("str : %s\n", str);
 	if (str[i] != 34 && str[i] != 39)
 		return (str);
 	len = ft_strlen(str);
-	printf("len: %d\n", len);
 	trim = calloc(len - 2 + 1, sizeof(char));
 	if (trim == NULL)
 		return (NULL);
@@ -33,7 +31,6 @@ char *trim_str(char *str)
 		i++;
 	}
 	free(str);
-	printf("trim : %s\n", trim);
 	return (trim);
 }
 
@@ -62,5 +59,7 @@ int format(t_head *head)
 			break ;
 		head->cmd = head->cmd->next;
 	}
+	while (head->cmd->prev)
+		head->cmd = head->cmd->prev;
 	return (0);
 }

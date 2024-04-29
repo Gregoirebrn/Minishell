@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/25 15:55:44 by beroy            ###   ########.fr       */
+/*   Updated: 2024/04/25 16:13:26 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int	main(void)
 			}
 			while (head->cmd->prev)
 				head->cmd = head->cmd->prev;
-
 			ft_free_cmd(head->cmd);
 		}
 	}
