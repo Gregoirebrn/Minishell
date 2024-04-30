@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:04:21 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/24 17:25:01 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:02:57 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,58 +43,49 @@ void	replace_var(char **arg, char *result)
 	*(arg[z]) = '\0';
 }
 
-void	ft_free_tab(char **tab, size_t i)
-{
-	while (i > 0)
-	{
-		free(tab[i])
-		i--;
-	}
-	free(tab);
-}
-
-void	print_in_order(char **tab)
-{
-	size_t	number;
-	size_t	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		if (0 < ft_strcmp(tab[i], tab[i + 1]))
-			number = i;
-		i++;
-		if (i == size)
-		{
-			i = 0;
-			printf("declare -x %s", tab[num]);
-		}
-	}
-}
-
 int	ex_no_args(t_head *head)
 {
 	t_env	*copy;
-	char	**tab;
-	size_t	size;
-	size_t	i;
+	t_env	*big;
+	t_env	*top;
+
+	top = head->env;
+	copy = top;
+	while (!copy->next)
+	{
+		big = copy;
+		while (!copy->next)
+		{
+			if (0 < ft_strcmp(big->name, copy->next->name))
+			{
+				if (0 < ft_strcmp(big->value, copy->next->name))
+					big = copy;
+			}
+			copy = copy->next;
+		}
+		printf("declare -x %s=%s", big->name, big->value);
+		big->prev->next = big->next;
+		big->next->prev = big->prev;
+		copy = top;
+	}
+	printf("declare -x %s=%s", copy->name, copy->value);
+	return (0);
+}
+
+int		add_env(t_head *head, char *name, char *value)
+{
+	t_env	*new;
+	t_env	*copy;
 
 	copy = head->env;
-	size = len_struct(copy);
-	tab = malloc(sizeof(char *) * (size + 1));
-	if (!tab)
+	new = malloc(sizeof(t_env));
+	if (!new)
 		return (1);
-	i = 0;
-	while (i < size)
-	{
-		tab[i] = join_with_char(head->env->name, head->env->value, '=');
-		if (!tab[i])
-			return (ft_free_tab(tab, i));
-		i++;
-	}
-	print_in_order(tab);
-	ft_free_tab(tab, i);
-	//find first line in alpha sorting
-	//display it with declare -x
-	//remove from the list the line and recall
+	while (!copy->next)
+		copy = copy->next;
+	copy->next = new;
+	new->prev = copy;
+	new->name = ft_strdup(name);
+	new->value = ft_strdup(value);
+	return (0);
 }
