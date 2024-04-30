@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/23 15:35:25 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:48:23 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,53 @@ int	our_cmd(t_head *head, char *str)
 	return (1);
 }
 
-void	our_cmd(t_head *head, char *str)
+void	there_cmd(t_head *head, char *str)
 {
-	{
-		char	**path;
-		char	*str;
-		int		i;
-		char	*cmd;
+	char	**path;
+	char	*pre_path;
+	int		i;
+	char	*cmd;
 
-		str = find_path(head);
-		path = ft_split(str, ':');
-		i = 0;
-		while (path[i])
-		{
-			cmd = join_with_char(path[i], head->cmd->arg[0], '/');
-			if (!(access(cmd, F_OK)))
-				execve(cmd, head->cmd->arg, make_env(head->env));
-			i++;
-		}
-		perror("execve");
+	pre_path = find_path(head);
+	path = ft_split(str, ':');
+	i = 0;
+	while (path[i])
+	{
+		cmd = join_with_char(path[i], head->cmd->arg[0], '/');
+		if (!(access(cmd, F_OK)))
+			execve(cmd, head->cmd->arg, make_env(head->env));
+		i++;
 	}
+	perror("execve");
 }
 
 void	find_cmd(t_head *head)
 {
 	if (our_cmd(head, head->cmd->arg[0]) == 1)
-		return (other_cmd(head, head->cmd->arg[0]));
+		return (there_cmd(head, head->cmd->arg[0]));
 }
 
 void	piping(t_head *head)
 {
 	if (head->cmd->next == NULL)
 		return (find_cmd(head));
+}
+
+int		executable(t_head *head)
+{
+	int		fd[2];
+	int		pid1;
+
+	if (pipe(fd) == -1)
+		return (perror(""), 1);
+	pid1 = fork ();
+	if (pid1 < 0)
+		return (2);
+	if (pid1 == 0)
+	{
+		close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		execve(path, av, env);
+	}
+	wait_for_all()
 }
