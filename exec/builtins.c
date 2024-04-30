@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/23 14:34:07 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:50:54 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	ft_cd(t_head *head)
 
 	old_pwd = NULL;
 	str = NULL;
+	if (head->cmd->arg[1] && head->cmd->arg[2])
+		return (printf("Only one argument is taken by cd\n"), 1);
 	get_path(&str);
 	str = ft_strcat(str, head->cmd->arg[1]);
 	if (str == NULL)
@@ -72,10 +74,8 @@ int	ft_cd(t_head *head)
 	return (0);
 }
 
-void	ft_export(t_head *head)
+int	ft_export(t_head *head)
 {
-//export without arg to do
-//display all var in alpa order with "declare -x" before
 	t_head	*copy;
 
 	copy = head;
@@ -87,10 +87,11 @@ void	ft_export(t_head *head)
 						 strlen(copy->cmd->arg[0])))
 		{
 			replace_var(&copy->env->value, copy->cmd->arg[1]);
-			return ;
+			return (0);
 		}
 		copy->env = copy->env->next;
 	}
+	return (add_env(head, head->cmd->arg[0], head->cmd->arg[1]));
 }
 
 void	ft_unset(t_head *head)
