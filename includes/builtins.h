@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/24 14:37:33 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:14:48 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	replace_var(char **arg, char *result);
 void	ft_echo(t_head *head);
 void	ft_pwd(void);
 int		ft_cd(t_head *head);
-void	ft_export(t_head *head);
+int		ft_export(t_head *head);
 void	ft_unset(t_head *head);
 void	ft_env(t_head *head);
 void	ft_exit(t_head *head);
@@ -40,7 +40,9 @@ void	find_cmd(t_head *head);
 char	**path_value(t_head *head);
 char	*find_path(t_head *head);
 char	*join_with_char(char const *s1, char const *s2, char c);
-void	ex_no_args(t_head *head);
 size_t	len_struct(t_env *env);
+int		ex_no_args(t_head *head);
+int		add_env(t_head *head, char *name, char *value);
+char	**make_env(t_env *env);
 
 #endif
