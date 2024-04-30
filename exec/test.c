@@ -54,30 +54,31 @@ int		main(int ac, char **av, char **env)
 	if (pid1 == 0)
 	{
 		dup2(fd[1], 1);
-//		close(fd[0]);
-//		close(fd[1]);
-		execve("/usr/bin/ls", &av[1], env);
-		perror("ls");
+		close(fd[0]);
+		close(fd[1]);
+		execve("/usr/bin/cat", &av[1], env);
+		perror("cat");
 	}
-	tab = malloc(sizeof (char *) * 2);
-	tab[0] = ft_strdup("wc");
-	tab[1] = NULL;
+	tab = malloc(sizeof (char *) * 3);
+	tab[0] = ft_strdup("grep");
+	tab[1] = ft_strdup("main");
+	tab[2] = NULL;
 	pid2 = fork();
 	if (pid2 < 0)
 		return (2);
 	if (pid2 == 0)
 	{
-		dup2(fd[0], fd[1]);
-//		close(fd[0]);
-//		close(fd[1]);
-		execve("/usr/bin/wc", tab, env);
-		perror("wc");
+		dup2(fd[0], 0);
+		close(fd[0]);
+		close(fd[1]);
+		execve("/usr/bin/grep", tab, env);
+		perror("grep");
 	}
 	close(fd[0]);
 	close(fd[1]);
-//	free(tab[0]);
-//	free(tab);
+	free(tab[0]);
+	free(tab);
 	waitpid(pid1, NULL, 0);
-//	waitpid(pid2, NULL, 0);
+	waitpid(pid2, NULL, 0);
 	return (0);
 }

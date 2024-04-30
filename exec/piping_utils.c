@@ -70,12 +70,12 @@ char	*join_with_char(char const *s1, char const *s2, char c)
 	return (str);
 }
 
-size_t	len_struct(t_env *env)
+size_t	len_struct(void *base)
 {
 	size_t	size;
-	t_env	*copy;
+	void	*copy;
 
-	copy = env;
+	copy = base;
 	size = 0;
 	if (copy != NULL)
 		size++;
