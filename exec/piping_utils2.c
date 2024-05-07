@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/builtins.h"
 
 void	wait_for_all(pid_t *pid, int x)
 {

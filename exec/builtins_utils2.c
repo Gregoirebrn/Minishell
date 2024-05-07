@@ -19,7 +19,7 @@ void	change_old_pwd(t_head *head, char *old_pwd)
 	copy = head->env;
 	while (copy->next != NULL)
 	{
-		if (ft_strncmp(copy->name, "OLDPWD", 7))
+		if (ft_strcmp(copy->name, "OLDPWD"))
 		{
 			free(copy->value);
 			copy->value = old_pwd;

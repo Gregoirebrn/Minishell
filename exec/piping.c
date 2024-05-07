@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/01 16:09:54 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:26:00 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int		make_child(t_head *head, t_cmd *copy)
 	char	**tab;
 	char	*str;
 
+	pid = fork();
 	if (pid == 0)
 	{
 		if (copy->next)
@@ -70,9 +71,9 @@ int		make_child(t_head *head, t_cmd *copy)
 		env = make_env(head->env);
 		tab = make_arg(head->cmd);
 		if (!env || !tab)
-			return (free_all, 1);
+			return (ft_free_all(head), 1);
 		str = find_path(head);
-		free_all(head);
+		ft_free_all(head);
 		close(fd[0]);
 		close(fd[1]);
 		there_cmd(tab, str, env);
@@ -94,18 +95,18 @@ int		executable(t_head *head)
 	while (copy->arg)
 	{
 		if (pipe(fd[x]) == -1)
-			return (perror("pipe"), free_all(head));
+			return (perror("pipe"), ft_free_all(head), 1);
 		pid[x] = fork();
 		if (pid < 0)
 		{
 			close(fd[x][0]);
 			close(fd[x][1]);
-			return (perror("fork"), free_all(head), 2);
+			return (perror("fork"), ft_free_all(head), 2);
 		}
 		if (our_cmd(head, head->cmd->arg[0]) == 1)
 		{
 			if (make_child(head, copy))
-				return (printf("Crash of Malloc"), free_all(head), 1);
+				return (printf("Crash of Malloc"), ft_free_all(head), 1);
 		}
 		copy = copy->next;
 		x++;

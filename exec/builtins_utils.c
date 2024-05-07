@@ -6,11 +6,11 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:40:46 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/25 13:01:39 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:40:42 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/builtins.h"
 
 char	*ft_strcat(char *path, char *dir)
 {
@@ -60,7 +60,7 @@ int		get_path(char **str)
 	return (0);
 }
 
-void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *, size_t))
+void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *))
 {
 	t_env	*remove;
 	t_env	*current;
@@ -68,7 +68,7 @@ void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *, size_t))
 	current = *env;
 	while (current && current->next)
 	{
-		if ((*cmp)(current->next->name, ref, ft_strlen(ref)) == 0)
+		if ((*cmp)(current->next->name, ref) == 0)
 		{
 			remove = current->next;
 			current->next = current->next->next;
@@ -77,7 +77,7 @@ void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *, size_t))
 		current = current->next;
 	}
 	current = *env;
-	if (current && (*cmp)(current->name, ref, ft_strlen(ref)) == 0)
+	if (current && (*cmp)(current->name, ref) == 0)
 	{
 		*env = current->next;
 		free(current);

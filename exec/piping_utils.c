@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:31:24 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/01 15:10:53 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:28:57 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 char	**path_value(t_head *head)
 {
-	char	**path;
 	t_head	*copy;
 
 	copy = head;
 	while (copy->env->next != NULL)
 	{
-		if (ft_strncmp(copy->env->name, "PATH", 4) == 0)
+		if (ft_strcmp(copy->env->name, "PATH") == 0)
 		{
 			return (ft_split(copy->env->value, ':'));
 		}
@@ -36,10 +35,11 @@ char	*find_path(t_head *head)
 	copy = head->env;
 	while (copy->next != NULL)
 	{
-		if (ft_strncmp("PATH", copy->name, 5) == 0)
+		if (ft_strcmp("PATH", copy->name) == 0)
 			return (copy->value);
 		copy = copy->next;
 	}
+	return (NULL);
 }
 
 char	*join_with_char(char const *s1, char const *s2, char c)

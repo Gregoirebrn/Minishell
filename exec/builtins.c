@@ -6,11 +6,11 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/25 12:50:54 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:38:16 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/builtins.h"
 
 void	ft_echo(t_head *head)
 {
@@ -21,14 +21,14 @@ void	ft_echo(t_head *head)
 	copy = head->cmd;
 	while (copy->next != NULL)
 	{
-		if (i == 1 &&  0 == ft_strncmp(copy->arg[i], "-n", ft_strlen(copy->arg[i])))
+		if (i == 1 &&  0 == ft_strcmp(copy->arg[i], "-n"))
 			i = -1;
 		printf("%s ", copy->arg[i]);
 		copy = copy->next;
 		if (i > -1)
 			i++;
 	}
-	if (0 == ft_strncmp(copy->arg[i], "-n", ft_strlen(copy->arg[i])))
+	if (0 == ft_strcmp(copy->arg[i], "-n"))
 		printf("%s", copy->arg[i]);
 	else
 		printf("%s\n", copy->arg[i]);
@@ -83,8 +83,7 @@ int	ft_export(t_head *head)
 		return (ex_no_args(head));
 	while (copy->env->name)
 	{
-		if (0 == strncmp(copy->env->name, copy->cmd->arg[0],
-						 strlen(copy->cmd->arg[0])))
+		if (0 == strcmp(copy->env->name, copy->cmd->arg[0]))
 		{
 			replace_var(&copy->env->value, copy->cmd->arg[1]);
 			return (0);
@@ -96,5 +95,5 @@ int	ft_export(t_head *head)
 
 void	ft_unset(t_head *head)
 {
-	rem_env(&head->env, head->cmd->arg[1], &ft_strncmp);
+	rem_env(&head->env, head->cmd->arg[1], &ft_strcmp);
 }

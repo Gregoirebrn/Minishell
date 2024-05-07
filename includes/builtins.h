@@ -6,15 +6,15 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/01 16:09:54 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:22:12 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_BUILTINS_H
 #define MINISHELL_BUILTINS_H
 
-#include "errno.h"
 #include "minishell.h"
+#include "errno.h"
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -33,7 +33,7 @@ void	ft_unset(t_head *head);
 //bultins01
 char	*ft_strcat(char *path, char *dir);
 int		get_path(char **str);
-void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *, size_t));
+void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *));
 void	ft_env(t_head *head);
 void	ft_exit(t_head *head);
 
