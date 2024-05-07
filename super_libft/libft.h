@@ -49,6 +49,7 @@ void	*ft_calloc(size_t nmemb, size_t size);
 
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_strncmp(char *s1, const char *s2, size_t n);
+int		ft_strcmp(char *s1, const char *s2);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
