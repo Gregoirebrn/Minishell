@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:31:24 by grebrune          #+#    #+#             */
-/*   Updated: 2024/04/23 15:39:22 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/01 15:10:53 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,6 @@ char	*join_with_char(char const *s1, char const *s2, char c)
 	return (str);
 }
 
-size_t	len_struct(void *base)
-{
-	size_t	size;
-	void	*copy;
-
-	copy = base;
-	size = 0;
-	if (copy != NULL)
-		size++;
-	while (copy->next != NULL)
-	{
-		size++;
-		copy = copy->next;
-	}
-	return (size);
-}
-
 char	**make_env(t_env *env)
 {
 	t_env	*copy;
@@ -94,7 +77,7 @@ char	**make_env(t_env *env)
 	size_t	size;
 	size_t	i;
 
-	size = len_struct(env);
+	size = envlen(env);
 	tab = malloc(sizeof (char *) * (size + 1));
 	if (tab == NULL)
 		return (NULL);
