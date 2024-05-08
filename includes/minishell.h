@@ -19,7 +19,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-//# include "builtins.h"
+# include "builtins.h"
 # include "parser.h"
 
 // COLOR CODES

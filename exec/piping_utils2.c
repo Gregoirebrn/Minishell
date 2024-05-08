@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:51:28 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/01 16:09:54 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:20:38 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,24 @@ char	**make_arg(t_cmd *cmd)
 	}
 	arg[x] = NULL;
 	return (arg);
+}
+
+void	ft_free_exec(int **fd, pid_t *pid, t_head *head)
+{
+	int	i;
+
+	i = 0;
+	while (head->cmd->next != NULL)
+	{
+		i++;
+		head->cmd = head->cmd->next;
+	}
+	if (head->cmd != NULL)
+		i++;
+	while (--i > 0)
+	{
+		free(fd[i]);
+		i--;
+	}
+		free(pid);
 }

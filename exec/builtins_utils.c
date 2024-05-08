@@ -100,6 +100,8 @@ void	ft_env(t_head *head)
 
 void	ft_exit(t_head *head)
 {
+	if (head->cmd->next != NULL)
+		return ;
 	if (head->cmd->arg[1] && head->cmd->arg[2])
 	{
 		printf("bash :cd :too many arguments\n");

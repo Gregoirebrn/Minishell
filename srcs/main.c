@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/29 16:16:16 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/08 13:43:57 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,11 @@ int	main(int ac, char **av, char **env)
 				ft_free_cmd(head->cmd);
 				break ;
 			}
+			executable(head);
 			while (head->cmd)
 			{
-				printf("line: %s\n", head->cmd->line);
-				tab_display(head->cmd->arg);
+//				printf("line: %s\n", head->cmd->line);
+//				tab_display(head->cmd->arg);
 				if (head->cmd->next == NULL)
 					break ;
 				head->cmd = head->cmd->next;

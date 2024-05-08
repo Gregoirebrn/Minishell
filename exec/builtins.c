@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/07 16:38:16 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:02:22 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,23 @@ void	ft_echo(t_head *head)
 {
 	t_cmd	*copy;
 	int		i;
+	int		n;
 
-	i = 0;
+	i = 1;
+	n = 0;
 	copy = head->cmd;
-	while (copy->next != NULL)
-	{
-		if (i == 1 &&  0 == ft_strcmp(copy->arg[i], "-n"))
-			i = -1;
-		printf("%s ", copy->arg[i]);
-		copy = copy->next;
-		if (i > -1)
-			i++;
-	}
 	if (0 == ft_strcmp(copy->arg[i], "-n"))
-		printf("%s", copy->arg[i]);
-	else
-		printf("%s\n", copy->arg[i]);
+	{
+		i++;
+		n++;
+	}
+	while (copy->arg[i])
+	{
+		printf("%s ", copy->arg[i]);
+		i++;
+	}
+	if (n == 0)
+		printf("\n");
 }
 
 void	ft_pwd(void)
@@ -59,8 +60,10 @@ int	ft_cd(t_head *head)
 
 	old_pwd = NULL;
 	str = NULL;
+	if (head->cmd->next != NULL)
+		return (1);
 	if (head->cmd->arg[1] && head->cmd->arg[2])
-		return (printf("Only one argument is taken by cd\n"), 1);
+		return (printf("Only one argument is taken by cd\n"), 2);
 	get_path(&str);
 	str = ft_strcat(str, head->cmd->arg[1]);
 	if (str == NULL)
@@ -79,6 +82,8 @@ int	ft_export(t_head *head)
 	t_head	*copy;
 
 	copy = head;
+	if (head->cmd->next != NULL)
+		return (1);
 	if (!head->cmd->arg)
 		return (ex_no_args(head));
 	while (copy->env->name)
@@ -95,5 +100,7 @@ int	ft_export(t_head *head)
 
 void	ft_unset(t_head *head)
 {
+	if (head->cmd->next != NULL)
+		return ;
 	rem_env(&head->env, head->cmd->arg[1], &ft_strcmp);
 }
