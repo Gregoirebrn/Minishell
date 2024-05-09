@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:04:21 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/08 14:51:55 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:50:08 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,29 @@ int	ex_no_args(t_head *head)
 {
 	t_env	*copy;
 	t_env	*big;
-	t_env	*top;
+	int		test;
 
-	top = head->env;
-	copy = top;
-	while (!copy->next)
+	copy = head->env;
+	while (copy->next != NULL)
 	{
+		test = 0;
 		big = copy;
-		while (!copy->next)
+		while (copy->next != NULL)
 		{
-			if (0 < ft_strcmp(big->name, copy->next->name))
-			{
-				if (0 < ft_strcmp(big->value, copy->next->name))
+			if (0 <= ft_strcmp(big->name, copy->name))
+				if (0 < ft_strcmp(big->next->value, copy->next->value))
 					big = copy;
-			}
 			copy = copy->next;
+			test++;
 		}
-		printf("declare -x %s=%s", big->name, big->value);
-		big->prev->next = big->next;
+		printf("declare -x %s%s == %d\n", big->name, big->value, test);
 		big->next->prev = big->prev;
-		copy = top;
+		big->prev->next = big->next;
+		copy = big;
+		while (copy->prev != NULL)
+			copy = copy->prev;
 	}
-	printf("declare -x %s=%s", copy->name, copy->value);
+//	printf("declare -x %s%s\n", copy->name, copy->value);
 	return (0);
 }
 
