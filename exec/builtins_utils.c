@@ -91,11 +91,11 @@ void	ft_env(t_head *head)
 	copy = head->env;
 	while (copy && copy->next != NULL)
 	{
-		printf("%s=%s\n", copy->name, copy->value);
+		printf("%s%s\n", copy->name, copy->value);
 		copy = copy->next;
 	}
 	if (copy)
-		printf("%s=%s\n", copy->name, copy->value);
+		printf("%s%s\n", copy->name, copy->value);
 }
 
 void	ft_exit(t_head *head)
