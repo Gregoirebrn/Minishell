@@ -16,7 +16,8 @@ EXEC		:=	builtins.c			\
 				builtins_utils2.c	\
 				piping.c			\
 				piping_utils.c		\
-				piping_utils2.c
+				piping_utils2.c		\
+				piping_utils3.c
 
 SRCS_D		:=	srcs/
 

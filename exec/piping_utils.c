@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:31:24 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/07 16:28:57 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:21:17 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,16 @@ char	**path_value(t_head *head)
 char	*find_path(t_head *head)
 {
 	t_env	*copy;
+	char	*path;
 
 	copy = head->env;
 	while (copy->next != NULL)
 	{
 		if (ft_strcmp("PATH", copy->name) == 0)
-			return (copy->value);
+		{
+			path = strdup(copy->value);
+			return (path);
+		}
 		copy = copy->next;
 	}
 	return (NULL);

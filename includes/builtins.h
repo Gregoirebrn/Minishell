@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/08 14:20:38 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:57:43 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void	change_old_pwd(t_head *head, char *old_pwd);
 void	replace_var(char **arg, char *result);
 int		ex_no_args(t_head *head);
 int		add_env(t_head *head, char *name, char *value);
-int		fork_proc_cmd(t_head *head, char *str);
+int		no_fork_cmd(t_head *head, t_cmd *copy, char *str);
 
 //piping00
-int		find_cmd(t_head *head, char *str, int *fd);
+int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int *pid);
 void	there_cmd(char **arg, char *str, char **env);
-int		make_child(t_head *head, t_cmd *copy, int *fd);
+int		make_child(t_head *head, int fd[2]);
 int		executable(t_head *head);
 
 //piping01
@@ -61,6 +61,9 @@ void	wait_for_all(pid_t *pid, int x);
 size_t	envlen(t_env *base);
 size_t	cmdlen(t_cmd *base);
 char	**make_arg(t_cmd *cmd);
-void	ft_free_exec(int **fd, pid_t *pid, t_head *head);
+void	ft_free_exec(int **fd, int *pid, t_head *head);
+
+//piping03
+void	dup_of_fd(int fd[2], t_cmd *copy);
 
 #endif

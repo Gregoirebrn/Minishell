@@ -22,6 +22,7 @@ void	wait_for_all(pid_t *pid, int x)
 		waitpid(pid[i], NULL, 0);
 		i++;
 	}
+	free(pid);
 }
 
 size_t	envlen(t_env *base)
