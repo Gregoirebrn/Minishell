@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:40:46 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/07 16:40:42 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:25:24 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,4 @@ void	ft_env(t_head *head)
 	}
 	if (copy)
 		printf("%s%s\n", copy->name, copy->value);
-}
-
-void	ft_exit(t_head *head)
-{
-	if (head->cmd->next != NULL)
-		return ;
-	if (head->cmd->arg[1] && head->cmd->arg[2])
-	{
-		printf("bash :cd :too many arguments\n");
-		ft_free_all(head);
-		exit(0);
-	}
-		ft_free_all(head);
-		exit(0);
 }
