@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:04:21 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/09 17:50:08 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:40:12 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,36 +43,6 @@ void	replace_var(char **arg, char *result)
 	*(arg[z]) = '\0';
 }
 
-int	ex_no_args(t_head *head)
-{
-	t_env	*copy;
-	t_env	*big;
-	int		test;
-
-	copy = head->env;
-	while (copy->next != NULL)
-	{
-		test = 0;
-		big = copy;
-		while (copy->next != NULL)
-		{
-			if (0 <= ft_strcmp(big->name, copy->name))
-				if (0 < ft_strcmp(big->next->value, copy->next->value))
-					big = copy;
-			copy = copy->next;
-			test++;
-		}
-		printf("declare -x %s%s == %d\n", big->name, big->value, test);
-		big->next->prev = big->prev;
-		big->prev->next = big->next;
-		copy = big;
-		while (copy->prev != NULL)
-			copy = copy->prev;
-	}
-//	printf("declare -x %s%s\n", copy->name, copy->value);
-	return (0);
-}
-
 int		add_env(t_head *head, char *name, char *value)
 {
 	t_env	*new;
@@ -81,12 +51,15 @@ int		add_env(t_head *head, char *name, char *value)
 	copy = head->env;
 	new = malloc(sizeof(t_env));
 	if (!new)
-		return (1);
-	while (!copy->next)
+		return (2);
+	while (copy->next)
 		copy = copy->next;
 	copy->next = new;
 	new->prev = copy;
 	new->name = ft_strdup(name);
-	new->value = ft_strdup(value);
+	if (value)
+		new->value = ft_strdup(value);
+	else
+		new->value = "\0";
 	return (0);
 }
