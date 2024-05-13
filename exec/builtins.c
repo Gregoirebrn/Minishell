@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/09 17:04:24 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/13 17:13:35 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,28 +79,32 @@ int	ft_cd(t_head *head)
 
 int	ft_export(t_head *head)
 {
-	t_head	*copy;
+	t_env	*c_env;
 
-	copy = head;
-//	if (head->cmd->next != NULL)
-//		return (1);
+	c_env = head->env;
 	if (head->cmd->arg[1] == NULL)
 		return (ex_no_args(head));
-	while (copy->env->name)
+	if (head->cmd->next != NULL)
+		return (3);
+	while (c_env->next != NULL)
 	{
-		if (0 == strcmp(copy->env->name, copy->cmd->arg[0]))
+		if (0 == strcmp(c_env->name, head->cmd->arg[1]))
 		{
-			replace_var(&copy->env->value, copy->cmd->arg[1]);
+			replace_var(&c_env->value, head->cmd->arg[2]);
 			return (0);
 		}
-		copy->env = copy->env->next;
+		c_env = c_env->next;
 	}
-	return (add_env(head, head->cmd->arg[0], head->cmd->arg[1]));
+	return (add_env(head, head->cmd->arg[1], head->cmd->arg[2]));
 }
 
 void	ft_unset(t_head *head)
 {
-	if (head->cmd->next != NULL)
+	char	*ref;
+
+	if (!head->cmd->next || !head->cmd->arg[1])
 		return ;
-	rem_env(&head->env, head->cmd->arg[1], &ft_strcmp);
+	ref = ft_strjoin(head->cmd->arg[1], "=");
+	rem_env(&head->env, ref, &ft_strcmp);
+	free(ref);
 }
