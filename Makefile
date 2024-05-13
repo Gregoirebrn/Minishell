@@ -12,12 +12,14 @@ SRCS		:=	main.c				\
 				format.c
 
 EXEC		:=	builtins.c			\
-				builtins_utils.c		\
+				builtins_utils.c	\
 				builtins_utils2.c	\
 				piping.c			\
 				piping_utils.c		\
 				piping_utils2.c		\
-				piping_utils3.c
+				piping_utils3.c		\
+				export_no_args.c	\
+				built_exit.c		\
 
 SRCS_D		:=	srcs/
 
