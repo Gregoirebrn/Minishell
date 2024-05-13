@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/09 14:57:43 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:31:44 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,20 @@ char	*ft_strcat(char *path, char *dir);
 int		get_path(char **str);
 void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *));
 void	ft_env(t_head *head);
-void	ft_exit(t_head *head);
 
 //bultins02
 void	change_old_pwd(t_head *head, char *old_pwd);
 void	replace_var(char **arg, char *result);
-int		ex_no_args(t_head *head);
 int		add_env(t_head *head, char *name, char *value);
 int		no_fork_cmd(t_head *head, t_cmd *copy, char *str);
+
+//built_exit
+void	ft_exit(t_head *head);
+
+//export_no_args
+void	free_tab(char **tab, size_t x);
+char	**env_to_tab(t_env *copy);
+int		ex_no_args(t_head *head);
 
 //piping00
 int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int *pid);
