@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:09:17 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/13 15:26:59 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:52:38 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@ void	free_tab(char **tab, size_t x)
 	while (--x >= 0)
 		free(tab[x]);
 	free(tab);
+}
+
+char	*join_equal(char *name, char *val)
+{
+	char	*n_w_e;
+	char	*v_w_e;
+	char	*join;
+
+	n_w_e = ft_strjoin(name, "\"");
+	v_w_e = ft_strjoin(val, "\"");
+	join = ft_strjoin(n_w_e, v_w_e);
+	free(n_w_e);
+	free(v_w_e);
+	return (join);
 }
 
 char	**env_to_tab(t_env *copy)
@@ -30,7 +44,7 @@ char	**env_to_tab(t_env *copy)
 	x = 0;
 	while (copy->next != NULL)
 	{
-		tab[x] = ft_strjoin(copy->name, copy->value);
+		tab[x] = join_equal(copy->name, copy->value);
 		if (!tab[x])
 			return (free_tab(tab, x), NULL);
 		x++;
