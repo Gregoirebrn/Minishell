@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:28:49 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/13 18:50:16 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:41:25 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	is_num(t_head *head)
 {
 	if (head->cmd->arg[2])
 	{
-		printf("bash: exit: numeric argument required\n");
+		ft_putstr_fd("bash: exit: numeric argument required\n", 1);
 		g_error = 1;
 		return ;
 	}
@@ -45,7 +45,7 @@ void	ft_exit(t_head *head)
 	t_cmd	*copy;
 
 	if (!head->cmd->next)
-		printf("exit\n");
+		ft_putstr_fd("exit\n", 1);
 	if (!head->cmd->arg[1])
 	{
 		ft_free_all(head);
@@ -57,7 +57,9 @@ void	ft_exit(t_head *head)
 		is_num(head);
 		return ;
 	}
-	ft_putstr_fd("bash: exit: %s: numeric argument required\n", copy->arg[1]);
+	ft_putstr_fd("bash: exit: ", 1);
+	ft_putstr_fd(copy->arg[1], 1);
+	ft_putstr_fd(": numeric argument required\n", 1);
 	ft_free_all(head);
 	exit (2);
 }
