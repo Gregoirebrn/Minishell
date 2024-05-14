@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/29 16:03:25 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/13 16:50:49 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ int	ft_parse(char *input, t_head *head)
 		return (1);
 	// Add spaces before and after redirs
 	if (space_redir(head->cmd) == 1)
+		return (1);
+	// sortir les redirections de line et les stocker dans la struct redir
+	if (format_redir(head->cmd) == 1)
 		return (1);
 	// split dans chaque bloc par rapport au whitespaces
 	if (split_ws(head->cmd) == 1)

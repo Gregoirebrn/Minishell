@@ -18,9 +18,10 @@ void	ft_free_cmd(t_cmd *cmd)
 
 	if (cmd->arg != NULL)
 		ft_splitdestroy(cmd->arg);
+	if (cmd->line)
+		free(cmd->line);
 	while (cmd->redir != NULL)
 	{
-		free(cmd->line);
 		tmp = cmd->redir->next;
 		free(cmd->redir->arg);
 		free(cmd->redir);

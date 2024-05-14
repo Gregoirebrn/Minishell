@@ -9,7 +9,8 @@ SRCS		:=	main.c				\
 				parser_utils.c		\
 				parser_utils_2.c	\
 				parser_utils_3.c	\
-				format.c
+				format.c			\
+				format_utils.c
 
 SRCS_D		:=	srcs/
 

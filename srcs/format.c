@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:00:48 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/25 16:11:49 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/13 16:53:49 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,21 @@ int format(t_head *head)
 	}
 	while (head->cmd->prev)
 		head->cmd = head->cmd->prev;
+	return (0);
+}
+
+int	format_redir(t_cmd *cmd)
+{
+	while (cmd)
+	{
+		while (find_redir(cmd->line) == 1)
+		{
+			if (extract_redir(cmd) == 1)
+				return (1);
+		}
+		if (cmd->next == NULL)
+			break ;
+		cmd = cmd->next;
+	}
 	return (0);
 }
