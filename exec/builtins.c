@@ -6,13 +6,13 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/13 17:13:35 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:01:19 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 
-void	ft_echo(t_head *head)
+void	ft_echo(t_head *head, int fd)
 {
 	t_cmd	*copy;
 	int		i;
@@ -21,18 +21,25 @@ void	ft_echo(t_head *head)
 	i = 1;
 	n = 0;
 	copy = head->cmd;
+	if (!copy->arg[1])
+	{
+		printf("\n");
+		return ;
+	}
 	if (0 == ft_strcmp(copy->arg[i], "-n"))
 	{
 		i++;
 		n++;
 	}
-	while (copy->arg[i])
+	if (ft_strcmp("$?", copy->arg[i]) == 0)
 	{
-		printf("%s ", copy->arg[i]);
-		i++;
+		printf("%d\n", g_error);
+		g_error = 0;
+		return ;
 	}
-	if (n == 0)
-		printf("\n");
+	print_tab(copy->arg, i, n, fd);
+	ft_free_all(head);
+	exit(0);
 }
 
 void	ft_pwd(void)
