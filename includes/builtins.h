@@ -24,7 +24,7 @@ typedef struct s_cmd t_cmd;
 typedef struct s_head t_head;
 
 //builtins00
-void	ft_echo(t_head *head);
+void	ft_echo(t_head *head, int fd);
 void	ft_pwd(void);
 int		ft_cd(t_head *head);
 int		ft_export(t_head *head);
@@ -40,7 +40,7 @@ void	ft_env(t_head *head);
 void	change_old_pwd(t_head *head, char *old_pwd);
 void	replace_var(char **arg, char *result);
 int		add_env(t_head *head, char *name, char *value);
-int		no_fork_cmd(t_head *head, t_cmd *copy, char *str);
+void	print_tab(char **arg, int i, int n, int fd);
 
 //built_exit
 void	ft_exit(t_head *head);
