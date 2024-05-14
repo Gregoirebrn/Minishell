@@ -109,7 +109,6 @@ int split_ws(t_cmd *cmd)
 	cmd->arg = split_ws_quote(cmd->line);
 	if (cmd->arg == NULL)
 		return (1);
-	while (cmd->prev)
-		cmd = cmd->prev;
+	rewind_cmd(cmd);
 	return (0);
 }

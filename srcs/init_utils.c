@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:59:12 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/13 17:33:04 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/14 15:00:25 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_redir	*ft_redir_new(char *line, int start, int end, int type)
 	if (s_new->arg == NULL)
 		return (free(s_new), NULL);
 	s_new->next = NULL;
+	s_new->prev = NULL;
 	return (s_new);
 }
 
@@ -58,6 +59,7 @@ void	ft_rediradd_back(t_redir **lst, t_redir *new)
 		{
 			last = ft_redirlast(*lst);
 			last->next = new;
+			new->prev = last;
 		}
 	}
 }

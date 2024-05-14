@@ -90,6 +90,9 @@ int	ft_parse(char *input, t_head *head)
 	// sortir les redirections de line et les stocker dans la struct redir
 	if (format_redir(head->cmd) == 1)
 		return (1);
+	// Transformer les $variables par leur valeur
+	if (format_var(head) == 1)
+		return (1);
 	// split dans chaque bloc par rapport au whitespaces
 	if (split_ws(head->cmd) == 1)
 		return (1);

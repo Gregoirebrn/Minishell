@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:44:03 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/13 17:18:25 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/14 16:20:21 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,27 @@ int 	space_redir(t_cmd *cmd);
 
 int		format(t_head *head);
 int		format_redir(t_cmd *cmd);
+int		format_var(t_head *head);
 
 // format_utils.c
 
 int 	redir_type(char *line, int i);
 int		find_redir(char *line);
 int		extract_redir(t_cmd *cmd);
+
+// format_utils_2.c
+
+int 	find_var(char* str);
+int 	replace_var(char *str, t_head *head);
+
+// format_utils_3.c
+
+char	*str_dup_var(char *str, int start, int end, char *value);
+
+// rewind_lst.c
+
+void 	rewind_env(t_env *lst);
+void 	rewind_redir(t_redir *lst);
+void 	rewind_cmd(t_cmd *lst);
+
 #endif

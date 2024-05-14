@@ -17,7 +17,7 @@ t_env	*ft_env_new(char *env)
 	t_env	*s_new;
 	int 	equal;
 
-	equal = find_equal(env);
+	equal = find_equal(env) + 1;
 	s_new = malloc(sizeof(t_env));
 	if (s_new == NULL)
 		return (s_new);

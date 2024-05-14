@@ -109,7 +109,6 @@ int space_redir(t_cmd *cmd)
 			break ;
 		cmd = cmd->next;
 	}
-	while (cmd->prev)
-		cmd = cmd->prev;
+	rewind_cmd(cmd);
 	return (0);
 }

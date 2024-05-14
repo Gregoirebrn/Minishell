@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:00:48 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/13 16:53:49 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/14 15:24:40 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ int format(t_head *head)
 			break ;
 		head->cmd = head->cmd->next;
 	}
-	while (head->cmd->prev)
-		head->cmd = head->cmd->prev;
+	rewind_cmd(head->cmd);
 	return (0);
 }
 
@@ -77,5 +76,35 @@ int	format_redir(t_cmd *cmd)
 			break ;
 		cmd = cmd->next;
 	}
+	rewind_cmd(cmd);
+	return (0);
+}
+
+int format_var(t_head *head)
+{
+	while (head->cmd)
+	{
+		while (find_var(head->cmd->line) != -1)
+		{
+			if (replace_var(head->cmd->line, head) == 1)
+				return (1);
+		}
+		while (head->cmd->redir)
+		{
+			while (find_var(head->cmd->redir->arg) != -1)
+			{
+				if (replace_var(head->cmd->redir->arg, head) == 1)
+					return (1);
+			}
+			if (head->cmd->redir->next == NULL)
+				break ;
+			head->cmd->redir = head->cmd->redir->next;
+		}
+		rewind_redir(head->cmd->redir);
+		if (head->cmd->next == NULL)
+			break ;
+		head->cmd = head->cmd->next;
+	}
+	rewind_cmd(head->cmd);
 	return (0);
 }

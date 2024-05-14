@@ -10,7 +10,10 @@ SRCS		:=	main.c				\
 				parser_utils_2.c	\
 				parser_utils_3.c	\
 				format.c			\
-				format_utils.c
+				format_utils.c		\
+				format_utils_2.c	\
+				format_utils_3.c	\
+				rewind_lst.c
 
 SRCS_D		:=	srcs/
 
