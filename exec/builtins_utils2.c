@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:04:21 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/13 16:40:12 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:12:15 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,15 @@ int		add_env(t_head *head, char *name, char *value)
 	else
 		new->value = "\0";
 	return (0);
+}
+
+void	print_tab(char **arg, int i, int n, int fd)
+{
+	while (arg[i])
+	{
+		ft_putstr_fd(arg[i], fd);
+		i++;
+	}
+	if (n == 0)
+		printf("\n");
 }
