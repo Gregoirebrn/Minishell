@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/13 15:31:44 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:34:40 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_cmd t_cmd;
 typedef struct s_head t_head;
 
 //builtins00
-void	ft_echo(t_head *head, int fd);
+void	ft_echo(t_head *head, int fd[2]);
 void	ft_pwd(void);
 int		ft_cd(t_head *head);
 int		ft_export(t_head *head);
@@ -40,20 +40,20 @@ void	ft_env(t_head *head);
 void	change_old_pwd(t_head *head, char *old_pwd);
 void	replace_var(char **arg, char *result);
 int		add_env(t_head *head, char *name, char *value);
-void	print_tab(char **arg, int i, int n, int fd);
+void	print_tab(char **arg, int i, int n, int fd[2]);
 
 //built_exit
 void	ft_exit(t_head *head);
 
 //export_no_args
-void	free_tab(char **tab, size_t x);
+void	free_tab(char **tab, int x);
 char	**env_to_tab(t_env *copy);
 int		ex_no_args(t_head *head);
 
 //piping00
 int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int *pid);
 void	there_cmd(char **arg, char *str, char **env);
-int		make_child(t_head *head, int fd[2]);
+int		exec_shell(t_head *head, int fd[2]);
 int		executable(t_head *head);
 
 //piping01

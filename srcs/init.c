@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:14:37 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/29 17:08:43 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/14 13:50:52 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_env	*ft_env_new(char *env)
 	t_env	*s_new;
 	int 	equal;
 
-	equal = find_equal(env);
+	equal = find_equal(env) + 1;
 	s_new = malloc(sizeof(t_env));
 	if (s_new == NULL)
 		return (s_new);

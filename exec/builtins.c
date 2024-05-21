@@ -6,13 +6,13 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/14 16:01:19 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:27:45 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 
-void	ft_echo(t_head *head, int fd)
+void	ft_echo(t_head *head, int fd[2])
 {
 	t_cmd	*copy;
 	int		i;

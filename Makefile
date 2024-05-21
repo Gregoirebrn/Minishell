@@ -37,7 +37,12 @@ HEAD		:=	includes/minishell.h	\
 
 HEAD_D		:=	.
 
-CFLAGS		:=	-Wall -Wextra -Werror -g3
+ifeq ($(shell uname), Darwin)
+READLINE_DIR	=	$(shell brew --prefix readline)
+endif
+READLINE_LIB	=	-lreadline -lhistory -L $(READLINE_DIR)/lib
+
+CFLAGS		:=	-Wall -Wextra -Werror -g3 -I$(READLINE_DIR)/include
 
 NAME		:=	minishell
 
@@ -66,13 +71,13 @@ lib			:
 				$(MAKE) -C $(LIB_D)
 
 $(NAME)		:	$(OBJS_D) $(OBJS) $(OBJS_E) $(LIB_A) $(HEAD)
-				$(CC) $(CFLAGS) -lreadline -o $(NAME) $(OBJS) $(OBJS_E) $(LIB_A)
+				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(OBJS_E) $(LIB_A) -lm ${READLINE_LIB}
 
 $(OBJS)		:	$(OBJS_D)%.o: $(SRCS_D)%.c $(HEAD) $(LIB_H)
-				$(CC) $(CFLAGS) -I/usr/include -Isuper_libft -c $< -o $@
+				$(CC) $(CFLAGS) -Isuper_libft -c $< -o $@
 
 $(OBJS_E)	:	$(OBJS_D)%.o: $(EXEC_D)%.c $(HEAD) $(LIB_H)
-				$(CC) $(CFLAGS) -I/usr/include -Isuper_libft -c $< -o $@
+				$(CC) $(CFLAGS) -Isuper_libft -c $< -o $@
 
 $(OBJS_D)	:
 				@mkdir -p $(OBJS_D)

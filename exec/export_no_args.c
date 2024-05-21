@@ -6,13 +6,13 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:09:17 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/13 16:52:38 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:53:56 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 
-void	free_tab(char **tab, size_t x)
+void	free_tab(char **tab, int x)
 {
 	while (--x >= 0)
 		free(tab[x]);

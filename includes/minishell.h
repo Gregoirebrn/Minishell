@@ -32,6 +32,8 @@
 # define PURPLE "\033[0;35m"
 # define CYAN "\033[0;36m"
 
+extern int g_error;
+
 typedef struct s_env
 {
 	char			*name;

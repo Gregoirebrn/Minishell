@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/14 16:51:59 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:10:49 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		no_fork_cmd(t_head *head, t_cmd *copy, char *str)
 	return (3);
 }
 
-int		make_child(t_head *head, int fd[2])
+int		exec_shell(t_head *head, int fd[2])
 {
 	char	**env;
 	char	**tab;
@@ -72,14 +72,14 @@ int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int *pid)
 		return (0);
 	dup_of_fd(fd, copy);
 	if (ft_strcmp(copy->arg[0], "echo") == 0)
-		return (ft_echo(head, fd[1]), 1);
+		return (ft_echo(head, fd), 1);
 	if (ft_strcmp(copy->arg[0], "env") == 0)
 		return (ft_env(head), 1);
 	if (ft_strcmp(copy->arg[0], "pwd") == 0)
 		return (ft_pwd(), 1);
 	if (ft_strcmp(copy->arg[0], "export") == 0)
 		return (ft_export(head));
-	return (make_child(head, fd));
+	return (exec_shell(head, fd));
 }
 
 int		executable(t_head *head)
@@ -92,7 +92,6 @@ int		executable(t_head *head)
 	x = 0;
 	pid = malloc(sizeof(int) * cmdlen(head->cmd));
 	copy = head->cmd;
-	fd[1] = 1;
 	while (copy->next != NULL)
 	{
 		if (pipe(fd) == -1)
