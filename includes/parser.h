@@ -74,10 +74,4 @@ int 	replace_var(char *str, t_head *head);
 
 char	*str_dup_var(char *str, int start, int end, char *value);
 
-// rewind_lst.c
-
-void 	rewind_env(t_env *lst);
-void 	rewind_redir(t_redir *lst);
-void 	rewind_cmd(t_cmd *lst);
-
 #endif

@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:55:23 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/14 16:20:21 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/21 13:52:02 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ char *var_value(char *str, int i, t_env *env)
 		{
 			value = ft_strdup(env->value);
 			if (value == NULL)
-				return (rewind_env(env), NULL);
+			{
+				while (env->prev)
+					env = env->prev;
+				return (NULL);
+			}
 		}
 		if (env->next == NULL)
 			break ;
@@ -60,7 +64,8 @@ char *var_value(char *str, int i, t_env *env)
 	}
 	if (value == NULL && str_cmp_var(str, i, "?"))
 		value = ft_strdup("'$?'");
-	rewind_env(env);
+	while (env->prev)
+		env = env->prev;
 	return (value);
 }
 

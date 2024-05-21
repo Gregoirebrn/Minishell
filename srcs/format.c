@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:00:48 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/14 15:24:40 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/21 14:08:19 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char *trim_str(char *str)
 	i = 0;
 	if (str[i] != 34 && str[i] != 39)
 		return (str);
-	len = ft_strlen(str);
+	len = (int)ft_strlen(str);
 	trim = calloc(len - 2 + 1, sizeof(char));
 	if (trim == NULL)
 		return (NULL);
@@ -59,7 +59,8 @@ int format(t_head *head)
 			break ;
 		head->cmd = head->cmd->next;
 	}
-	rewind_cmd(head->cmd);
+	while (head->cmd->prev)
+		head->cmd = head->cmd->prev;
 	return (0);
 }
 
@@ -76,7 +77,8 @@ int	format_redir(t_cmd *cmd)
 			break ;
 		cmd = cmd->next;
 	}
-	rewind_cmd(cmd);
+	while (cmd->prev)
+		cmd = cmd->prev;
 	return (0);
 }
 
@@ -100,11 +102,13 @@ int format_var(t_head *head)
 				break ;
 			head->cmd->redir = head->cmd->redir->next;
 		}
-		rewind_redir(head->cmd->redir);
+		while(head->cmd->redir->prev)
+			head->cmd->redir = head->cmd->redir->prev;
 		if (head->cmd->next == NULL)
 			break ;
 		head->cmd = head->cmd->next;
 	}
-	rewind_cmd(head->cmd);
+	while (head->cmd->prev)
+		head->cmd = head->cmd->prev;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:18:25 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/25 14:13:44 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/21 14:03:37 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int split_ws(t_cmd *cmd)
 	cmd->arg = split_ws_quote(cmd->line);
 	if (cmd->arg == NULL)
 		return (1);
-	rewind_cmd(cmd);
+	while (cmd->prev)
+		cmd = cmd->prev;
 	return (0);
 }
