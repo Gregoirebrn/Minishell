@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:00:48 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/21 14:08:19 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/21 18:11:14 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,21 +88,21 @@ int format_var(t_head *head)
 	{
 		while (find_var(head->cmd->line) != -1)
 		{
-			if (replace_var(head->cmd->line, head) == 1)
+			if (replace_var_line(head->cmd->line, head) == 1)
 				return (1);
 		}
 		while (head->cmd->redir)
 		{
 			while (find_var(head->cmd->redir->arg) != -1)
 			{
-				if (replace_var(head->cmd->redir->arg, head) == 1)
+				if (replace_var_redir(head->cmd->redir->arg, head) == 1)
 					return (1);
 			}
 			if (head->cmd->redir->next == NULL)
 				break ;
 			head->cmd->redir = head->cmd->redir->next;
 		}
-		while(head->cmd->redir->prev)
+		while (head->cmd->redir && head->cmd->redir->prev)
 			head->cmd->redir = head->cmd->redir->prev;
 		if (head->cmd->next == NULL)
 			break ;

@@ -12,8 +12,7 @@ SRCS		:=	main.c				\
 				format.c			\
 				format_utils.c		\
 				format_utils_2.c	\
-				format_utils_3.c	\
-				rewind_lst.c
+				format_utils_3.c
 
 SRCS_D		:=	srcs/
 

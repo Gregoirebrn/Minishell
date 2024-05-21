@@ -6,13 +6,13 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:55:23 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/21 13:52:02 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/21 18:19:26 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int find_var(char* str)
+int find_var(char *str)
 {
 	int i;
 
@@ -31,12 +31,12 @@ int str_cmp_var(char *str, int i, char *value)
 	int j;
 
 	j = 0;
-	while (str[i] && value[j] && char_is_ws(str[i]) && str[i] == value[j])
+	while (str[i] && value[j] && str[i] == value[j])
 	{
 		i++;
 		j++;
 	}
-	if ((str[i] == 0 || char_is_ws(str[i])) && value[j] == 0)
+	if ((str[i] == 0 || str[i] == '$' || char_is_ws(str[i])) && value[j] == 0)
 		return (1);
 	return (0);
 }
@@ -46,9 +46,9 @@ char *var_value(char *str, int i, t_env *env)
 	char	*value;
 
 	value = NULL;
-	while (env)
+	while (env && value == NULL)
 	{
-		if (str_cmp_var(str, i, env->value) == 1)
+		if (str_cmp_var(str, i, env->name) == 1)
 		{
 			value = ft_strdup(env->value);
 			if (value == NULL)
@@ -71,16 +71,17 @@ char *var_value(char *str, int i, t_env *env)
 
 int find_end_var(char *str, int i)
 {
+	i++;
 	while (str[i])
 	{
-		if (char_is_ws(str[i]) != 1)
+		if (char_is_ws(str[i]) == 1 || str[i] == '$')
 			break ;
 		index_up(str, &i);
 	}
 	return (i);
 }
 
-int replace_var(char *str, t_head *head)
+int replace_var_line(char *str, t_head *head)
 {
 	int		start;
 	int 	end;
@@ -91,7 +92,7 @@ int replace_var(char *str, t_head *head)
 	value = var_value(str, start + 1, head->env);
 	if (value == NULL)
 		return (1);
-	str = str_dup_var(str, start, end + 1, value);
+	head->cmd->line = str_dup_var(str, start, end, value);
 	if (str == NULL)
 		return (1);
 	return (0);

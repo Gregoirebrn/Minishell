@@ -68,10 +68,14 @@ int		extract_redir(t_cmd *cmd);
 // format_utils_2.c
 
 int 	find_var(char* str);
-int 	replace_var(char *str, t_head *head);
+int 	str_cmp_var(char *str, int i, char *value);
+char 	*var_value(char *str, int i, t_env *env);
+int 	find_end_var(char *str, int i);
+int 	replace_var_line(char *str, t_head *head);
 
 // format_utils_3.c
 
 char	*str_dup_var(char *str, int start, int end, char *value);
+int 	replace_var_redir(char *str, t_head *head);
 
 #endif

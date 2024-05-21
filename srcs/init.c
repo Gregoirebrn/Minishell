@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:14:37 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/29 17:08:43 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/21 15:13:42 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_env	*ft_env_new(char *env)
 	s_new = malloc(sizeof(t_env));
 	if (s_new == NULL)
 		return (s_new);
-	s_new->name = ft_substr(env, 0, equal);
+	s_new->name = ft_substr(env, 0, equal - 1);
 	if (s_new->name == NULL)
 		return (free(s_new), NULL);
 	s_new->value = ft_substr(env, equal, ft_strlen(env) - equal);
@@ -87,6 +87,17 @@ t_head	*head_init(char **env)
 	head->env = env_init(env);
 	if (head->env == NULL)
 		return (printf("Malloc failed!\n"), free(head), NULL);
+	// test display env
+	while (head->env)
+	{
+		printf("name: %s | value: %s\n", head->env->name, head->env->value);
+		if (head->env->next == NULL)
+			break ;
+		head->env = head->env->next;
+	}
+	while (head->env->prev)
+		head->env = head->env->prev;
+	// fin
 	head->cmd = NULL;
 	return (head);
 }
