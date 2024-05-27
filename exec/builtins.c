@@ -6,21 +6,19 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/21 15:27:45 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:12:23 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 
-void	ft_echo(t_head *head, int fd[2])
+void	ft_echo(t_head *head, t_cmd *copy, int fd[2])
 {
-	t_cmd	*copy;
 	int		i;
 	int		n;
 
 	i = 1;
 	n = 0;
-	copy = head->cmd;
 	if (!copy->arg[1])
 	{
 		printf("\n");
@@ -42,7 +40,7 @@ void	ft_echo(t_head *head, int fd[2])
 	exit(0);
 }
 
-void	ft_pwd(void)
+void	ft_pwd(int fd[2])
 {
 	int		err;
 	char	*str;
@@ -54,7 +52,7 @@ void	ft_pwd(void)
 		write(1, "bash: pwd: ", 10);
 		perror(str);
 	}
-	printf("%s\n", str);
+	ft_putstr_fd(str, fd[1]);
 	free(str);
 }
 
