@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/27 13:58:12 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:44:59 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ int		no_fork_cmd(t_head *head, t_cmd *copy, char *str)
 	return (3);
 }
 
-int		exec_shell(t_head *head)
+int		exec_shell(t_head *head, t_cmd *copy)
 {
 	char	**env;
 	char	**tab;
 	char	*path;
 
 	env = make_env(head->env);
-	tab = make_arg(head->cmd);
+	tab = make_arg(copy);
 	if (!env || !tab)
 		return (ft_free_all(head), 1);
 	path = find_path(head);
@@ -61,23 +61,23 @@ int		exec_shell(t_head *head)
 	return (0);
 }
 
-int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int pid)
+int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int *pid)
 {
 	if (no_fork_cmd(head, copy, head->cmd->arg[0]) == 0)
 		return (0);
-	pid = fork();
-	if (pid == 0)
+	*pid = fork();
+	if (*pid == 0)
 	{
 		dup_of_fd(fd, copy);
 		if (ft_strcmp(copy->arg[0], "echo") == 0)
-			return (ft_echo(head, fd), 1);
+			return (ft_echo(head, copy, fd), 1);
 		if (ft_strcmp(copy->arg[0], "env") == 0)
 			return (ft_env(head), 1);
 		if (ft_strcmp(copy->arg[0], "pwd") == 0)
-			return (ft_pwd(), 1);
+			return (ft_pwd(fd), 1);
 		if (ft_strcmp(copy->arg[0], "export") == 0)
 			return (ft_export(head));
-		return (exec_shell(head));
+		return (exec_shell(head, copy));
 	}
 	return (1);
 }
@@ -92,12 +92,11 @@ int		executable(t_head *head)
 	x = 0;
 	pid = malloc(sizeof(int) * cmdlen(head->cmd) + 1);
 	copy = head->cmd;
-	copy->next = NULL;
 	while (copy != NULL)
 	{
 		if (pipe(fd) == -1)
 			return (perror("pipe"), ft_free_all(head), 1);
-		find_cmd(head, copy, fd, pid[x]);
+		find_cmd(head, copy, fd, &pid[x]);
 		copy = copy->next;
 		x++;
 	}
