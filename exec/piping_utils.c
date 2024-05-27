@@ -36,7 +36,7 @@ char	*find_path(t_head *head)
 	copy = head->env;
 	while (copy->next != NULL)
 	{
-		if (ft_strcmp("PATH", copy->name) == 0)
+		if (ft_strcmp("PATH=", copy->name) == 0)
 		{
 			path = strdup(copy->value);
 			return (path);
