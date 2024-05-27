@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/27 14:44:59 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:05:51 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int *pid)
 	*pid = fork();
 	if (*pid == 0)
 	{
+		dprintf(2, "%d\n", fd[1]);
 		dup_of_fd(fd, copy);
 		if (ft_strcmp(copy->arg[0], "echo") == 0)
 			return (ft_echo(head, copy, fd), 1);
@@ -85,19 +86,30 @@ int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int *pid)
 int		executable(t_head *head)
 {
 	t_cmd	*copy;
-	int		fd[2];
+	int		**fd;
 	int		x;
 	int		*pid;
 
 	x = 0;
-	pid = malloc(sizeof(int) * cmdlen(head->cmd) + 1);
+	pid = malloc(sizeof(int) * cmdlen(head->cmd));
+	fd = malloc(sizeof(int) * cmdlen(head->cmd) - 1);
 	copy = head->cmd;
-	while (copy != NULL)
+	while (copy->next != NULL)
 	{
-		if (pipe(fd) == -1)
-			return (perror("pipe"), ft_free_all(head), 1);
-		find_cmd(head, copy, fd, &pid[x]);
+		open_the_pipe(fd, head);
+		redir_with_fd(fd, copy, x);
+		find_cmd(head, copy, fd[x], &pid[x]);
 		copy = copy->next;
+		close(fd[x][0]);
+		close(fd[x][1]);
+		x++;
+	}
+	if (copy != NULL && x != 0)
+	{
+		redir_with_fd(fd, copy, x);
+		find_cmd(head, copy, fd[x], &pid[x]);
+		close(fd[x][0]);
+		close(fd[x][1]);
 		x++;
 	}
 	wait_for_all(pid, x);
