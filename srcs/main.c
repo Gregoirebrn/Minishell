@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/21 14:08:19 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/28 14:17:39 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int	main(int ac, char **av, char **env)
 	while (42)
 	{
 		input = readline("> ");
+		if (input == NULL)
+			break ;
 		add_history(input);
 		if (ft_parse(input, head) == 0)
 		{

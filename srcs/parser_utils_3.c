@@ -6,11 +6,18 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:36:26 by beroy             #+#    #+#             */
-/*   Updated: 2024/04/29 16:03:42 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/28 14:33:05 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	single_index_up(char *input, int *i)
+{
+	if (input[*i] == 39)
+		quote_skip(input, i, 39);
+	*i += 1;
+}
 
 void	tab_display(char **tab)
 {

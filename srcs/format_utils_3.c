@@ -20,7 +20,6 @@ char	*str_dup_var(char *str, int start, int end, char *value)
 
 	i = 0;
 	j = 0;
-	printf("str: %s | start: %d | end: %d | value: %s\n", str, start, end, value);
 	dup = ft_calloc(ft_strlen(str) - end + start + ft_strlen(value) + 1, sizeof(char));
 	if (dup == NULL)
 		return (NULL);
