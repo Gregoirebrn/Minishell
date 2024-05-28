@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:55:23 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/21 18:19:26 by beroy            ###   ########.fr       */
+/*   Updated: 2024/05/28 15:38:08 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int find_var(char *str)
 	{
 		if (str[i] == '$')
 			return (i);
-		index_up(str, &i);
+		single_index_up(str, &i);
 	}
 	return (-1);
 }
@@ -36,7 +36,7 @@ int str_cmp_var(char *str, int i, char *value)
 		i++;
 		j++;
 	}
-	if ((str[i] == 0 || str[i] == '$' || char_is_ws(str[i])) && value[j] == 0)
+	if ((str[i] == 0 || str[i] == '$' || str[i] == 34 || char_is_ws(str[i])) && value[j] == 0)
 		return (1);
 	return (0);
 }
@@ -74,9 +74,9 @@ int find_end_var(char *str, int i)
 	i++;
 	while (str[i])
 	{
-		if (char_is_ws(str[i]) == 1 || str[i] == '$')
+		if (char_is_ws(str[i]) == 1 || str[i] == '$' || str[i] == 34)
 			break ;
-		index_up(str, &i);
+		single_index_up(str, &i);
 	}
 	return (i);
 }

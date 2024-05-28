@@ -87,17 +87,6 @@ t_head	*head_init(char **env)
 	head->env = env_init(env);
 	if (head->env == NULL)
 		return (printf("Malloc failed!\n"), free(head), NULL);
-	// test display env
-	while (head->env)
-	{
-		printf("name: %s | value: %s\n", head->env->name, head->env->value);
-		if (head->env->next == NULL)
-			break ;
-		head->env = head->env->next;
-	}
-	while (head->env->prev)
-		head->env = head->env->prev;
-	// fin
 	head->cmd = NULL;
 	return (head);
 }
