@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/21 17:10:49 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:12:04 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int *pid)
 		return (0);
 	dup_of_fd(fd, copy);
 	if (ft_strcmp(copy->arg[0], "echo") == 0)
-		return (ft_echo(head, fd), 1);
+		return (ft_echo(head, copy, fd), 1);
 	if (ft_strcmp(copy->arg[0], "env") == 0)
 		return (ft_env(head), 1);
 	if (ft_strcmp(copy->arg[0], "pwd") == 0)
-		return (ft_pwd(), 1);
+		return (ft_pwd(fd), 1);
 	if (ft_strcmp(copy->arg[0], "export") == 0)
 		return (ft_export(head));
 	return (exec_shell(head, fd));

@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/17 16:34:40 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:12:04 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ typedef struct s_cmd t_cmd;
 typedef struct s_head t_head;
 
 //builtins00
-void	ft_echo(t_head *head, int fd[2]);
-void	ft_pwd(void);
+void	ft_echo(t_head *head, t_cmd *copy, int fd[2]);
+void	ft_pwd(int fd[2]);
 int		ft_cd(t_head *head);
 int		ft_export(t_head *head);
 void	ft_unset(t_head *head);
