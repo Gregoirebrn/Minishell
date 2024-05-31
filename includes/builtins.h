@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/22 16:12:04 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:13:39 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		ex_no_args(t_head *head);
 //piping00
 int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int *pid);
 void	there_cmd(char **arg, char *str, char **env);
-int		exec_shell(t_head *head, int fd[2]);
+int		exec_shell(t_head *head, t_cmd *copy);
 int		executable(t_head *head);
 
 //piping01
@@ -70,6 +70,9 @@ char	**make_arg(t_cmd *cmd);
 void	ft_free_exec(int **fd, int *pid, t_head *head);
 
 //piping03
+void	free_pipe(int **fd, t_head *head);
+int		open_the_pipe(int **fd, t_head *head);
+void	redir_with_fd(int **fd, t_cmd *copy, int x);
 void	dup_of_fd(int fd[2], t_cmd *copy);
 
 #endif

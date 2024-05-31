@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/22 16:12:04 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:05:51 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,18 @@ int		no_fork_cmd(t_head *head, t_cmd *copy, char *str)
 	return (3);
 }
 
-int		exec_shell(t_head *head, int fd[2])
+int		exec_shell(t_head *head, t_cmd *copy)
 {
 	char	**env;
 	char	**tab;
 	char	*path;
 
 	env = make_env(head->env);
-	tab = make_arg(head->cmd);
+	tab = make_arg(copy);
 	if (!env || !tab)
 		return (ft_free_all(head), 1);
 	path = find_path(head);
 	ft_free_all(head);
-	close(fd[0]);
-	close(fd[1]);
 	there_cmd(tab, path, env);
 	return (0);
 }
@@ -68,41 +66,50 @@ int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int *pid)
 	if (no_fork_cmd(head, copy, head->cmd->arg[0]) == 0)
 		return (0);
 	*pid = fork();
-	if (*pid != 0)
-		return (0);
-	dup_of_fd(fd, copy);
-	if (ft_strcmp(copy->arg[0], "echo") == 0)
-		return (ft_echo(head, copy, fd), 1);
-	if (ft_strcmp(copy->arg[0], "env") == 0)
-		return (ft_env(head), 1);
-	if (ft_strcmp(copy->arg[0], "pwd") == 0)
-		return (ft_pwd(fd), 1);
-	if (ft_strcmp(copy->arg[0], "export") == 0)
-		return (ft_export(head));
-	return (exec_shell(head, fd));
+	if (*pid == 0)
+	{
+		dprintf(2, "%d\n", fd[1]);
+		dup_of_fd(fd, copy);
+		if (ft_strcmp(copy->arg[0], "echo") == 0)
+			return (ft_echo(head, copy, fd), 1);
+		if (ft_strcmp(copy->arg[0], "env") == 0)
+			return (ft_env(head), 1);
+		if (ft_strcmp(copy->arg[0], "pwd") == 0)
+			return (ft_pwd(fd), 1);
+		if (ft_strcmp(copy->arg[0], "export") == 0)
+			return (ft_export(head));
+		return (exec_shell(head, copy));
+	}
+	return (1);
 }
 
 int		executable(t_head *head)
 {
 	t_cmd	*copy;
-	int		fd[2];
+	int		**fd;
 	int		x;
 	int		*pid;
 
 	x = 0;
 	pid = malloc(sizeof(int) * cmdlen(head->cmd));
+	fd = malloc(sizeof(int) * cmdlen(head->cmd) - 1);
 	copy = head->cmd;
 	while (copy->next != NULL)
 	{
-		if (pipe(fd) == -1)
-			return (perror("pipe"), ft_free_all(head), 1);
-		find_cmd(head, copy, fd, &pid[x]);
+		open_the_pipe(fd, head);
+		redir_with_fd(fd, copy, x);
+		find_cmd(head, copy, fd[x], &pid[x]);
 		copy = copy->next;
+		close(fd[x][0]);
+		close(fd[x][1]);
 		x++;
 	}
-	if (copy != NULL)
+	if (copy != NULL && x != 0)
 	{
-		find_cmd(head, copy, fd, &pid[x]);
+		redir_with_fd(fd, copy, x);
+		find_cmd(head, copy, fd[x], &pid[x]);
+		close(fd[x][0]);
+		close(fd[x][1]);
 		x++;
 	}
 	wait_for_all(pid, x);

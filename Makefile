@@ -21,6 +21,31 @@ EXEC		:=	builtins.c			\
 				export_no_args.c	\
 				built_exit.c		\
 
+VALGRIND	:=	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full --show-leak-kinds=all\
+				--track-fds=yes --show-mismatched-frees=yes --read-var-info=yes -s --trace-children=yes
+
+IGN_LEAK	:=	valgrind_ignore_leaks.txt
+
+$(IGN_LEAK)		:
+				@echo "{"                                > $(IGN_LEAK)
+				@echo "    leak readline"                    >> $(IGN_LEAK)
+				@echo "        Memcheck:Leak"                >> $(IGN_LEAK)
+				@echo "        ..."                        >> $(IGN_LEAK)
+				@echo "        fun:readline"                 >> $(IGN_LEAK)
+				@echo "}"                                >> $(IGN_LEAK)
+				@echo "{"                                >> $(IGN_LEAK)
+				@echo "    leak add_history"                >> $(IGN_LEAK)
+				@echo "        Memcheck:Leak"                >> $(IGN_LEAK)
+				@echo "        ..."                        >> $(IGN_LEAK)
+				@echo "        fun:add_history"            >> $(IGN_LEAK)
+				@echo "}"                                >> $(IGN_LEAK)
+				@echo "{"                                >> $(IGN_LEAK)
+				@echo "    leak readline_internal_char"    >> $(IGN_LEAK)
+				@echo "        Memcheck:Leak"                >> $(IGN_LEAK)
+				@echo "        ..."                        >> $(IGN_LEAK)
+				@echo "        fun:readline_internal_char"    >> $(IGN_LEAK)
+				@echo "}"                                >> $(IGN_LEAK)
+
 SRCS_D		:=	srcs/
 
 OBJS_D		:=	objs/
@@ -69,6 +94,9 @@ all			:	lib
 
 lib			:
 				$(MAKE) -C $(LIB_D)
+
+leaks		:	all $(IGN_LEAK)
+				$(VALGRIND) ./$(NAME)
 
 $(NAME)		:	$(OBJS_D) $(OBJS) $(OBJS_E) $(LIB_A) $(HEAD)
 				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(OBJS_E) $(LIB_A) -lm ${READLINE_LIB}

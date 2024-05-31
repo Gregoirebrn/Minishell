@@ -53,6 +53,7 @@ void	ft_pwd(int fd[2])
 		perror(str);
 	}
 	ft_putstr_fd(str, fd[1]);
+	ft_putstr_fd("\n", fd[1]);
 	free(str);
 }
 
