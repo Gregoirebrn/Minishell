@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:44:44 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/27 17:24:10 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:47:43 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	open_the_pipe(int **fd, t_head *head)
 			ft_free_all(head);
 			exit (1);
 		}
-		i--;
+		i++;
 	}
 	return 0;
 }
@@ -71,9 +71,9 @@ int	open_the_pipe(int **fd, t_head *head)
 void	redir_with_fd(int **fd, t_cmd *copy, int x)
 {
 	if (copy->prev != NULL)
-		fd[x][0] = fd[x - 1][0];
-	if (copy->next != NULL)
-		fd[x][1] = fd[x - 1][1];
+		fd[x][0] = fd[x - 1][1];
+	if (copy->next != NULL )
+		fd[x][1] = fd[x + 1][0];
 }
 
 void	dup_of_fd(int fd[2], t_cmd *copy)

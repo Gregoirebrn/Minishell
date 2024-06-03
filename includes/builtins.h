@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/27 17:13:39 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:34:00 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ typedef struct s_env t_env;
 typedef struct s_redir t_redir;
 typedef struct s_cmd t_cmd;
 typedef struct s_head t_head;
+
+typedef struct s_pipe
+{
+	int				x;
+	int				**fd;
+	int				*pid;
+}	t_pipe;
 
 //builtins00
 void	ft_echo(t_head *head, t_cmd *copy, int fd[2]);
@@ -51,7 +58,7 @@ char	**env_to_tab(t_env *copy);
 int		ex_no_args(t_head *head);
 
 //piping00
-int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int *pid);
+int		find_cmd(t_head *head, t_cmd *copy, t_pipe *pipe);
 void	there_cmd(char **arg, char *str, char **env);
 int		exec_shell(t_head *head, t_cmd *copy);
 int		executable(t_head *head);
