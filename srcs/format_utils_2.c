@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:55:23 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/28 15:38:08 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/03 14:13:22 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ char *var_value(char *str, int i, t_env *env)
 	}
 	if (value == NULL && str_cmp_var(str, i, "?"))
 		value = ft_strdup("'$?'");
-	while (env->prev)
+	if (value == NULL)
+		value = ft_strdup("");
+	while (env && env->prev)
 		env = env->prev;
 	return (value);
 }
@@ -72,7 +74,7 @@ char *var_value(char *str, int i, t_env *env)
 int find_end_var(char *str, int i)
 {
 	i++;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (char_is_ws(str[i]) == 1 || str[i] == '$' || str[i] == 34)
 			break ;

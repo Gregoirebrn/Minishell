@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/21 14:19:14 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/03 14:41:27 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,35 @@ int	quote_skip(char *input, int *i, char find)
 	return (0);
 }
 
+int str_empty(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (char_is_ws(str[i]) == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int check_line(char *input)
 {
 	int i;
 
 	i = 0;
+	if (str_empty(input) == 1)
+		return (printf("Input string is empty!\n"), 1);
+	if (check_redir_pipe(input) == 1)
+		return (printf("Invalid input!\n"), 1);
 	while (input[i])
 	{
 		if (input[i] == '|')
 		{
 			if (input[i + 1] == '|')
-				return (printf("double pipe not handled by minishell!\n"), 1);
+				return (printf("Double pipe not handled by minishell!\n"), 1);
 		}
 		else if (input[i] == 34)
 		{

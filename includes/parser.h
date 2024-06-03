@@ -54,6 +54,10 @@ void	tab_display(char **tab);
 int 	space_redir(t_cmd *cmd);
 void	single_index_up(char *input, int *i);
 
+// parser_utils_4.c
+
+int 	check_redir_pipe(char *input);
+
 // format.c
 
 int		format(t_head *head);
