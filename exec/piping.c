@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/27 17:05:51 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:23:03 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,26 +61,28 @@ int		exec_shell(t_head *head, t_cmd *copy)
 	return (0);
 }
 
-int		find_cmd(t_head *head, t_cmd *copy, int fd[2], int *pid)
+int		find_cmd(t_head *head, t_cmd *copy, int **fd, int x)
 {
+	int		pid;
+	int		c_fd[2];
+
 	if (no_fork_cmd(head, copy, head->cmd->arg[0]) == 0)
 		return (0);
-	*pid = fork();
-	if (*pid == 0)
+	pid = fork();
+	if (pid == 0)
 	{
-		dprintf(2, "%d\n", fd[1]);
-		dup_of_fd(fd, copy);
+		redir_with_fd(c_fd, fd, copy, x);
 		if (ft_strcmp(copy->arg[0], "echo") == 0)
-			return (ft_echo(head, copy, fd), 1);
+			return (ft_echo(head, copy, fd[x]), 1);
 		if (ft_strcmp(copy->arg[0], "env") == 0)
 			return (ft_env(head), 1);
 		if (ft_strcmp(copy->arg[0], "pwd") == 0)
-			return (ft_pwd(fd), 1);
+			return (ft_pwd(fd[x]), 1);
 		if (ft_strcmp(copy->arg[0], "export") == 0)
 			return (ft_export(head));
 		return (exec_shell(head, copy));
 	}
-	return (1);
+	return (pid);
 }
 
 int		executable(t_head *head)
@@ -92,24 +94,14 @@ int		executable(t_head *head)
 
 	x = 0;
 	pid = malloc(sizeof(int) * cmdlen(head->cmd));
-	fd = malloc(sizeof(int) * cmdlen(head->cmd) - 1);
+	fd = malloc(sizeof(int) * cmdlen(head->cmd));
+	open_the_pipe(fd, head);
 	copy = head->cmd;
-	while (copy->next != NULL)
+	while (copy != NULL)
 	{
-		open_the_pipe(fd, head);
-		redir_with_fd(fd, copy, x);
-		find_cmd(head, copy, fd[x], &pid[x]);
+		pid[x] = find_cmd(head, copy, fd, x);
+		printf("pid[%d] = %d\n", x, pid[x]);
 		copy = copy->next;
-		close(fd[x][0]);
-		close(fd[x][1]);
-		x++;
-	}
-	if (copy != NULL && x != 0)
-	{
-		redir_with_fd(fd, copy, x);
-		find_cmd(head, copy, fd[x], &pid[x]);
-		close(fd[x][0]);
-		close(fd[x][1]);
 		x++;
 	}
 	wait_for_all(pid, x);

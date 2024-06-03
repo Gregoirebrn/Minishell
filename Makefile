@@ -9,7 +9,10 @@ SRCS		:=	main.c				\
 				parser_utils.c		\
 				parser_utils_2.c	\
 				parser_utils_3.c	\
-				format.c
+				format.c			\
+				format_utils.c		\
+				format_utils_2.c	\
+				format_utils_3.c
 
 EXEC		:=	builtins.c			\
 				builtins_utils.c	\
@@ -19,7 +22,7 @@ EXEC		:=	builtins.c			\
 				piping_utils2.c		\
 				piping_utils3.c		\
 				export_no_args.c	\
-				built_exit.c		\
+				built_exit.c
 
 VALGRIND	:=	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full --show-leak-kinds=all\
 				--track-fds=yes --show-mismatched-frees=yes --read-var-info=yes -s --trace-children=yes

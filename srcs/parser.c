@@ -70,7 +70,8 @@ t_cmd	*split_pipe(char *input)
 		if (new == NULL)
 			return (ft_free_cmd(cmd), NULL);
 		ft_cmdadd_back(&cmd, new);
-		i++;
+		if (input[i] != 0)
+			i++;
 		offset = i;
 	}
 	return (cmd);

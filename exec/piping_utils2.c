@@ -14,14 +14,18 @@
 
 void	wait_for_all(pid_t *pid, int x)
 {
-	int	i;
+	int		i;
+	pid_t	last[2];
 
 	i = 0;
 	while (i < x)
 	{
-		waitpid(pid[i], NULL, 0);
+		last[1] = waitpid(0, NULL, 0);
+		if (last[1] == pid[x - 1])
+			last[0] = last[1];
 		i++;
 	}
+	printf("%d\n", last[0]);
 	free(pid);
 }
 
