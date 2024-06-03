@@ -104,11 +104,6 @@ int	main(int ac, char **av, char **env)
 		add_history(input);
 		if (ft_parse(input, head) == 0)
 		{
-			if (format(head) == 1)
-			{
-				ft_free_cmd(head->cmd);
-				break ;
-			}
 			while (head->cmd)
 			{
 				printf("line: %s\n", head->cmd->line);

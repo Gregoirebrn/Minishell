@@ -6,11 +6,18 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:10:02 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/21 18:13:48 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/03 16:12:53 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int char_is_num(char c)
+{
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
+}
 
 char	*str_dup_var(char *str, int start, int end, char *value)
 {

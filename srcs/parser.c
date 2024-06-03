@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/03 14:41:27 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/03 16:43:27 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ t_cmd	*split_pipe(char *input)
 		if (new == NULL)
 			return (ft_free_cmd(cmd), NULL);
 		ft_cmdadd_back(&cmd, new);
-		i++;
+		if (input[i] != 0)
+			i++;
 		offset = i;
 	}
 	return (cmd);
@@ -115,5 +116,8 @@ int	ft_parse(char *input, t_head *head)
 	if (split_ws(head->cmd) == 1)
 		return (1);
 	// format le contenu des blocs - redirection + variable env etc
+	if (format(head) == 1)
+		return (1);
+	// trim les quotes
 	return (0);
 }

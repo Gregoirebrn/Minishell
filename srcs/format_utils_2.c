@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:55:23 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/03 14:13:22 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/03 14:41:27 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int find_end_var(char *str, int i)
 	{
 		if (char_is_ws(str[i]) == 1 || str[i] == '$' || str[i] == 34)
 			break ;
+		if (char_is_num(str[i]) == 1)
+			return (i + 1);
 		single_index_up(str, &i);
 	}
 	return (i);
