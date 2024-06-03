@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/14 15:58:49 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:17:39 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	g_error = 0;
 
 void	ft_free_cmd(t_cmd *cmd)
 {
@@ -20,9 +18,10 @@ void	ft_free_cmd(t_cmd *cmd)
 
 	if (cmd->arg != NULL)
 		ft_splitdestroy(cmd->arg);
+	if (cmd->line)
+		free(cmd->line);
 	while (cmd->redir != NULL)
 	{
-		free(cmd->line);
 		tmp = cmd->redir->next;
 		free(cmd->redir->arg);
 		free(cmd->redir);
@@ -100,6 +99,8 @@ int	main(int ac, char **av, char **env)
 	while (42)
 	{
 		input = readline("> ");
+		if (input == NULL)
+			break ;
 		add_history(input);
 		if (ft_parse(input, head) == 0)
 		{
@@ -108,7 +109,16 @@ int	main(int ac, char **av, char **env)
 				ft_free_cmd(head->cmd);
 				break ;
 			}
-			executable(head);
+			while (head->cmd)
+			{
+				printf("line: %s\n", head->cmd->line);
+				tab_display(head->cmd->arg);
+				if (head->cmd->next == NULL)
+					break ;
+				head->cmd = head->cmd->next;
+			}
+			while (head->cmd->prev)
+				head->cmd = head->cmd->prev;
 			ft_free_cmd(head->cmd);
 		}
 	}
