@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:09:17 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/21 14:53:56 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:42:51 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,5 @@ int	ex_no_args(t_head *head, int fd[2])
 	}
 	printf_tab(tab, fd);
 	free_tab(tab, x);
-	return (0);
+	exit (0);
 }

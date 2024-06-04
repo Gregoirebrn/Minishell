@@ -83,13 +83,13 @@ int	ft_cd(t_head *head)
 	return (0);
 }
 
-int	ft_export(t_head *head)
+int	ft_export(t_head *head, int fd[2])
 {
 	t_env	*c_env;
 
 	c_env = head->env;
 	if (head->cmd->arg[1] == NULL)
-		return (ex_no_args(head));
+		return (ex_no_args(head, fd));
 	if (head->cmd->next != NULL)
 		return (3);
 	while (c_env->next != NULL)

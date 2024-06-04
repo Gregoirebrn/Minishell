@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:44:44 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/03 17:26:58 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:37:38 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,24 @@ int	open_the_pipe(int **fd, t_head *head)
 
 void	redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x)
 {
-	fd[0] = 0;
-	fd[1] = 1;
+	if (!copy->prev)
+		fd[0] = 0;
+	if (!copy->next)
+		fd[1] = 1;
+//	open_files TO_DO
 	if (fd[0] == 0 && copy->prev != NULL)
 		fd[0] = pipe[x - 1][0];
 	if (fd[1] == 1 && copy->next != NULL)
 		fd[1] = pipe[x][1];
-	if (copy->prev != NULL)
+	if (fd[0] != 0 && copy->prev != NULL)
 	{
-		if (dup2(fd[0], 0) < 0)
+		if (dup2(fd[0], STDIN_FILENO) < 0)
 			return (perror("dup2first"));
-		close(fd[0]);
 	}
-	else
-		fd[0] = 0;
-	if (copy->next != NULL)
+	if (fd[1] != 1 && copy->next != NULL)
 	{
-		if (dup2(fd[1], 1) < 0)
+		if (dup2(fd[1], STDOUT_FILENO) < 0)
 			return (perror("dup2sec"));
-		close(fd[1]);
 	}
 }
 

@@ -27,7 +27,7 @@ typedef struct s_head t_head;
 void	ft_echo(t_head *head, t_cmd *copy, int fd[2]);
 void	ft_pwd(int fd[2]);
 int		ft_cd(t_head *head);
-int		ft_export(t_head *head);
+int		ft_export(t_head *head, int fd[2]);
 void	ft_unset(t_head *head);
 
 //bultins01
@@ -48,7 +48,7 @@ void	ft_exit(t_head *head);
 //export_no_args
 void	free_tab(char **tab, int x);
 char	**env_to_tab(t_env *copy);
-int		ex_no_args(t_head *head);
+int		ex_no_args(t_head *head, int fd[2]);
 
 //piping00
 int		find_cmd(t_head *head, t_cmd *copy, int **fd, int x);
@@ -73,5 +73,7 @@ void	ft_free_exec(int **fd, int *pid, t_head *head);
 void	free_pipe(int **fd, t_head *head);
 int		open_the_pipe(int **fd, t_head *head);
 void	redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x);
+void	close_pipe(t_head *head, int **fd);
+
 
 #endif
