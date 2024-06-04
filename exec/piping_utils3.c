@@ -92,24 +92,18 @@ void	redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x)
 		close(fd[1]);
 	}
 }
-//
-//{
-//	int		res[2] = 0;
-//
-//	if (s_cmd->fd_f[0] == 0 && s_cmd->prev)
-//		s_cmd->fd_f[0] = args->pipe[id - 1][0];
-//	if (s_cmd->fd_f[1] == 1 && s_cmd->next)
-//		s_cmd->fd_f[1] = args->pipe[id][1];
-//
-//	if (s_cmd->fd_f[0] != 0)
-//		res[0] = dup2(s_cmd->fd_f[0], STDIN_FILENO);
-//	if (s_cmd->fd_f[1] != 1 && res[0] != -1)
-//		res[1] = dup2(s_cmd->fd_f[1], STDOUT_FILENO);
-//
-//	if (s_cmd->file)
-//		_close_file(args, s_cmd->fd_f, id);
-//	_close_pipe(args);
-//	if (res[0] == -1 || res[1] == -1)
-//		_exit_failure(args);
-//	return (1);
-//}
+
+void	close_pipe(t_head *head, int **fd)
+{
+	size_t		i;
+	size_t		nbr_cmd;
+
+	i = 0;
+	nbr_cmd = cmdlen(head->cmd);
+	while (i < nbr_cmd - 1)
+	{
+		close(fd[i][0]);
+		close(fd[i][1]);
+		i++;
+	}
+}

@@ -55,7 +55,7 @@ char	**env_to_tab(t_env *copy)
 	return (tab);
 }
 
-void	printf_tab(char **tab)
+void	printf_tab(char **tab, int fd[2])
 {
 	size_t	x;
 
@@ -63,12 +63,16 @@ void	printf_tab(char **tab)
 	while (tab[x])
 	{
 		if (ft_strncmp("_=/home", tab[x], 7) != 0)
-			printf("declare -x %s\n", tab[x]);
+		{
+			ft_putstr_fd("declare -x ", fd[1]);
+			ft_putstr_fd(tab[x], fd[1]);
+			ft_putstr_fd("\n", fd[1]);
+		}
 		x++;
 	}
 }
 
-int	ex_no_args(t_head *head)
+int	ex_no_args(t_head *head, int fd[2])
 {
 	char	**tab;
 	t_env	*copy;
@@ -92,7 +96,7 @@ int	ex_no_args(t_head *head)
 		else
 			x++;
 	}
-	printf_tab(tab);
+	printf_tab(tab, fd);
 	free_tab(tab, x);
 	return (0);
 }
