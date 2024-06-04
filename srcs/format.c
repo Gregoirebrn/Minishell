@@ -6,30 +6,78 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:00:48 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/28 15:30:18 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/04 17:18:17 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char *trim_str(char *str)
+int	nbr_quote(char *str)
 {
-	int		i;
-	char	*trim;
-	int 	len;
+	int 	i;
+	int		nbr;
+	char	find;
 
 	i = 0;
-	if (str[i] != 34 && str[i] != 39)
-		return (str);
-	len = (int)ft_strlen(str);
-	trim = calloc(len - 2 + 1, sizeof(char));
-	if (trim == NULL)
-		return (NULL);
-	while (i < len - 2)
+	nbr = 0;
+	while (str && str[i])
 	{
-		trim[i] = str[i + 1];
+		if (str[i] == 34 || str[i] == 39)
+		{
+			find = str[i];
+			if (quote_skip(str, &i, find) == 1)
+				nbr++;
+			else
+				nbr += 2;
+		}
 		i++;
 	}
+	return (nbr);
+}
+
+void trim_str_2(char *str, char *trim, int len, int nbr)
+{
+	int 	i;
+	int 	j;
+	int 	trigger;
+	char	find;
+
+	i = 0;
+	j = 0;
+	trigger = 0;
+	while (i < len - nbr)
+	{
+		if (trigger == 0 && (str[j] == 34 || str[j] == 39))
+		{
+			find = str[j];
+			trigger = 1;
+			j++;
+		}
+		if (trigger == 1 && str[j] == find)
+		{
+			trigger = 0;
+			j++;
+		}
+		trim[i] = str[j];
+		i++;
+		j++;
+	}
+}
+
+char *trim_str(char *str)
+{
+	char	*trim;
+	int 	len;
+	int		nbr;
+
+	nbr = nbr_quote(str);
+	if (nbr <= 1)
+		return (str);
+	len = (int)strlen(str);
+	trim = calloc(len - nbr + 1, sizeof(char));
+	if (trim == NULL)
+		return (NULL);
+	trim_str_2(str, trim, len, nbr);
 	free(str);
 	return (trim);
 }
