@@ -63,7 +63,7 @@ char *var_value(char *str, int i, t_env *env)
 		env = env->next;
 	}
 	if (value == NULL && str_cmp_var(str, i, "?"))
-		value = ft_strdup("'$?'");
+		value = ft_itoa(g_error);
 	if (value == NULL)
 		value = ft_strdup("");
 	while (env && env->prev)

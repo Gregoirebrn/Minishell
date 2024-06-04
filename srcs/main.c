@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 
+int g_error = 0;
+
 void	ft_free_cmd(t_cmd *cmd)
 {
 	t_redir	*tmp;
