@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/22 16:12:23 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:09:27 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_echo(t_head *head, t_cmd *copy, int fd[2])
 	exit(0);
 }
 
-void	ft_pwd(int fd[2])
+void	ft_pwd(t_head *head)
 {
 	int		err;
 	char	*str;
@@ -52,9 +52,10 @@ void	ft_pwd(int fd[2])
 		write(1, "bash: pwd: ", 10);
 		perror(str);
 	}
-	ft_putstr_fd(str, fd[1]);
-	ft_putstr_fd("\n", fd[1]);
+	printf("%s\n", str);
 	free(str);
+	ft_free_all(head);
+	exit(0);
 }
 
 int	ft_cd(t_head *head)
@@ -70,26 +71,36 @@ int	ft_cd(t_head *head)
 		return (1);
 	if (head->cmd->arg[1] && head->cmd->arg[2])
 		return (printf("Only one argument is taken by cd\n"), 2);
-	get_path(&str);
-	str = ft_strcat(str, head->cmd->arg[1]);
+	if (head->cmd->arg[1])
+	{
+		get_path(&str);
+		str = ft_strcat(str, head->cmd->arg[1]);
+	}
+	else
+	{
+		cd_no_arg(head, &str);
+		if (!str)
+			return (printf("bash: cd: HOME not set\n"), 2);
+	}
 	if (str == NULL)
 		return (printf("Crash of Malloc\n"), 2);
 	get_path(&old_pwd);
 	err = chdir(str);
-	free(str);
+	if (err == 0)
+		replace_value(head, str, "PWD");
 	if (err != 0)
 		return (write(1, "bash: cd: ", 10), perror(head->cmd->arg[1]), 2);
-	change_old_pwd(head, old_pwd);
+	replace_value(head, old_pwd, "OLDPWD");
 	return (0);
 }
 
-int	ft_export(t_head *head, int fd[2])
+int		ft_export(t_head *head)
 {
 	t_env	*c_env;
 
 	c_env = head->env;
 	if (head->cmd->arg[1] == NULL)
-		return (ex_no_args(head, fd));
+		ex_no_args(head);
 	if (head->cmd->next != NULL)
 		return (3);
 	while (c_env->next != NULL)
@@ -106,11 +117,8 @@ int	ft_export(t_head *head, int fd[2])
 
 void	ft_unset(t_head *head)
 {
-	char	*ref;
 
-	if (!head->cmd->next || !head->cmd->arg[1])
+	if (head->cmd->next || !head->cmd->arg[1])
 		return ;
-	ref = ft_strjoin(head->cmd->arg[1], "=");
-	rem_env(&head->env, ref, &ft_strcmp);
-	free(ref);
+	rem_env(&head->env, head->cmd->arg[1], &ft_strcmp);
 }

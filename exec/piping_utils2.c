@@ -25,7 +25,7 @@ void	wait_for_all(pid_t *pid, int x)
 			last[0] = last[1];
 		i++;
 	}
-	printf("%d\n", last[0]);
+//	printf("%d\n", last[0]);
 	free(pid);
 }
 

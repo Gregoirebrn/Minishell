@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/03 17:15:00 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:08:10 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ typedef struct s_head t_head;
 
 //builtins00
 void	ft_echo(t_head *head, t_cmd *copy, int fd[2]);
-void	ft_pwd(int fd[2]);
+void	ft_pwd(t_head *head);
 int		ft_cd(t_head *head);
-int		ft_export(t_head *head, int fd[2]);
+int		ft_export(t_head *head);
 void	ft_unset(t_head *head);
 
 //bultins01
@@ -37,10 +37,11 @@ void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *));
 void	ft_env(t_head *head);
 
 //bultins02
-void	change_old_pwd(t_head *head, char *old_pwd);
+void	replace_value(t_head *head, char *value, char *replace);
 void	replace_var(char **arg, char *result);
 int		add_env(t_head *head, char *name, char *value);
 void	print_tab(char **arg, int i, int n, int fd[2]);
+void	cd_no_arg(t_head *head, char **str);
 
 //built_exit
 void	ft_exit(t_head *head);
@@ -48,7 +49,7 @@ void	ft_exit(t_head *head);
 //export_no_args
 void	free_tab(char **tab, int x);
 char	**env_to_tab(t_env *copy);
-int		ex_no_args(t_head *head, int fd[2]);
+void	ex_no_args(t_head *head);
 
 //piping00
 int		find_cmd(t_head *head, t_cmd *copy, int **fd, int x);

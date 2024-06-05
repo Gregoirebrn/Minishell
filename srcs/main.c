@@ -112,7 +112,7 @@ int	main(int ac, char **av, char **env)
 				break ;
 			}
 			executable(head);
-			printf("END\n");
+//			printf("END\n");
 //			while (head->cmd)
 //			{
 //				printf("line: %s\n", head->cmd->line);

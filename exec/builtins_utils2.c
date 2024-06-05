@@ -6,23 +6,23 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:04:21 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/21 16:39:58 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:22:53 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 
-void	change_old_pwd(t_head *head, char *old_pwd)
+void	replace_value(t_head *head, char *value, char *replace)
 {
 	t_env	*copy;
 
 	copy = head->env;
 	while (copy->next != NULL)
 	{
-		if (ft_strcmp(copy->name, "OLDPWD"))
+		if (ft_strcmp(copy->name, replace) == 0)
 		{
 			free(copy->value);
-			copy->value = old_pwd;
+			copy->value = value;
 		}
 		copy = copy->next;
 	}
@@ -73,4 +73,20 @@ void	print_tab(char **arg, int i, int n, int fd[2])
 	}
 	if (n == 0)
 		printf("\n");
+}
+
+void	cd_no_arg(t_head *head, char **str)
+{
+	t_env	*env;
+
+	env = head->env;
+	while (env)
+	{
+		if (ft_strcmp(env->name, "HOME") == 0)
+		{
+			*str = env->value;
+			break ;
+		}
+		env = env->next;
+	}
 }

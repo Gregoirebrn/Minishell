@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:09:17 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/04 17:42:51 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:11:32 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*join_equal(char *name, char *val)
 	char	*v_w_e;
 	char	*join;
 
-	n_w_e = ft_strjoin(name, "\"");
+	n_w_e = ft_strjoin(name, "=\"");
 	v_w_e = ft_strjoin(val, "\"");
 	join = ft_strjoin(n_w_e, v_w_e);
 	free(n_w_e);
@@ -38,11 +38,11 @@ char	**env_to_tab(t_env *copy)
 	char	**tab;
 	size_t	x;
 
-	tab = malloc(sizeof (char *) * envlen(copy) + 1);
+	tab = malloc((sizeof (char *)) * (envlen(copy) + 2));
 	if (!tab)
 		return (NULL);
 	x = 0;
-	while (copy->next != NULL)
+	while (copy)
 	{
 		tab[x] = join_equal(copy->name, copy->value);
 		if (!tab[x])
@@ -50,29 +50,24 @@ char	**env_to_tab(t_env *copy)
 		x++;
 		copy = copy->next;
 	}
-	tab[x++] = ft_strjoin(copy->name, copy->value);
 	tab[x] = NULL;
 	return (tab);
 }
 
-void	printf_tab(char **tab, int fd[2])
+void	printf_tab(char **tab)
 {
 	size_t	x;
 
 	x = 0;
-	while (tab[x])
+	while (tab[x] != NULL)
 	{
-		if (ft_strncmp("_=/home", tab[x], 7) != 0)
-		{
-			ft_putstr_fd("declare -x ", fd[1]);
-			ft_putstr_fd(tab[x], fd[1]);
-			ft_putstr_fd("\n", fd[1]);
-		}
+		if (ft_strncmp("_=\"/home", tab[x], 8) != 0)
+			printf("declare -x %s\n", tab[x]);
 		x++;
 	}
 }
 
-int	ex_no_args(t_head *head, int fd[2])
+void	ex_no_args(t_head *head)
 {
 	char	**tab;
 	t_env	*copy;
@@ -83,7 +78,10 @@ int	ex_no_args(t_head *head, int fd[2])
 	x = 0;
 	tab = env_to_tab(copy);
 	if (!tab)
-		return (2);
+	{
+		printf("Crash of Malloc\n");
+		ft_exit(head);
+	}
 	while (tab[x] && tab[x + 1])
 	{
 		if (0 < ft_strcmp(tab[x], tab[x + 1]))
@@ -96,7 +94,7 @@ int	ex_no_args(t_head *head, int fd[2])
 		else
 			x++;
 	}
-	printf_tab(tab, fd);
+	printf_tab(tab);
 	free_tab(tab, x);
-	exit (0);
+	ft_exit(head);
 }
