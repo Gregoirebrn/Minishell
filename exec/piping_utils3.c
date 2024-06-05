@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:44:44 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/05 12:49:09 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:18:20 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	open_the_pipe(int **fd, t_head *head)
 
 void	redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x)
 {
-//	open_files TO_DO
 	if (copy->prev)
 		fd[0] = pipe[x - 1][0];
 	else

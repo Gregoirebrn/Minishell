@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:51:28 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/14 15:14:21 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:31:30 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,14 @@
 void	wait_for_all(pid_t *pid, int x)
 {
 	int		i;
-	pid_t	last[2];
 
 	i = 0;
 	while (i < x)
 	{
-		last[1] = waitpid(0, NULL, 0);
-		if (last[1] == pid[x - 1])
-			last[0] = last[1];
+		waitpid(0, NULL, 0);
 		i++;
 	}
-//	printf("%d\n", last[0]);
+	g_error = WEXITSTATUS(pid[x - 1]);
 	free(pid);
 }
 

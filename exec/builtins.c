@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/05 16:09:27 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:37:10 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ void	ft_echo(t_head *head, t_cmd *copy, int fd[2])
 	}
 	if (ft_strcmp("$?", copy->arg[i]) == 0)
 	{
-		printf("%d\n", g_error);
-		g_error = 0;
-		return ;
+		printf("%d", g_error);
+		if (n == 0)
+			printf("\n");
+		exit(0);
 	}
 	print_tab(copy->arg, i, n, fd);
 	ft_free_all(head);
