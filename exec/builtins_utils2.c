@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:04:21 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/05 13:22:53 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:35:41 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	replace_var(char **arg, char *result)
 	*(arg[z]) = '\0';
 }
 
-int		add_env(t_head *head, char *name, char *value)
+int	add_env(t_head *head, char *name, char *value)
 {
 	t_env	*new;
 	t_env	*copy;
@@ -64,11 +64,11 @@ int		add_env(t_head *head, char *name, char *value)
 	return (0);
 }
 
-void	print_tab(char **arg, int i, int n, int fd[2])
+void	print_tab(char **arg, int i, int n)
 {
 	while (arg[i])
 	{
-		ft_putstr_fd(arg[i], fd[1]);
+		printf("%s", arg[i]);
 		i++;
 	}
 	if (n == 0)

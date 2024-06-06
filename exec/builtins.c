@@ -6,13 +6,13 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/05 17:37:10 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:21:01 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 
-void	ft_echo(t_head *head, t_cmd *copy, int fd[2])
+void	ft_echo(t_head *head, t_cmd *copy)
 {
 	int		i;
 	int		n;
@@ -36,7 +36,7 @@ void	ft_echo(t_head *head, t_cmd *copy, int fd[2])
 			printf("\n");
 		exit(0);
 	}
-	print_tab(copy->arg, i, n, fd);
+	print_tab(copy->arg, i, n);
 	ft_free_all(head);
 	exit(0);
 }
@@ -59,17 +59,8 @@ void	ft_pwd(t_head *head)
 	exit(0);
 }
 
-int	ft_cd(t_head *head)
-
+int	ft_cd_bis(t_head *head, char *str)
 {
-	int		err;
-	char	*str;
-	char	*old_pwd;
-
-	old_pwd = NULL;
-	str = NULL;
-	if (head->cmd->next != NULL)
-		return (1);
 	if (head->cmd->arg[1] && head->cmd->arg[2])
 		return (printf("Only one argument is taken by cd\n"), 2);
 	if (head->cmd->arg[1])
@@ -85,17 +76,38 @@ int	ft_cd(t_head *head)
 	}
 	if (str == NULL)
 		return (printf("Crash of Malloc\n"), 2);
+	return (0);
+}
+
+#include <dirent.h>
+
+int	ft_cd(t_head *head)
+{
+	int		err;
+	char	*str;
+	char	*old_pwd;
+	DIR		*ptr_dir;
+
+	old_pwd = NULL;
+	str = NULL;
+	if (head->cmd->next != NULL)
+		return (1);
+	if (ft_cd_bis(head, str) == 2)
+		return (2);
 	get_path(&old_pwd);
 	err = chdir(str);
-	if (err == 0)
-		replace_value(head, str, "PWD");
 	if (err != 0)
-		return (write(1, "bash: cd: ", 10), perror(head->cmd->arg[1]), 2);
+	{
+		ptr_dir = opendir(head->cmd->arg[1]);
+		return (write(1, "bash: cd: ", 10), perror(head->cmd->arg[1]), 1);
+		closedir(ptr_dir);
+	}
+	replace_value(head, str, "PWD");
 	replace_value(head, old_pwd, "OLDPWD");
 	return (0);
 }
 
-int		ft_export(t_head *head)
+int	ft_export(t_head *head)
 {
 	t_env	*c_env;
 
@@ -118,7 +130,6 @@ int		ft_export(t_head *head)
 
 void	ft_unset(t_head *head)
 {
-
 	if (head->cmd->next || !head->cmd->arg[1])
 		return ;
 	rem_env(&head->env, head->cmd->arg[1], &ft_strcmp);

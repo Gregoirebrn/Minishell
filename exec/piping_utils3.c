@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:44:44 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/05 17:18:20 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:09:29 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	free_pipe(int **fd, t_head *head)
 {
-	size_t numb;
-	size_t i;
+	size_t	numb;
+	size_t	i;
 
 	numb = cmdlen(head->cmd);
 	i = 0;
@@ -44,7 +44,7 @@ int	open_the_pipe(int **fd, t_head *head)
 
 	numb = cmdlen(head->cmd);
 	if (numb == 1)
-		return 0;
+		return (0);
 	i = 0;
 	while (i < numb)
 	{
@@ -66,11 +66,19 @@ int	open_the_pipe(int **fd, t_head *head)
 		i++;
 	}
 	fd[i][1] = 1;
-	return 0;
+	return (0);
 }
+
+//void	open_redir(t_cmd *copy, int **pipe, int fd[2], int x)
+//{
+//	if (!copy->redir)
+//		return;
+//	if (copy->redir->type)
+//}
 
 void	redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x)
 {
+//	open_redir(copy, pipe, fd, x);
 	if (copy->prev)
 		fd[0] = pipe[x - 1][0];
 	else

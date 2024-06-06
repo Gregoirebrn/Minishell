@@ -40,7 +40,7 @@ char	*ft_strcat(char *path, char *dir)
 	return (dest);
 }
 
-int		get_path(char **str)
+int	get_path(char **str)
 {
 	size_t	size;
 

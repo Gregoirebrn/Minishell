@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/03 14:06:59 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:29:02 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	main(int ac, char **av, char **env)
 		return (0);
 	while (42)
 	{
+
 		input = readline("> ");
 		if (input == NULL)
 			break ;
@@ -126,5 +127,5 @@ int	main(int ac, char **av, char **env)
 			ft_free_cmd(head->cmd);
 		}
 	}
-	return (ft_free_all(head), 0);
+	return (ft_free_all(head), g_error);
 }

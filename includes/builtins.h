@@ -24,7 +24,7 @@ typedef struct s_cmd t_cmd;
 typedef struct s_head t_head;
 
 //builtins00
-void	ft_echo(t_head *head, t_cmd *copy, int fd[2]);
+void	ft_echo(t_head *head, t_cmd *copy);
 void	ft_pwd(t_head *head);
 int		ft_cd(t_head *head);
 int		ft_export(t_head *head);
@@ -40,7 +40,7 @@ void	ft_env(t_head *head);
 void	replace_value(t_head *head, char *value, char *replace);
 void	replace_var(char **arg, char *result);
 int		add_env(t_head *head, char *name, char *value);
-void	print_tab(char **arg, int i, int n, int fd[2]);
+void	print_tab(char **arg, int i, int n);
 void	cd_no_arg(t_head *head, char **str);
 
 //built_exit

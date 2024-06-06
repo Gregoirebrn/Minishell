@@ -6,12 +6,11 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/05 16:08:09 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:39:13 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
-
 
 void	there_cmd(char **arg, char *str, char **env)
 {
@@ -33,10 +32,10 @@ void	there_cmd(char **arg, char *str, char **env)
 	exit (2);
 }
 
-int		no_fork_cmd(t_head *head, t_cmd *copy, char *str)
+int	no_fork_cmd(t_head *head, t_cmd *copy, char *str)
 {
 	if (ft_strcmp(str, "cd") == 0)
-		return (ft_cd(head));
+		return (ft_cd(head), 0);
 	if ((ft_strcmp(str, "export") == 0) && copy->arg[1] != NULL)
 		return (ft_export(head), 0);
 	if (ft_strcmp(str, "unset") == 0)
@@ -46,7 +45,7 @@ int		no_fork_cmd(t_head *head, t_cmd *copy, char *str)
 	return (3);
 }
 
-int		exec_shell(t_head *head, t_cmd *copy)
+int	exec_shell(t_head *head, t_cmd *copy)
 {
 	char	**env;
 	char	**tab;
@@ -69,7 +68,7 @@ int		exec_shell(t_head *head, t_cmd *copy)
 	return (0);
 }
 
-int		find_cmd(t_head *head, t_cmd *copy, int **pipes, int x)
+int	find_cmd(t_head *head, t_cmd *copy, int **pipes, int x)
 {
 	int		pid;
 	int		fd[2];
@@ -84,7 +83,7 @@ int		find_cmd(t_head *head, t_cmd *copy, int **pipes, int x)
 		redir_with_fd(fd, pipes, copy, x);
 		close_pipe(head, pipes);
 		if (ft_strcmp(copy->arg[0], "echo") == 0)
-			return (ft_echo(head, copy, fd), 1);
+			return (ft_echo(head, copy), 1);
 		if (ft_strcmp(copy->arg[0], "env") == 0)
 			return (ft_env(head), 1);
 		if (ft_strcmp(copy->arg[0], "pwd") == 0)
@@ -96,7 +95,7 @@ int		find_cmd(t_head *head, t_cmd *copy, int **pipes, int x)
 	return (pid);
 }
 
-int		executable(t_head *head)
+int	executable(t_head *head)
 {
 	t_cmd	*copy;
 	int		**pipes;

@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int		strnum(char *str)
+int	strnum(char *str)
 {
 	int	i;
 
