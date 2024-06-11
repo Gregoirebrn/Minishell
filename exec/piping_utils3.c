@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:44:44 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/06 12:09:29 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:14:15 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,40 +69,61 @@ int	open_the_pipe(int **fd, t_head *head)
 	return (0);
 }
 
-//void	open_redir(t_cmd *copy, int **pipe, int fd[2], int x)
-//{
-//	if (!copy->redir)
-//		return;
-//	if (copy->redir->type)
-//}
-
-void	redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x)
+int	open_files(t_redir *redir)
 {
-//	open_redir(copy, pipe, fd, x);
-	if (copy->prev)
+	if (redir->type == 1)
+		redir->fd = open(redir->arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (redir->type == 2)
+		redir->fd = open(redir->arg, O_RDONLY);
+	if (redir->type == 3)
+		redir->fd = open(redir->arg, O_RDONLY);
+	if (redir->type == 4)
+		redir->fd = open(redir->arg, O_RDONLY);
+	if (redir->fd == -1)
+		return (perror(redir->arg), 2);
+	return (0);
+}
+
+int	open_redir(t_cmd *copy, int fd[2])
+{
+	fd[1] = 1;
+	fd[0] = 0;
+	if (!copy->redir)
+		return (0);
+	if (open_files(copy->redir))
+		return (2);
+	if (copy->redir->type == 1 || copy->redir->type == 2)
+		fd[1] = copy->redir->fd;
+	if (copy->redir->type == 3 || copy->redir->type == 4)
+		fd[0] = copy->redir->fd;
+	return (0);
+}
+
+int	redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x)
+{
+	if (open_redir(copy, fd))
+		return (2);
+	if (fd[0] != 0 && copy->prev)
 		fd[0] = pipe[x - 1][0];
-	else
-		fd[0] = 0;
-	if (copy->next)
+	if (fd[1] != 1 && copy->next)
 		fd[1] = pipe[x][1];
-	else
-		fd[1] = 1;
-	if (fd[0] != 0 && copy->prev != NULL)
+	if (fd[0] != 0 && copy->prev)
 	{
 		if (dup2(fd[0], STDIN_FILENO) < 0)
-			return (perror("dup2first"));
+			return (perror("dup2"), 2);
 	}
-	if (fd[1] != 1 && copy->next != NULL)
+	if ((fd[1] != 1 && copy->next) || copy->redir)
 	{
 		if (dup2(fd[1], STDOUT_FILENO) < 0)
-			return (perror("dup2sec"));
+			return (perror("dup2"), 2);
 	}
+	return (0);
 }
 
 void	close_pipe(t_head *head, int **fd)
 {
-	size_t		i;
-	size_t		nbr_cmd;
+	size_t	i;
+	size_t	nbr_cmd;
 
 	i = 0;
 	nbr_cmd = cmdlen(head->cmd);
