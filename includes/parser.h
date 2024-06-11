@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:44:03 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/14 16:20:21 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/03 16:00:09 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void	tab_display(char **tab);
 int 	space_redir(t_cmd *cmd);
 void	single_index_up(char *input, int *i);
 
+// parser_utils_4.c
+
+int 	check_redir_pipe(char *input);
+
 // format.c
 
 int		format(t_head *head);
@@ -76,6 +80,7 @@ int 	replace_var_line(char *str, t_head *head);
 
 // format_utils_3.c
 
+int		char_is_num(char c);
 char	*str_dup_var(char *str, int start, int end, char *value);
 int 	replace_var_redir(char *str, t_head *head);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/28 14:17:39 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/11 17:51:14 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,16 +106,17 @@ int	main(int ac, char **av, char **env)
 		add_history(input);
 		if (ft_parse(input, head) == 0)
 		{
-			while (head->cmd)
-			{
-				printf("line: %s\n", head->cmd->line);
-				tab_display(head->cmd->arg);
-				if (head->cmd->next == NULL)
-					break ;
-				head->cmd = head->cmd->next;
-			}
-			while (head->cmd->prev)
-				head->cmd = head->cmd->prev;
+			executable(head);
+//			while (head->cmd)
+//			{
+//				printf("line: %s\n", head->cmd->line);
+//				tab_display(head->cmd->arg);
+//				if (head->cmd->next == NULL)
+//					break ;
+//				head->cmd = head->cmd->next;
+//			}
+//			while (head->cmd->prev)
+//				head->cmd = head->cmd->prev;
 			ft_free_cmd(head->cmd);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:24:43 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/03 13:57:52 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:47:56 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 # include "builtins.h"
 # include "parser.h"
 
@@ -45,6 +46,7 @@ typedef struct s_env
 typedef struct s_redir
 {
 	int				type;
+	int				fd;
 	char			*arg;
 	struct s_redir	*next;
 	struct s_redir	*prev;

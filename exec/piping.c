@@ -80,7 +80,8 @@ int	find_cmd(t_head *head, t_cmd *copy, int **pipes, int x)
 		ft_exit(head);
 	if (pid == 0)
 	{
-		redir_with_fd(fd, pipes, copy, x);
+		if (redir_with_fd(fd, pipes, copy, x))
+			return (2);
 		close_pipe(head, pipes);
 		if (ft_strcmp(copy->arg[0], "echo") == 0)
 			return (ft_echo(head, copy), 1);

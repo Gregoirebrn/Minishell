@@ -73,7 +73,7 @@ void	ft_free_exec(int **fd, int *pid, t_head *head);
 //piping03
 void	free_pipe(int **fd, t_head *head);
 int		open_the_pipe(int **fd, t_head *head);
-void	redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x);
+int		redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x);
 void	close_pipe(t_head *head, int **fd);
 
 

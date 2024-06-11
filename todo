@@ -1,7 +1,0 @@
-variable non existante $PROUT
-
-exit status a verifier pour chaque builtins et exec
-
-open redir a faire, pourquoi le redir arrive null apres le parsing?
-
-Quote a l'interieur
