@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/06 12:29:02 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:17:39 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		g_error = 0;
+int g_error = 0;
 
 void	ft_free_cmd(t_cmd *cmd)
 {
@@ -100,32 +100,24 @@ int	main(int ac, char **av, char **env)
 		return (0);
 	while (42)
 	{
-
 		input = readline("> ");
 		if (input == NULL)
 			break ;
 		add_history(input);
 		if (ft_parse(input, head) == 0)
 		{
-			if (format(head) == 1)
+			while (head->cmd)
 			{
-				ft_free_cmd(head->cmd);
-				break ;
+				printf("line: %s\n", head->cmd->line);
+				tab_display(head->cmd->arg);
+				if (head->cmd->next == NULL)
+					break ;
+				head->cmd = head->cmd->next;
 			}
-			executable(head);
-//			printf("END\n");
-//			while (head->cmd)
-//			{
-//				printf("line: %s\n", head->cmd->line);
-//				tab_display(head->cmd->arg);
-//				if (head->cmd->next == NULL)
-//					break ;
-//				head->cmd = head->cmd->next;
-//			}
-//			while (head->cmd->prev)
-//				head->cmd = head->cmd->prev;
+			while (head->cmd->prev)
+				head->cmd = head->cmd->prev;
 			ft_free_cmd(head->cmd);
 		}
 	}
-	return (ft_free_all(head), g_error);
+	return (ft_free_all(head), 0);
 }

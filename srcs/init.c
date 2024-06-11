@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:14:37 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/14 13:50:52 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:13:42 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ t_env	*ft_env_new(char *env)
 	t_env	*s_new;
 	int 	equal;
 
-	equal = find_equal(env);
+	equal = find_equal(env) + 1;
 	s_new = malloc(sizeof(t_env));
 	if (s_new == NULL)
 		return (s_new);
-	s_new->name = ft_substr(env, 0, equal);
+	s_new->name = ft_substr(env, 0, equal - 1);
 	if (s_new->name == NULL)
 		return (free(s_new), NULL);
-	s_new->value = ft_substr(env, equal + 1, ft_strlen(env) - equal);
+	s_new->value = ft_substr(env, equal, ft_strlen(env) - equal);
 	if (s_new->value == NULL)
 		return (free(s_new->name), free(s_new), NULL);
 	s_new->next = NULL;
