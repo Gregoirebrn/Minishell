@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/06 14:21:01 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:48:54 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,22 @@ void	ft_pwd(t_head *head)
 	exit(0);
 }
 
-int	ft_cd_bis(t_head *head, char *str)
+int	ft_cd_bis(t_head *head, char **str)
 {
 	if (head->cmd->arg[1] && head->cmd->arg[2])
 		return (printf("Only one argument is taken by cd\n"), 2);
 	if (head->cmd->arg[1])
 	{
-		get_path(&str);
-		str = ft_strcat(str, head->cmd->arg[1]);
+		get_path(str);
+		*str = ft_strcat(*str, head->cmd->arg[1]);
 	}
 	else
 	{
-		cd_no_arg(head, &str);
-		if (!str)
+		cd_no_arg(head, str);
+		if (!*str)
 			return (printf("bash: cd: HOME not set\n"), 2);
 	}
-	if (str == NULL)
+	if (*str == NULL)
 		return (printf("Crash of Malloc\n"), 2);
 	return (0);
 }
@@ -92,14 +92,14 @@ int	ft_cd(t_head *head)
 	str = NULL;
 	if (head->cmd->next != NULL)
 		return (1);
-	if (ft_cd_bis(head, str) == 2)
+	if (ft_cd_bis(head, &str) == 2)
 		return (2);
 	get_path(&old_pwd);
 	err = chdir(str);
 	if (err != 0)
 	{
 		ptr_dir = opendir(head->cmd->arg[1]);
-		return (write(1, "bash: cd: ", 10), perror(head->cmd->arg[1]), 1);
+		return (write(2, "bash: cd: ", 10), perror(head->cmd->arg[1]), 1);
 		closedir(ptr_dir);
 	}
 	replace_value(head, str, "PWD");
