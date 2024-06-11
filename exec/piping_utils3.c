@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:44:44 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/11 18:14:15 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:29:53 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,8 @@ int	open_files(t_redir *redir)
 	if (redir->type == 1)
 		redir->fd = open(redir->arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (redir->type == 2)
-		redir->fd = open(redir->arg, O_RDONLY);
-	if (redir->type == 3)
-		redir->fd = open(redir->arg, O_RDONLY);
-	if (redir->type == 4)
+		redir->fd = open(redir->arg, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (redir->type == 3 || redir->type == 4)
 		redir->fd = open(redir->arg, O_RDONLY);
 	if (redir->fd == -1)
 		return (perror(redir->arg), 2);
@@ -107,7 +105,7 @@ int	redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x)
 		fd[0] = pipe[x - 1][0];
 	if (fd[1] != 1 && copy->next)
 		fd[1] = pipe[x][1];
-	if (fd[0] != 0 && copy->prev)
+	if ((fd[0] != 0 && copy->prev) || copy->redir)
 	{
 		if (dup2(fd[0], STDIN_FILENO) < 0)
 			return (perror("dup2"), 2);
