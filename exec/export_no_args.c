@@ -6,18 +6,11 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:09:17 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/05 15:11:32 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:32:20 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
-
-void	free_tab(char **tab, int x)
-{
-	while (--x >= 0)
-		free(tab[x]);
-	free(tab);
-}
 
 char	*join_equal(char *name, char *val)
 {
@@ -67,21 +60,12 @@ void	printf_tab(char **tab)
 	}
 }
 
-void	ex_no_args(t_head *head)
+void	swap_this_tab(char **tab)
 {
-	char	**tab;
-	t_env	*copy;
-	size_t	x;
+	int		x;
 	char	*tmp;
 
-	copy = head->env;
 	x = 0;
-	tab = env_to_tab(copy);
-	if (!tab)
-	{
-		printf("Crash of Malloc\n");
-		ft_exit(head);
-	}
 	while (tab[x] && tab[x + 1])
 	{
 		if (0 < ft_strcmp(tab[x], tab[x + 1]))
@@ -94,6 +78,23 @@ void	ex_no_args(t_head *head)
 		else
 			x++;
 	}
+}
+
+void	ex_no_args(t_head *head)
+{
+	char	**tab;
+	t_env	*copy;
+	size_t	x;
+
+	copy = head->env;
+	x = 0;
+	tab = env_to_tab(copy);
+	if (!tab)
+	{
+		printf("Crash of Malloc\n");
+		ft_exit(head);
+	}
+	swap_this_tab(tab);
 	printf_tab(tab);
 	free_tab(tab, x);
 	ft_exit(head);

@@ -18,10 +18,13 @@ SRCS		:=	main.c				\
 EXEC		:=	builtins.c			\
 				builtins_utils.c	\
 				builtins_utils2.c	\
+				builtins_utils3.c	\
+				builtins_utils4.c	\
 				piping.c			\
 				piping_utils.c		\
 				piping_utils2.c		\
 				piping_utils3.c		\
+				piping_utils4.c		\
 				export_no_args.c	\
 				built_exit.c
 

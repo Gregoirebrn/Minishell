@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:40:46 by grebrune          #+#    #+#             */
-/*   Updated: 2024/05/13 17:25:24 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:12:18 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,12 @@ void	ft_env(t_head *head)
 	t_env	*copy;
 
 	copy = head->env;
+	if (head->cmd->arg[1])
+	{
+		ft_printf_fd(2, "env: '%s': No such file "\
+						"or directory\n", head->cmd->arg[1]);
+		return ;
+	}
 	while (copy && copy->next != NULL)
 	{
 		printf("%s=%s\n", copy->name, copy->value);

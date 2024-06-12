@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/05 16:08:10 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:41:11 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "errno.h"
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <dirent.h>
 
 typedef struct s_env t_env;
 typedef struct s_redir t_redir;
@@ -43,12 +44,24 @@ int		add_env(t_head *head, char *name, char *value);
 void	print_tab(char **arg, int i, int n);
 void	cd_no_arg(t_head *head, char **str);
 
+//bultins03
+int		ft_cd_bis(t_head *head, char **str);
+void	free_tab(char **tab, size_t x);
+char	*dup_until(char *str);
+char	*dup_if(char *name, char *value);
+int		ft_strcmp_until(char *s1, const char *s2);
+
+//builtins04
+int		check_name(char *name);
+
 //built_exit
 void	ft_exit(t_head *head);
 
 //export_no_args
-void	free_tab(char **tab, int x);
+char	*join_equal(char *name, char *val);
 char	**env_to_tab(t_env *copy);
+void	printf_tab(char **tab);
+void	swap_this_tab(char **tab);
 void	ex_no_args(t_head *head);
 
 //piping00
@@ -72,7 +85,13 @@ void	ft_free_exec(int **fd, int *pid, t_head *head);
 
 //piping03
 void	free_pipe(int **fd, t_head *head);
+void	fail_malloc(int **fd, size_t i);
 int		open_the_pipe(int **fd, t_head *head);
+int		open_files(t_redir *redir);
+int		open_redir(t_cmd *copy, int fd[2]);
+
+//piping04
+int		fill_fd(size_t numb, int **fd, t_head *head);
 int		redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x);
 void	close_pipe(t_head *head, int **fd);
 

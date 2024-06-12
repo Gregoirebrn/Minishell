@@ -98,6 +98,7 @@ void	ft_buffclean(char *str);
 // Prinft
 
 int		ft_printf(const char *str, ...);
+int		ft_printf_fd(int fd, const char *str, ...);
 ssize_t	ft_putchar(int c);
 ssize_t	ft_putstr(char *str);
 void	ft_putnbr_base(ssize_t nbr, char *str, ssize_t *length);

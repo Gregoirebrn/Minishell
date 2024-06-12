@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/11 15:48:54 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:02:16 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,6 @@ void	ft_pwd(t_head *head)
 	exit(0);
 }
 
-int	ft_cd_bis(t_head *head, char **str)
-{
-	if (head->cmd->arg[1] && head->cmd->arg[2])
-		return (printf("Only one argument is taken by cd\n"), 2);
-	if (head->cmd->arg[1])
-	{
-		get_path(str);
-		*str = ft_strcat(*str, head->cmd->arg[1]);
-	}
-	else
-	{
-		cd_no_arg(head, str);
-		if (!*str)
-			return (printf("bash: cd: HOME not set\n"), 2);
-	}
-	if (*str == NULL)
-		return (printf("Crash of Malloc\n"), 2);
-	return (0);
-}
-
-#include <dirent.h>
-
 int	ft_cd(t_head *head)
 {
 	int		err;
@@ -116,9 +94,9 @@ int	ft_export(t_head *head)
 		ex_no_args(head);
 	if (head->cmd->next != NULL)
 		return (3);
-	while (c_env->next != NULL)
+	while (c_env)
 	{
-		if (0 == strcmp(c_env->name, head->cmd->arg[1]))
+		if (0 == ft_strcmp_until(c_env->name, head->cmd->arg[1]))
 		{
 			replace_var(&c_env->value, head->cmd->arg[2]);
 			return (0);
