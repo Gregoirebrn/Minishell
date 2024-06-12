@@ -53,6 +53,8 @@ int		split_ws(t_cmd *cmd);
 void	tab_display(char **tab);
 int 	space_redir(t_cmd *cmd);
 void	single_index_up(char *input, int *i);
+void	remove_backslash(char * str);
+void	format_backslash(t_head *head);
 
 // parser_utils_4.c
 

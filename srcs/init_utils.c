@@ -35,6 +35,7 @@ t_redir	*ft_redir_new(char *line, int start, int end, int type)
 		return (free(s_new), NULL);
 	s_new->next = NULL;
 	s_new->prev = NULL;
+	s_new->fd = -1;
 	return (s_new);
 }
 

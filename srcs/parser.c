@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/03 16:43:27 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/12 16:16:58 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ int	ft_parse(char *input, t_head *head)
 	// Transformer les $variables par leur valeur
 	if (format_var(head) == 1)
 		return (1);
+	// Retirer les \ si \$
+	format_backslash(head);
 	// split dans chaque bloc par rapport au whitespaces
 	if (split_ws(head->cmd) == 1)
 		return (1);

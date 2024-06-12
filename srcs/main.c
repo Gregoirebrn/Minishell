@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/28 14:17:39 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/12 15:57:22 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,15 @@ int	main(int ac, char **av, char **env)
 			{
 				printf("line: %s\n", head->cmd->line);
 				tab_display(head->cmd->arg);
+				while (head->cmd->redir)
+				{
+					printf("redir: %s | type: %d\n", head->cmd->redir->arg, head->cmd->redir->type);
+					if (head->cmd->redir->next == NULL)
+						break ;
+					head->cmd->redir = head->cmd->redir->next;
+				}
+				while (head->cmd->redir && head->cmd->redir->prev)
+					head->cmd->redir = head->cmd->redir->prev;
 				if (head->cmd->next == NULL)
 					break ;
 				head->cmd = head->cmd->next;

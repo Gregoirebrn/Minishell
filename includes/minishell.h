@@ -46,6 +46,7 @@ typedef struct s_env
 typedef struct s_redir
 {
 	int				type;
+	int 			fd;
 	char			*arg;
 	struct s_redir	*next;
 	struct s_redir	*prev;
