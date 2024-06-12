@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/12 18:02:16 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:35:47 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	ft_cd(t_head *head)
 	err = chdir(str);
 	if (err != 0)
 	{
+		g_error = 1;
 		ptr_dir = opendir(head->cmd->arg[1]);
 		return (write(2, "bash: cd: ", 10), perror(head->cmd->arg[1]), 1);
 		closedir(ptr_dir);
@@ -98,7 +99,7 @@ int	ft_export(t_head *head)
 	{
 		if (0 == ft_strcmp_until(c_env->name, head->cmd->arg[1]))
 		{
-			replace_var(&c_env->value, head->cmd->arg[2]);
+			replace_var(&c_env->value, head->cmd->arg[1]);
 			return (0);
 		}
 		c_env = c_env->next;

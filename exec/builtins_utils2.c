@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:04:21 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/12 19:10:46 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:43:41 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	add_env(t_head *head, char *name, char *value)
 
 	copy = head->env;
 	if (check_name(name))
-		return (ft_printf_fd(2, "bash: export: `%s': not a "\
+		return (g_error = 1, ft_printf_fd(2, "bash: export: `%s': not a "\
 								"valid identifier\n", name), 1);
 	new = malloc(sizeof(t_env));
 	if (!new)

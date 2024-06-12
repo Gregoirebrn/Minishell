@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/12 17:41:11 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:42:44 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int		ft_strcmp_until(char *s1, const char *s2);
 
 //builtins04
 int		check_name(char *name);
+int		ft_strlen_until(char *str);
+void	replace_var_until(char **arg, char *result);
 
 //built_exit
 void	ft_exit(t_head *head);
