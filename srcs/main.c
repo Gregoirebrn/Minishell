@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/12 15:57:22 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/13 16:40:50 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,17 @@ void	ft_free_all(t_head *head)
 char	*ft_color(int i)
 {
 	if (i % 6 == 0)
-		return (YELLOW);
+		return (ft_strdup(YELLOW));
 	if (i % 6 == 1)
-		return (GREEN);
+		return (ft_strdup(GREEN));
 	if (i % 6 == 2)
-		return (CYAN);
+		return (ft_strdup(CYAN));
 	if (i % 6 == 3)
-		return (BLUE);
+		return (ft_strdup(BLUE));
 	if (i % 6 == 4)
-		return (PURPLE);
+		return (ft_strdup(PURPLE));
 	else
-		return (RED);
+		return (ft_strdup(RED));
 }
 
 void	ft_header(void)
@@ -81,10 +81,12 @@ void	ft_header(void)
 	{
 		color = ft_color(i);
 		printf("%s%s", color, str);
+		free (str);
 		str = get_next_line(fd);
 		i++;
 	}
 	printf("\033[0m\n");
+	close (fd);
 }
 
 int	main(int ac, char **av, char **env)
