@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:44:44 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/12 14:26:25 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:56:08 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	fail_malloc(int **fd, size_t i)
 		free(fd[i]);
 }
 
-int	open_the_pipe(int **fd, t_head *head)
+int	open_the_pipe(int **pipe, t_head *head)
 {
 	size_t	numb;
 	size_t	i;
@@ -48,12 +48,12 @@ int	open_the_pipe(int **fd, t_head *head)
 	i = 0;
 	while (i < numb)
 	{
-		fd[i] = calloc(sizeof (int *), 2);
-		if (!fd[i])
-			return (fail_malloc(fd, i), 1);
+		pipe[i] = malloc(sizeof(int) * 2);
+		if (!pipe[i])
+			return (fail_malloc(pipe, i), 1);
 		i++;
 	}
-	fill_fd(numb, fd, head);
+	fill_pipe(numb, pipe, head);
 	return (0);
 }
 

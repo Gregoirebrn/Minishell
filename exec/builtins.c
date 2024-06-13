@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:30:25 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/12 19:35:47 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:37:41 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,13 @@ int	ft_export(t_head *head)
 		ex_no_args(head);
 	if (head->cmd->next != NULL)
 		return (3);
+	if (check_name(head->cmd->arg[1]))
+		return (1);
 	while (c_env)
 	{
 		if (0 == ft_strcmp_until(c_env->name, head->cmd->arg[1]))
 		{
-			replace_var(&c_env->value, head->cmd->arg[1]);
+			c_env->value = replace_var_until(c_env->value, head->cmd->arg[1]);
 			return (0);
 		}
 		c_env = c_env->next;

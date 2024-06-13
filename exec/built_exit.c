@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:28:49 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/12 15:29:40 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:04:02 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_exit(t_head *head)
 		ft_putstr_fd("exit\n", 1);
 	if (!head->cmd->arg[1])
 	{
+		free_fnp(head, head->fnp);
 		ft_free_all(head);
 		exit (0);
 	}
@@ -61,6 +62,7 @@ void	ft_exit(t_head *head)
 	ft_putstr_fd("bash: exit: ", 2);
 	ft_putstr_fd(copy->arg[1], 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
+	free_fnp(head, head->fnp);
 	ft_free_all(head);
 	exit (2);
 }

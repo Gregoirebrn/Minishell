@@ -95,11 +95,11 @@ void	ft_env(t_head *head)
 						"or directory\n", head->cmd->arg[1]);
 		return ;
 	}
-	while (copy && copy->next != NULL)
+	while (copy)
 	{
 		printf("%s=%s\n", copy->name, copy->value);
 		copy = copy->next;
 	}
-	if (copy)
-		printf("%s=%s\n", copy->name, copy->value);
+//	if (copy)
+//		printf("%s=%s\n", copy->name, copy->value);
 }

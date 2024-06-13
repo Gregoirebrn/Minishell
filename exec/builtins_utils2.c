@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:04:21 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/12 19:43:41 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:18:59 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	replace_var(char **arg, char *result)
 	int		z;
 
 	free(*(arg));
-	*arg = calloc((strlen(result) + 1), sizeof (char));
+	*arg = calloc((ft_strlen(result) + 1), sizeof (char));
 	z = 0;
 	while (result[z])
 	{
@@ -49,9 +49,8 @@ int	add_env(t_head *head, char *name, char *value)
 	t_env	*copy;
 
 	copy = head->env;
-	if (check_name(name))
-		return (g_error = 1, ft_printf_fd(2, "bash: export: `%s': not a "\
-								"valid identifier\n", name), 1);
+	if (check_equal(name))
+		return (g_error = 0, 0);
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (2);
@@ -61,6 +60,7 @@ int	add_env(t_head *head, char *name, char *value)
 	new->prev = copy;
 	new->name = dup_until(name);
 	new->value = dup_if(name, value);
+	new->next = NULL;
 	return (0);
 }
 

@@ -33,7 +33,7 @@
 # define PURPLE "\033[0;35m"
 # define CYAN "\033[0;36m"
 
-extern int g_error;
+extern int	g_error;
 
 typedef struct s_env
 {
@@ -61,10 +61,17 @@ typedef struct s_cmd
 	struct s_cmd	*prev;
 }	t_cmd;
 
+typedef struct s_fnp
+{
+	int	*pid;
+	int	**pipe;
+}	t_fnp;
+
 typedef struct s_head
 {
 	t_cmd	*cmd;
 	t_env	*env;
+	t_fnp	*fnp;
 }	t_head;
 
 // main.c

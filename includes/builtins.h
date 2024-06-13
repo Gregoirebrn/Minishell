@@ -6,23 +6,24 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/12 19:42:44 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:03:11 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_BUILTINS_H
-#define MINISHELL_BUILTINS_H
+# define MINISHELL_BUILTINS_H
 
-#include "minishell.h"
-#include "errno.h"
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <dirent.h>
+# include "minishell.h"
+# include "errno.h"
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <dirent.h>
 
-typedef struct s_env t_env;
-typedef struct s_redir t_redir;
-typedef struct s_cmd t_cmd;
-typedef struct s_head t_head;
+typedef struct s_env	t_env;
+typedef struct s_redir	t_redir;
+typedef struct s_cmd	t_cmd;
+typedef struct s_fnp	t_fnp;
+typedef struct s_head	t_head;
 
 //builtins00
 void	ft_echo(t_head *head, t_cmd *copy);
@@ -54,7 +55,8 @@ int		ft_strcmp_until(char *s1, const char *s2);
 //builtins04
 int		check_name(char *name);
 int		ft_strlen_until(char *str);
-void	replace_var_until(char **arg, char *result);
+char	*replace_var_until(char *arg, char *result);
+int	check_equal(char *str);
 
 //built_exit
 void	ft_exit(t_head *head);
@@ -67,9 +69,9 @@ void	swap_this_tab(char **tab);
 void	ex_no_args(t_head *head);
 
 //piping00
-int		find_cmd(t_head *head, t_cmd *copy, int **fd, int x);
+int		find_cmd(t_head *head, t_cmd *copy, t_fnp *fnp, int x);
 void	there_cmd(char **arg, char *str, char **env);
-int		exec_shell(t_head *head, t_cmd *copy);
+int		exec_shell(t_head *head, t_cmd *copy, t_fnp *fnp);
 int		executable(t_head *head);
 
 //piping01
@@ -93,9 +95,10 @@ int		open_files(t_redir *redir);
 int		open_redir(t_cmd *copy, int fd[2]);
 
 //piping04
-int		fill_fd(size_t numb, int **fd, t_head *head);
+int		fill_pipe(size_t numb, int **fd, t_head *head);
 int		redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x);
 void	close_pipe(t_head *head, int **fd);
+void	free_fnp(t_head *head, t_fnp *fnp);
 
 
 #endif
