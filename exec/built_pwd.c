@@ -26,6 +26,7 @@ void	ft_pwd(t_head *head)
 	}
 	printf("%s\n", str);
 	free(str);
+	free_fnp(head, head->fnp);
 	ft_free_all(head);
 	exit(0);
 }
