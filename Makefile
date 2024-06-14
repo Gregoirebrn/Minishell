@@ -15,18 +15,21 @@ SRCS		:=	main.c				\
 				format_utils_2.c	\
 				format_utils_3.c
 
-EXEC		:=	builtins.c			\
-				builtins_utils.c	\
-				builtins_utils2.c	\
-				builtins_utils3.c	\
-				builtins_utils4.c	\
-				piping.c			\
-				piping_utils.c		\
-				piping_utils2.c		\
-				piping_utils3.c		\
-				piping_utils4.c		\
-				built_ex_no_arg.c	\
-				built_exit.c
+EXEC		:=	built_cd.c				\
+				built_exit.c			\
+				built_export_utils.c	\
+				exec_main.c				\
+				exec_utils.c			\
+				built_echo.c			\
+				built_export.c			\
+				built_pwd.c				\
+				exec_redir.c			\
+				exec_wait.c				\
+				built_env.c				\
+				built_export_no_arg.c	\
+				built_unset.c			\
+				exec_redir_utils.c
+
 
 VALGRIND	:=	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full --show-leak-kinds=all\
 				--track-fds=yes --show-mismatched-frees=yes --read-var-info=yes -s --trace-children=yes

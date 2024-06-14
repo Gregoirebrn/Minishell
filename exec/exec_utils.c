@@ -12,22 +12,6 @@
 
 #include "../includes/builtins.h"
 
-char	**path_value(t_head *head)
-{
-	t_head	*copy;
-
-	copy = head;
-	while (copy->env->next != NULL)
-	{
-		if (ft_strcmp(copy->env->name, "PATH") == 0)
-		{
-			return (ft_split(copy->env->value, ':'));
-		}
-		copy->env = copy->env->next;
-	}
-	return (NULL);
-}
-
 char	*find_path(t_head *head)
 {
 	t_env	*copy;

@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_ex_no_arg.c                                  :+:      :+:    :+:   */
+/*   built_export_no_arg.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:09:17 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 15:54:55 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:39:40 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 
-char	*join_equal(char *name, char *val)
+void	ex_no_args(t_head *head)
 {
-	char	*n_w_e;
-	char	*v_w_e;
-	char	*join;
+	char	**tab;
+	t_env	*copy;
 
-	n_w_e = ft_strjoin(name, "=\"");
-	v_w_e = ft_strjoin(val, "\"");
-	join = ft_strjoin(n_w_e, v_w_e);
-	free(n_w_e);
-	free(v_w_e);
-	return (join);
+	copy = head->env;
+	tab = env_to_tab(copy);
+	if (!tab)
+	{
+		printf("Crash of Malloc\n");
+		ft_exit(head);
+	}
+	swap_this_tab(tab);
+	printf_tab(tab);
+	free_tab(tab);
+	ft_exit(head);
 }
 
 char	**env_to_tab(t_env *copy)
@@ -80,12 +84,16 @@ void	swap_this_tab(char **tab)
 	}
 }
 
-int	ft_strlen_until(char *str)
+char	*join_equal(char *name, char *val)
 {
-	int	i;
+	char	*n_w_e;
+	char	*v_w_e;
+	char	*join;
 
-	i = 0;
-	while (str && str[i] && str[i] != '=')
-		i++;
-	return (i);
+	n_w_e = ft_strjoin(name, "=\"");
+	v_w_e = ft_strjoin(val, "\"");
+	join = ft_strjoin(n_w_e, v_w_e);
+	free(n_w_e);
+	free(v_w_e);
+	return (join);
 }

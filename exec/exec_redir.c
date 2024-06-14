@@ -1,35 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   piping_utils3.c                                    :+:      :+:    :+:   */
+/*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:44:44 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/13 14:56:08 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:43:02 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
-
-void	free_pipe(int **fd, t_head *head)
-{
-	size_t	numb;
-	size_t	i;
-
-	numb = cmdlen(head->cmd);
-	i = 0;
-	while (i < numb)
-	{
-		if (fd[i][1] != 0)
-			close(fd[i][1]);
-		if (fd[i][0] != 0)
-			close(fd[i][0]);
-		free(fd[i]);
-		i++;
-	}
-	free(fd);
-}
 
 void	fail_malloc(t_head *head, int **fd, size_t i)
 {
@@ -53,7 +34,7 @@ int	open_the_pipe(int **pipe, t_head *head)
 	{
 		pipe[i] = malloc(sizeof(int) * 2);
 		if (!pipe[i])
-			return (fail_malloc(head, pipe, i),  1);
+			return (fail_malloc(head, pipe, i), 1);
 		i++;
 	}
 	fill_pipe(numb, pipe, head);

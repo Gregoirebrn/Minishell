@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:47:13 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 15:47:13 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:46:16 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,10 @@ void	ft_echo(t_head *head, t_cmd *copy)
 			printf("\n");
 		exit(0);
 	}
-	print_tab(copy->arg, i, n);
-	free_fnp(head, head->fnp);
-	ft_free_all(head);
-	exit(0);
+	print_tab(head, copy->arg, i, n);
 }
 
-void	print_tab(char **arg, int i, int n)
+void	print_tab(t_head *head, char **arg, int i, int n)
 {
 	while (arg[i])
 	{
@@ -51,4 +48,7 @@ void	print_tab(char **arg, int i, int n)
 	}
 	if (n == 0)
 		printf("\n");
+	free_fnp(head, head->fnp);
+	ft_free_all(head);
+	exit(0);
 }

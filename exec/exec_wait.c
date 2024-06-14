@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   piping_utils2.c                                    :+:      :+:    :+:   */
+/*   exec_wait.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:51:28 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/13 17:52:39 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:43:02 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	wait_for_all(pid_t *pid, int x)
 	while (i < x)
 	{
 		last = waitpid(0, &wstatus[0], 0);
-		if ( x != 1 && last == pid[x - 1])
+		if (x != 1 && last == pid[x - 1])
 			wstatus[1] = wstatus[0];
 		i++;
 	}
@@ -87,24 +87,4 @@ char	**make_arg(t_cmd *cmd)
 	}
 	arg[x] = NULL;
 	return (arg);
-}
-
-void	ft_free_exec(int **fd, pid_t *pid, t_head *head)
-{
-	int	i;
-
-	i = 0;
-	while (head->cmd->next != NULL)
-	{
-		i++;
-		head->cmd = head->cmd->next;
-	}
-	if (head->cmd != NULL)
-		i++;
-	while (--i > 0)
-	{
-		free(fd[i]);
-		i--;
-	}
-	free(pid);
 }

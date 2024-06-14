@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:51:12 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 16:11:12 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:15:18 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,6 @@ int	ft_export(t_head *head)
 	return (0);
 }
 
-void	ex_no_args(t_head *head)
-{
-	char	**tab;
-	t_env	*copy;
-
-	copy = head->env;
-	tab = env_to_tab(copy);
-	if (!tab)
-	{
-		printf("Crash of Malloc\n");
-		ft_exit(head);
-	}
-	swap_this_tab(tab);
-	printf_tab(tab);
-	free_tab(tab);
-	ft_exit(head);
-}
-
 int	check_name(char *name)
 {
 	int	i;
@@ -80,28 +62,19 @@ int	check_name(char *name)
 	return (0);
 }
 
-int	add_env(t_head *head, char *name, char *value)
+int	ft_strcmp_until(char *s1, const char *s2)
 {
-	t_env	*new;
-	t_env	*copy;
+	size_t	i;
 
-	copy = head->env;
-	if (check_equal(name))
-		return (g_error = 0, 0);
-	new = malloc(sizeof(t_env));
-	if (!new)
-		return (2);
-	while (copy->next)
-		copy = copy->next;
-	copy->next = new;
-	new->prev = copy;
-	new->name = dup_until(name);
-	if (!new->name)
-		return (2);
-	new->value = dup_if(name, value);
-	if (!new->value)
-		return (2);
-	new->next = NULL;
+	i = 0;
+	while (s1[i] != 0 || s2[i] != 0)
+	{
+		if ((s1[i] == 0 || s2[i] == 0) && (s2[i] == '=' || s1[i] == '='))
+			return (0);
+		if (s1[i] != s2[i])
+			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+		i++;
+	}
 	return (0);
 }
 
@@ -127,4 +100,29 @@ char	*replace_var_until(char *arg, char *result)
 	}
 	ret[i] = '\0';
 	return (ret);
+}
+
+int	add_env(t_head *head, char *name, char *value)
+{
+	t_env	*new;
+	t_env	*copy;
+
+	copy = head->env;
+	if (check_equal(name))
+		return (g_error = 0, 0);
+	new = malloc(sizeof(t_env));
+	if (!new)
+		return (2);
+	while (copy->next)
+		copy = copy->next;
+	copy->next = new;
+	new->prev = copy;
+	new->name = dup_until(name);
+	if (!new->name)
+		return (2);
+	new->value = dup_if(name, value);
+	if (!new->value)
+		return (2);
+	new->next = NULL;
+	return (0);
 }
