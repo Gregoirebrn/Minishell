@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_no_args.c                                   :+:      :+:    :+:   */
+/*   built_ex_no_arg.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:09:17 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/12 14:32:20 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:54:55 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**env_to_tab(t_env *copy)
 	{
 		tab[x] = join_equal(copy->name, copy->value);
 		if (!tab[x])
-			return (free_tab(tab, x), NULL);
+			return (free_tab(tab), NULL);
 		x++;
 		copy = copy->next;
 	}
@@ -80,22 +80,12 @@ void	swap_this_tab(char **tab)
 	}
 }
 
-void	ex_no_args(t_head *head)
+int	ft_strlen_until(char *str)
 {
-	char	**tab;
-	t_env	*copy;
-	size_t	x;
+	int	i;
 
-	copy = head->env;
-	x = 0;
-	tab = env_to_tab(copy);
-	if (!tab)
-	{
-		printf("Crash of Malloc\n");
-		ft_exit(head);
-	}
-	swap_this_tab(tab);
-	printf_tab(tab);
-	free_tab(tab, x);
-	ft_exit(head);
+	i = 0;
+	while (str && str[i] && str[i] != '=')
+		i++;
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/13 17:03:11 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:44:00 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,13 @@ void	ft_env(t_head *head);
 
 //bultins02
 void	replace_value(t_head *head, char *value, char *replace);
-void	replace_var(char **arg, char *result);
 int		add_env(t_head *head, char *name, char *value);
 void	print_tab(char **arg, int i, int n);
 void	cd_no_arg(t_head *head, char **str);
 
 //bultins03
 int		ft_cd_bis(t_head *head, char **str);
-void	free_tab(char **tab, size_t x);
+void	free_tab(char **tab);
 char	*dup_until(char *str);
 char	*dup_if(char *name, char *value);
 int		ft_strcmp_until(char *s1, const char *s2);
@@ -61,7 +60,7 @@ int	check_equal(char *str);
 //built_exit
 void	ft_exit(t_head *head);
 
-//export_no_args
+//built_ex_no_arg
 char	*join_equal(char *name, char *val);
 char	**env_to_tab(t_env *copy);
 void	printf_tab(char **tab);
@@ -89,7 +88,7 @@ void	ft_free_exec(int **fd, int *pid, t_head *head);
 
 //piping03
 void	free_pipe(int **fd, t_head *head);
-void	fail_malloc(int **fd, size_t i);
+void	fail_malloc(t_head *head, int **fd, size_t i);
 int		open_the_pipe(int **fd, t_head *head);
 int		open_files(t_redir *redir);
 int		open_redir(t_cmd *copy, int fd[2]);
@@ -99,6 +98,7 @@ int		fill_pipe(size_t numb, int **fd, t_head *head);
 int		redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x);
 void	close_pipe(t_head *head, int **fd);
 void	free_fnp(t_head *head, t_fnp *fnp);
+int		malloc_fnp(t_head *head);
 
 
 #endif

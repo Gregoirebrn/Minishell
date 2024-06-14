@@ -31,10 +31,13 @@ void	free_pipe(int **fd, t_head *head)
 	free(fd);
 }
 
-void	fail_malloc(int **fd, size_t i)
+void	fail_malloc(t_head *head, int **fd, size_t i)
 {
 	while (i-- > 0)
 		free(fd[i]);
+	free(head->fnp->pid);
+	free(head->fnp->pipe);
+	free(head->fnp);
 }
 
 int	open_the_pipe(int **pipe, t_head *head)
@@ -50,7 +53,7 @@ int	open_the_pipe(int **pipe, t_head *head)
 	{
 		pipe[i] = malloc(sizeof(int) * 2);
 		if (!pipe[i])
-			return (fail_malloc(pipe, i), 1);
+			return (fail_malloc(head, pipe, i),  1);
 		i++;
 	}
 	fill_pipe(numb, pipe, head);

@@ -25,7 +25,7 @@ EXEC		:=	builtins.c			\
 				piping_utils2.c		\
 				piping_utils3.c		\
 				piping_utils4.c		\
-				export_no_args.c	\
+				built_ex_no_arg.c	\
 				built_exit.c
 
 VALGRIND	:=	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full --show-leak-kinds=all\

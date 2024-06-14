@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/13 17:26:26 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:37:19 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,7 @@ int	executable(t_head *head)
 	int		x;
 
 	x = 0;
-	head->fnp = malloc(sizeof(t_fnp));
-	head->fnp->pid = malloc(sizeof(int) * cmdlen(head->cmd));
-	head->fnp->pipe = malloc(sizeof(int *) * cmdlen(head->cmd));
+	malloc_fnp(head);
 	open_the_pipe(head->fnp->pipe, head);
 	copy = head->cmd;
 	while (copy != NULL)
@@ -115,7 +113,7 @@ int	executable(t_head *head)
 	}
 	close_pipe(head, head->fnp->pipe);
 	wait_for_all(head->fnp->pid, x);
-	printf("woooooooooo\n\n");
+	printf("\nWAIT Completed FREE To Go\n");
 	free_fnp(head, head->fnp);
 	return (0);
 }

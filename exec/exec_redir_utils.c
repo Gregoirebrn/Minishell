@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 13:57:10 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/13 17:24:08 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:41:29 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	fill_pipe(size_t numb, int **fd, t_head *head)
 		if (pipe(fd[i]) == -1)
 		{
 			perror("pipe");
-			free_pipe(fd, head);
+			free_fnp(head, head->fnp);
 			ft_free_all(head);
 			exit (1);
 		}
@@ -75,7 +75,7 @@ void	free_fnp(t_head *head, t_fnp *fnp)
 
 	i = 0;
 	nbr_pipe = cmdlen(head->cmd);
-	while (i < nbr_pipe - 1)
+	while (nbr_pipe != 1 && i < nbr_pipe)
 	{
 		free(fnp->pipe[i]);
 		i++;
@@ -83,4 +83,17 @@ void	free_fnp(t_head *head, t_fnp *fnp)
 	free(head->fnp->pid);
 	free(head->fnp->pipe);
 	free(head->fnp);
+}
+
+int	malloc_fnp(t_head *head)
+{
+	head->fnp = malloc(sizeof(t_fnp));
+	if (!head->fnp)
+		return (ft_free_all(head), exit(1), 1);
+	head->fnp->pid = malloc(sizeof(int) * cmdlen(head->cmd));
+	if (head->fnp->pid)
+		return (ft_free_all(head), exit(1), 1);
+	head->fnp->pipe = malloc(sizeof(int *) * cmdlen(head->cmd));
+	if (!head->fnp->pid)
+		return (ft_free_all(head), exit(1), 1);
 }
