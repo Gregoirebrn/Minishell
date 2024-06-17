@@ -6,56 +6,56 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:10:02 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/12 16:32:45 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/17 17:19:06 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int char_is_num(char c)
+int	char_is_num(char c)
 {
 	if (c >= 48 && c <= 57)
 		return (1);
 	return (0);
 }
 
-char	*str_dup_var(char *str, int start, int end, char *value)
+char	*str_dup_var(char *str, int s, int e, char *val)
 {
-	int i;
-	int j;
-	char *dup;
+	int		i;
+	int		j;
+	char	*dup;
 
 	i = 0;
 	j = 0;
-	dup = ft_calloc(ft_strlen(str) - end + start + ft_strlen(value) + 1, sizeof(char));
+	dup = ft_calloc(ft_strlen(str) - e + s + ft_strlen(val) + 1, sizeof(char));
 	if (dup == NULL)
 		return (NULL);
-	while (i < start)
+	while (i < s)
 	{
 		dup[j] = str[i];
 		i++;
 		j++;
 	}
 	i = 0;
-	while (value[i])
+	while (val[i])
 	{
-		dup[j] = value[i];
+		dup[j] = val[i];
 		i++;
 		j++;
 	}
-	while (str[end])
+	while (str[e])
 	{
-		dup[j] = str[end];
-		end++;
+		dup[j] = str[e];
+		e++;
 		j++;
 	}
-	return (free(str), free(value), dup);
+	return (free(str), free(val), dup);
 }
 
-int replace_var_redir(char *str, t_head *head)
+int	replace_var_redir(char *str, t_head *head)
 {
 	int		start;
-	int 	end;
+	int		end;
 	char	*value;
 
 	start = find_var(str);
@@ -71,8 +71,8 @@ int replace_var_redir(char *str, t_head *head)
 
 void	remove_backslash(char *str)
 {
-	int i;
-	int offset;
+	int	i;
+	int	offset;
 
 	i = 0;
 	offset = 0;

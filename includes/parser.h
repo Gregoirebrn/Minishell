@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:44:03 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/03 16:00:09 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/17 18:43:27 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,21 @@ void	find_pipe(char *input, int *i);
 
 // parser_utils_2.c
 
-int 	char_is_ws(char c);
+int		char_is_ws(char c);
 char	**split_ws_quote(char *input);
 int		split_ws(t_cmd *cmd);
 
 // parser_utils_3.c
 
 void	tab_display(char **tab);
-int 	space_redir(t_cmd *cmd);
+int		space_redir(t_cmd *cmd);
 void	single_index_up(char *input, int *i);
-void	remove_backslash(char * str);
+void	remove_backslash(char *str);
 void	format_backslash(t_head *head);
 
 // parser_utils_4.c
 
-int 	check_redir_pipe(char *input);
+int		check_redir_pipe(char *input);
 
 // format.c
 
@@ -68,22 +68,22 @@ int		format_var(t_head *head);
 
 // format_utils.c
 
-int 	redir_type(char *line, int i);
+int		redir_type(char *line, int i);
 int		find_redir(char *line);
 int		extract_redir(t_cmd *cmd);
 
 // format_utils_2.c
 
-int 	find_var(char* str);
-int 	str_cmp_var(char *str, int i, char *value);
-char 	*var_value(char *str, int i, t_env *env);
-int 	find_end_var(char *str, int i);
-int 	replace_var_line(char *str, t_head *head);
+int		find_var(char *str);
+int		str_cmp_var(char *str, int i, char *value);
+char	*var_value(char *str, int i, t_env *env);
+int		find_end_var(char *str, int i);
+int		replace_var_line(char *str, t_head *head);
 
 // format_utils_3.c
 
 int		char_is_num(char c);
 char	*str_dup_var(char *str, int start, int end, char *value);
-int 	replace_var_redir(char *str, t_head *head);
+int		replace_var_redir(char *str, t_head *head);
 
 #endif

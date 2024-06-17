@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:45:58 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/03 16:04:34 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/17 17:13:04 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	valid_char(char c)
 	return (0);
 }
 
-int check_before(char *input, int checked, int pos)
+int	check_before(char *input, int checked, int pos)
 {
-	int i;
+	int	i;
 
 	i = checked;
 	while (i < pos)
@@ -35,9 +35,9 @@ int check_before(char *input, int checked, int pos)
 	return (1);
 }
 
-int check_after(char *input, int pos)
+int	check_after(char *input, int pos)
 {
-	int i;
+	int	i;
 
 	i = pos + 1;
 	while (input && input[i])
@@ -51,11 +51,12 @@ int check_after(char *input, int pos)
 	return (1);
 }
 
-int check_redir_pipe(char *input)
+int	check_redir_pipe(char *input)
 {
-	int 	i;
-	int 	checked;
+	int		i;
+	int		checked;
 	char	find;
+
 	i = 0;
 	checked = 0;
 	while (input && input[i])

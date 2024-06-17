@@ -6,13 +6,13 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:00:16 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/13 17:52:13 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/17 17:08:12 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int redir_type(char *line, int i)
+int	redir_type(char *line, int i)
 {
 	if (line[i] == '>')
 	{
@@ -32,9 +32,9 @@ int redir_type(char *line, int i)
 		return (0);
 }
 
-int find_redir(char *line)
+int	find_redir(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i])
@@ -46,7 +46,7 @@ int find_redir(char *line)
 	return (0);
 }
 
-int find_arg(char *line, int start)
+int	find_arg(char *line, int start)
 {
 	while (line[start] && char_is_ws(line[start]) == 1)
 		index_up(line, &start);
@@ -55,7 +55,7 @@ int find_arg(char *line, int start)
 	return (start - 1);
 }
 
-char *dup_without_redir(char *line, int end)
+char	*dup_without_redir(char *line, int end)
 {
 	int		i;
 	int		j;
@@ -83,8 +83,8 @@ char *dup_without_redir(char *line, int end)
 
 int	extract_redir(t_cmd *cmd)
 {
-	int 	start;
-	int 	end;
+	int		start;
+	int		end;
 	int		type;
 	t_redir	*new;
 

@@ -6,13 +6,13 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:18:25 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/21 14:03:37 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/17 17:09:44 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int char_is_ws(char c)
+int	char_is_ws(char c)
 {
 	if ((c > 7 && c < 13) || c == ' ')
 		return (1);
@@ -22,7 +22,7 @@ int char_is_ws(char c)
 int	ft_countwords(char *input)
 {
 	int	i;
-	int wds;
+	int	wds;
 
 	wds = 0;
 	i = 0;
@@ -51,8 +51,8 @@ int	ft_wdlen(char *input, int j)
 static char	*ft_superdup(char *s, int *j)
 {
 	char	*str;
-	int	len;
-	int	i;
+	int		len;
+	int		i;
 
 	len = ft_wdlen(s, *j);
 	str = malloc(sizeof(char) * (len - *j + 1));
@@ -79,7 +79,7 @@ char	**split_ws_quote(char *input)
 	i = 0;
 	j = 0;
 	words = ft_countwords(input);
-	split = ft_calloc(words + 1, sizeof(char*));
+	split = ft_calloc(words + 1, sizeof(char *));
 	if (split == NULL)
 		return (NULL);
 	while (i < words)
@@ -97,7 +97,7 @@ char	**split_ws_quote(char *input)
 	return (split);
 }
 
-int split_ws(t_cmd *cmd)
+int	split_ws(t_cmd *cmd)
 {
 	while (cmd->next)
 	{

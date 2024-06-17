@@ -14,7 +14,7 @@
 
 int	nbr_quote(char *str)
 {
-	int 	i;
+	int		i;
 	int		nbr;
 	char	find;
 
@@ -35,11 +35,11 @@ int	nbr_quote(char *str)
 	return (nbr);
 }
 
-void trim_str_2(char *str, char *trim, int len, int nbr)
+void	trim_str_2(char *str, char *trim, int len, int nbr)
 {
-	int 	i;
-	int 	j;
-	int 	trigger;
+	int		i;
+	int		j;
+	int		trigger;
 	char	find;
 
 	i = 0;
@@ -62,10 +62,10 @@ void trim_str_2(char *str, char *trim, int len, int nbr)
 	}
 }
 
-char *trim_str(char *str)
+char	*trim_str(char *str)
 {
 	char	*trim;
-	int 	len;
+	int		len;
 	int		nbr;
 
 	nbr = nbr_quote(str);
@@ -80,9 +80,9 @@ char *trim_str(char *str)
 	return (trim);
 }
 
-int trim_tab(char **tab)
+int	trim_tab(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -95,7 +95,7 @@ int trim_tab(char **tab)
 	return (0);
 }
 
-int format(t_head *head)
+int	format(t_head *head)
 {
 	while (head->cmd)
 	{
@@ -128,7 +128,7 @@ int	format_redir(t_cmd *cmd)
 	return (0);
 }
 
-int format_var(t_head *head)
+int	format_var(t_head *head)
 {
 	while (head->cmd)
 	{

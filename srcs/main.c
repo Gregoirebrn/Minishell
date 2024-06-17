@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int g_error = 0;
+int	g_error = 0;
 
 void	ft_free_cmd(t_cmd *cmd)
 {
@@ -71,8 +71,8 @@ void	ft_header(void)
 {
 	char	*str;
 	char	*color;
-	int 	fd;
-	int 	i;
+	int		fd;
+	int		i;
 
 	fd = open("data/header.txt", O_RDONLY);
 	str = get_next_line(fd);

@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/12 16:16:58 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/17 17:23:53 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	quote_skip(char *input, int *i, char find)
 	return (0);
 }
 
-int str_empty(char *str)
+int	str_empty(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -36,9 +36,9 @@ int str_empty(char *str)
 	return (1);
 }
 
-int check_line(char *input)
+int	check_line(char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str_empty(input) == 1)
@@ -52,14 +52,9 @@ int check_line(char *input)
 			if (input[i + 1] == '|')
 				return (printf("Double pipe not handled by minishell!\n"), 1);
 		}
-		else if (input[i] == 34)
+		else if (input[i] == 34 || input[i] == 39)
 		{
-			if (quote_skip(input, &i, 34) == 1)
-				return (printf("Quote unterminated!\n"), 1);
-		}
-		else if (input[i] == 39)
-		{
-			if (quote_skip(input, &i, 39) == 1)
+			if (quote_skip(input, &i, input[i]) == 1)
 				return (printf("Quote unterminated!\n"), 1);
 		}
 		i++;
@@ -72,8 +67,8 @@ t_cmd	*split_pipe(char *input)
 	t_cmd	*cmd;
 	t_cmd	*new;
 	char	*extract;
-	int offset;
-	int i;
+	int		offset;
+	int		i;
 
 	offset = 0;
 	i = 0;

@@ -6,15 +6,15 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:55:23 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/12 15:50:33 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/17 17:16:28 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int find_var(char *str)
+int	find_var(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -27,9 +27,9 @@ int find_var(char *str)
 	return (-1);
 }
 
-int str_cmp_var(char *str, int i, char *value)
+int	str_cmp_var(char *str, int i, char *value)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (str[i] && value[j] && str[i] == value[j])
@@ -37,12 +37,13 @@ int str_cmp_var(char *str, int i, char *value)
 		i++;
 		j++;
 	}
-	if ((str[i] == 0 || str[i] == '$' || str[i] == 34 || char_is_ws(str[i])) && value[j] == 0)
+	if ((str[i] == 0 || str[i] == '$' || str[i] == 34
+			|| char_is_ws(str[i])) && value[j] == 0)
 		return (1);
 	return (0);
 }
 
-char *var_value(char *str, int i, t_env *env)
+char	*var_value(char *str, int i, t_env *env)
 {
 	char	*value;
 
@@ -72,7 +73,7 @@ char *var_value(char *str, int i, t_env *env)
 	return (value);
 }
 
-int find_end_var(char *str, int i)
+int	find_end_var(char *str, int i)
 {
 	i++;
 	while (str && str[i])
@@ -86,10 +87,10 @@ int find_end_var(char *str, int i)
 	return (i);
 }
 
-int replace_var_line(char *str, t_head *head)
+int	replace_var_line(char *str, t_head *head)
 {
 	int		start;
-	int 	end;
+	int		end;
 	char	*value;
 
 	start = find_var(str);

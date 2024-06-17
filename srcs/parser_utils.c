@@ -23,7 +23,7 @@ t_cmd	*ft_cmd_new(char *input)
 	s_new->arg = NULL;
 	s_new->redir = NULL;
 	s_new->next = NULL;
-	s_new->prev	= NULL;
+	s_new->prev = NULL;
 	return (s_new);
 }
 
