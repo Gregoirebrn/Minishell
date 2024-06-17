@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   piping.c                                           :+:      :+:    :+:   */
+/*   exec_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 14:37:19 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:59:41 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,13 @@ int	executable(t_head *head)
 	copy = head->cmd;
 	while (copy != NULL)
 	{
+//		heredoc(head);
 		find_cmd(head, copy, head->fnp, x);
 		copy = copy->next;
 		x++;
 	}
 	close_pipe(head, head->fnp->pipe);
 	wait_for_all(head->fnp->pid, x);
-	printf("\nWAIT Completed FREE To Go\n");
 	free_fnp(head, head->fnp);
 	return (0);
 }
