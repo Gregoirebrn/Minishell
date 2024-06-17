@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:55:23 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/03 14:41:27 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/12 15:50:33 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int find_var(char *str)
 	while (str[i])
 	{
 		if (str[i] == '$')
-			return (i);
+			if (i == 0 || str[i - 1] != '\\')
+				return (i);
 		single_index_up(str, &i);
 	}
 	return (-1);

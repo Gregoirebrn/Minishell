@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:00:48 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/04 17:18:17 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/13 16:53:17 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,12 @@ void trim_str_2(char *str, char *trim, int len, int nbr)
 			trigger = 1;
 			j++;
 		}
-		if (trigger == 1 && str[j] == find)
+		if (trigger == 1 && str[j++] == find)
 		{
 			trigger = 0;
 			j++;
 		}
-		trim[i] = str[j];
-		i++;
-		j++;
+		trim[i++] = str[j++];
 	}
 }
 
