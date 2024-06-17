@@ -34,17 +34,13 @@ int	fill_pipe(size_t numb, int **fd, t_head *head)
 
 void	close_pipe(t_head *head, int **pipe)
 {
-	size_t	i;
-	size_t	nbr_cmd;
+	int	i;
 
-	i = 0;
-	nbr_cmd = cmdlen(head->cmd);
-	while (i < nbr_cmd - 1)
-	{
-		close(pipe[i][0]);
-		close(pipe[i][1]);
-		i++;
-	}
+	(void)head;
+	(void)pipe;
+	i = 2;
+	while (++i < 1024)
+		close(i);
 }
 
 int	redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x)
