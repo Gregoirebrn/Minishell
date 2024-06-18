@@ -93,6 +93,7 @@ int		redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x);
 void	close_pipe(t_head *head, int **fd);
 void	free_fnp(t_head *head, t_fnp *fnp);
 int		malloc_fnp(t_head *head);
-
+//heredoc
+int	heredoc(t_head *head);
 
 #endif
