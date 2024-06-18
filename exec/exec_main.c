@@ -107,7 +107,6 @@ int	executable(t_head *head)
 	copy = head->cmd;
 	while (copy != NULL)
 	{
-//		heredoc(head);
 		find_cmd(head, copy, head->fnp, x);
 		copy = copy->next;
 		x++;
