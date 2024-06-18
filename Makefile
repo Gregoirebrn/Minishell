@@ -28,7 +28,8 @@ EXEC		:=	built_cd.c				\
 				built_env.c				\
 				built_export_no_arg.c	\
 				built_unset.c			\
-				exec_redir_utils.c
+				exec_redir_utils.c		\
+				heredoc.c
 
 
 VALGRIND	:=	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full --show-leak-kinds=all\
