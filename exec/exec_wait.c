@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:51:28 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 16:43:02 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:44:16 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,30 @@ size_t	cmdlen(t_cmd *base)
 	return (size);
 }
 
+char	**redir_arg(t_cmd *cmd, int type)
+{
+	char	**arg;
+
+	arg = malloc(sizeof (char *) * (3));
+	if (arg == NULL)
+		return (NULL);
+	if (type == 1)
+		arg[0] = ft_strdup("rm");
+	else
+		arg[0] = ft_strdup(cmd->arg[0]);
+	arg[1] = ft_strdup("tmp");
+	arg[2] = NULL;
+	return (arg);
+}
+
 char	**make_arg(t_cmd *cmd)
 {
 	char	**arg;
 	int		x;
 
 	x = 0;
+	if ((cmd->redir && cmd->redir->type == 4))
+		return (redir_arg(cmd, 0));
 	while (cmd->arg && cmd->arg[x])
 		x++;
 	arg = malloc(sizeof (char *) * (x + 1));

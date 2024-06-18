@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 16:43:02 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:08:50 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char	**make_env(t_env *env);
 void	wait_for_all(pid_t *pid, int x);
 size_t	envlen(t_env *base);
 size_t	cmdlen(t_cmd *base);
+char	**redir_arg(t_cmd *cmd, int type);
 char	**make_arg(t_cmd *cmd);
 
 //exec_redir
@@ -94,6 +95,8 @@ void	close_pipe(t_head *head, int **fd);
 void	free_fnp(t_head *head, t_fnp *fnp);
 int		malloc_fnp(t_head *head);
 //heredoc
-int	heredoc(t_head *head);
+void	clear_heredoc_exec(char **arg, char *str, char **env);
+int		clear_heredoc(t_head *head);
+int		heredoc(t_head *head);
 
 #endif
