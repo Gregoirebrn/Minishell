@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:51:12 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/19 18:25:39 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:24:35 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,31 @@
 int	ft_export(t_head *head)
 {
 	t_env	*c_env;
+	size_t	i;
 
 	c_env = head->env;
 	if (head->cmd->arg[1] == NULL)
 		return (ex_no_args(head));
 	if (head->cmd->next != NULL)
 		return (3);
-	if (check_name(head->cmd->arg[1]))
-		return (1);
-	while (c_env)
+	i = 0;
+	while (head->cmd->arg[i])
 	{
-		if (0 == ft_strcmp_until(c_env->name, head->cmd->arg[1]))
+		if (check_name(head->cmd->arg[1], c_env))
+			return (1);
+		if (export_search_env(c_env, head) == 0)
 		{
-			c_env->value = replace_var_until(c_env->value, head->cmd->arg[1]);
-			if (!c_env->value)
-				return (write(2, "Crash of Malloc\n", 16), 2);
-			return (0);
+			if (2 == new_var(head, head->cmd->arg[1], head->cmd->arg[2]))
+				return (ft_exit(head), 2);
 		}
-		c_env = c_env->next;
+		else
+			return (1);
+		i++;
 	}
-	if (2 == add_env(head, head->cmd->arg[1], head->cmd->arg[2]))
-		return (ft_exit(head), 2);
 	return (0);
 }
 
-int	check_name(char *name)
+int	check_name(char *name, t_env *c_env)
 {
 	int	i;
 
@@ -47,15 +47,15 @@ int	check_name(char *name)
 	if (ft_strcmp("", name) == 0)
 		return (write(2, "bash: export: `': not a valid identifier\n", 41), 1);
 	if (ft_strcmp("=", name) == 0)
-		return (g_error = 1, \
-				write(2, "bash: export: `=': not a valid identifier\n", 42), 1);
-	while (name && name[i] && name[i] != '=')
+		return (g_error = 1, write(2, "bash: export: `=': not a valid identifier\n", 42), 1);
+	if (ft_isdigit(name[0]))
+		return (error_handle(name), 1);
+	while (name[i] && name[i] != '=')
 	{
-		if (ft_isalpha(name[i]) == 0)
-		{
-			if (ft_isdigit(name[i]) == 0)
-				return (1);
-		}
+		if (name[i] == '+' && name[i + 1])
+			return (add_var(name, c_env), 0);
+		if (ft_isalnum(name[i]) == 0)
+			return (error_handle(name), 1);
 		i++;
 	}
 	return (0);
@@ -101,7 +101,7 @@ char	*replace_var_until(char *arg, char *result)
 	return (ret);
 }
 
-int	add_env(t_head *head, char *name, char *value)
+int	new_var(t_head *head, char *name, char *value)
 {
 	t_env	*new;
 	t_env	*copy;

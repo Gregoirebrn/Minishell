@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/19 18:55:09 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:24:35 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,14 @@ int		ft_strnum(char *str);
 void	is_num(t_head *head);
 
 int		ft_export(t_head *head);
-int		check_name(char *name);
+int		check_name(char *name, t_env *c_env);
 int		ft_strcmp_until(char *s1, const char *s2);
 char	*replace_var_until(char *arg, char *result);
-int		add_env(t_head *head, char *name, char *value);
+int		new_var(t_head *head, char *name, char *value);
+//export_add
+int		export_search_env(t_env *c_env, t_head *head);
+void	error_handle(char *str);
+void	add_var(char *str, t_env *c_env);
 //export_utils
 int		check_equal(char *str);
 char	*dup_until(char *str);
