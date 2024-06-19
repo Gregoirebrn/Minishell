@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:00:48 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/19 16:59:07 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/19 16:59:47 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,7 @@ int	trim_tab(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		printf("avant trim: %s\n", tab[i]);
 		tab[i] = trim_str(tab[i]);
-		printf("apres trim: %s\n", tab[i]);
 		if (tab[i] == NULL)
 			return (1);
 		i++;
