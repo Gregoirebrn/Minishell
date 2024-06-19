@@ -82,6 +82,7 @@ void	ft_header(void)
 		color = ft_color(i);
 		printf("%s%s", color, str);
 		free (str);
+		free (color);
 		str = get_next_line(fd);
 		i++;
 	}
