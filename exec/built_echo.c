@@ -6,13 +6,13 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:47:13 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/19 17:52:41 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:53:19 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		echo_newline(char *str)
+int	echo_newline(char *str)
 {
 	size_t	i;
 
