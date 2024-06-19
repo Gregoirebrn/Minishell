@@ -6,13 +6,13 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:09:17 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 16:39:40 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:36:56 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 
-void	ex_no_args(t_head *head)
+int	ex_no_args(t_head *head)
 {
 	char	**tab;
 	t_env	*copy;
@@ -27,7 +27,9 @@ void	ex_no_args(t_head *head)
 	swap_this_tab(tab);
 	printf_tab(tab);
 	free_tab(tab);
-	ft_exit(head);
+	free_fnp(head, head->fnp);
+	ft_free_all(head);
+	exit(0);
 }
 
 char	**env_to_tab(t_env *copy)

@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:51:12 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/19 18:02:14 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:25:39 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_export(t_head *head)
 
 	c_env = head->env;
 	if (head->cmd->arg[1] == NULL)
-		ex_no_args(head);
+		return (ex_no_args(head));
 	if (head->cmd->next != NULL)
 		return (3);
 	if (check_name(head->cmd->arg[1]))

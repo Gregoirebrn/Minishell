@@ -57,7 +57,7 @@ char	*join_equal(char *name, char *val);
 char	**env_to_tab(t_env *copy);
 void	printf_tab(char **tab);
 void	swap_this_tab(char **tab);
-void	ex_no_args(t_head *head);
+int		ex_no_args(t_head *head);
 
 void	ft_pwd(t_head *head);
 int		get_path(char **str);
