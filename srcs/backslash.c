@@ -1,73 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   format_utils_3.c                                   :+:      :+:    :+:   */
+/*   backslash.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:10:02 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/17 17:19:06 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/19 14:14:52 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	char_is_num(char c)
-{
-	if (c >= 48 && c <= 57)
-		return (1);
-	return (0);
-}
-
-char	*str_dup_var(char *str, int s, int e, char *val)
-{
-	int		i;
-	int		j;
-	char	*dup;
-
-	i = 0;
-	j = 0;
-	dup = ft_calloc(ft_strlen(str) - e + s + ft_strlen(val) + 1, sizeof(char));
-	if (dup == NULL)
-		return (NULL);
-	while (i < s)
-	{
-		dup[j] = str[i];
-		i++;
-		j++;
-	}
-	i = 0;
-	while (val[i])
-	{
-		dup[j] = val[i];
-		i++;
-		j++;
-	}
-	while (str[e])
-	{
-		dup[j] = str[e];
-		e++;
-		j++;
-	}
-	return (free(str), free(val), dup);
-}
-
-int	replace_var_redir(char *str, t_head *head)
-{
-	int		start;
-	int		end;
-	char	*value;
-
-	start = find_var(str);
-	end = find_end_var(str, start);
-	value = var_value(str, start + 1, head->env);
-	if (value == NULL)
-		return (1);
-	head->cmd->redir->arg = str_dup_var(str, start, end, value);
-	if (str == NULL)
-		return (1);
-	return (0);
-}
 
 void	remove_backslash(char *str)
 {

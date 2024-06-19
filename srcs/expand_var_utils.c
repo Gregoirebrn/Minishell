@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   format_utils_2.c                                   :+:      :+:    :+:   */
+/*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:55:23 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/17 17:16:28 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/19 14:06:05 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,7 @@ char	*var_value(char *str, int i, t_env *env)
 		{
 			value = ft_strdup(env->value);
 			if (value == NULL)
-			{
-				while (env->prev)
-					env = env->prev;
 				return (NULL);
-			}
 		}
 		if (env->next == NULL)
 			break ;

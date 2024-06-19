@@ -12,13 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int	char_is_ws(char c)
-{
-	if ((c > 7 && c < 13) || c == ' ')
-		return (1);
-	return (0);
-}
-
 int	ft_countwords(char *input)
 {
 	int	i;

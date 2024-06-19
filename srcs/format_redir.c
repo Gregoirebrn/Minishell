@@ -12,13 +12,6 @@
 
 #include "../includes/minishell.h"
 
-void	single_index_up(char *input, int *i)
-{
-	if (input[*i] == 39)
-		quote_skip(input, i, 39);
-	*i += 1;
-}
-
 void	tab_display(char **tab)
 {
 	int	i;

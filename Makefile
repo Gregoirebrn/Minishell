@@ -3,17 +3,20 @@
 ########################################################################################################################
 
 SRCS		:=	main.c				\
-				parser.c			\
+				backslash.c			\
+				expand_var.c		\
+				expand_var_utils.c	\
+				format_redir.c		\
 				init.c				\
 				init_utils.c		\
+				parser.c			\
 				parser_utils.c		\
-				parser_utils_2.c	\
-				parser_utils_3.c	\
-				parser_utils_4.c	\
-				format.c			\
-				format_utils.c		\
-				format_utils_2.c	\
-				format_utils_3.c
+				pre_check.c			\
+				redir.c				\
+				redir_utils.c		\
+				split.c				\
+				trim.c				\
+				utils.c
 
 SRCS_D		:=	srcs/
 
