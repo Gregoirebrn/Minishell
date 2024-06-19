@@ -21,7 +21,7 @@ void	ft_pwd(t_head *head)
 	err = get_path(&str);
 	if (err == 2)
 	{
-		write(1, "bash: pwd: ", 10);
+		write(2, "bash: pwd: ", 10);
 		perror(str);
 	}
 	printf("%s\n", str);
