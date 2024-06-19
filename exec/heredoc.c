@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:45:32 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/18 17:19:00 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:15:30 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,25 @@ int	clear_heredoc(t_head *head)
 	return (0);
 }
 
+int	expand_or_not(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if (i == 0 && str[i] != '"')
+			return (1);
+	}
+}
+
+char	*expandible(t_head *head, char *str)
+{
+	if (expand_or_not(str))
+		return (str);
+	return (str);
+}
+
 int	heredoc(t_head *head)
 {
 	char	*str;
@@ -79,6 +98,7 @@ int	heredoc(t_head *head)
 			free(str);
 			break;
 		}
+		str = expandible(head, str);
 		write(head->cmd->redir->fd, str, ft_strlen(str));
 		write(head->cmd->redir->fd, "\n", 1);
 		free(str);
