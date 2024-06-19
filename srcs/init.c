@@ -15,7 +15,7 @@
 t_env	*ft_env_new(char *env)
 {
 	t_env	*s_new;
-	int 	equal;
+	int		equal;
 
 	equal = find_equal(env) + 1;
 	s_new = malloc(sizeof(t_env));
@@ -28,7 +28,7 @@ t_env	*ft_env_new(char *env)
 	if (s_new->value == NULL)
 		return (free(s_new->name), free(s_new), NULL);
 	s_new->next = NULL;
-	s_new->prev	= NULL;
+	s_new->prev = NULL;
 	return (s_new);
 }
 
@@ -60,7 +60,7 @@ void	ft_envadd_back(t_env **lst, t_env *new)
 
 t_env	*env_init(char **env_tab)
 {
-	int 	i;
+	int		i;
 	t_env	*new;
 	t_env	*env;
 

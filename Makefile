@@ -2,18 +2,22 @@
 #                                                       VARIABLE                                                       #
 ########################################################################################################################
 
-SRCS		:=	main.c				\
-				parser.c			\
+SRCS		:=	backslash.c			\
+				expand_var_utils.c	\
 				init.c				\
-				init_utils.c		\
+				main.c				\
 				parser_utils.c		\
-				parser_utils_2.c	\
-				parser_utils_3.c	\
-				parser_utils_4.c	\
-				format.c			\
-				format_utils.c		\
-				format_utils_2.c	\
-				format_utils_3.c
+				redir.c				\
+				split.c				\
+				utils.c				\
+				expand_var.c		\
+				format_redir.c		\
+				init_utils.c		\
+				parser.c			\
+				pre_check.c			\
+				redir_utils.c		\
+				trim.c				\
+
 
 EXEC		:=	built_cd.c				\
 				built_exit.c			\

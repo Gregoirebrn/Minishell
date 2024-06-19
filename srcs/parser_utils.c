@@ -23,7 +23,7 @@ t_cmd	*ft_cmd_new(char *input)
 	s_new->arg = NULL;
 	s_new->redir = NULL;
 	s_new->next = NULL;
-	s_new->prev	= NULL;
+	s_new->prev = NULL;
 	return (s_new);
 }
 
@@ -51,15 +51,6 @@ void	ft_cmdadd_back(t_cmd **lst, t_cmd *new)
 			new->prev = last;
 		}
 	}
-}
-
-void	index_up(char *input, int *i)
-{
-	if (input[*i] == 34)
-		quote_skip(input, i, 34);
-	else if (input[*i] == 39)
-		quote_skip(input, i, 39);
-	*i += 1;
 }
 
 void	find_pipe(char *input, int *i)
