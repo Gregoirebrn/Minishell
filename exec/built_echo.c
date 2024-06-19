@@ -6,11 +6,28 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:47:13 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 16:46:16 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:52:41 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int		echo_newline(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if (i == 0 && str[i] == '-')
+			i++;
+		else if (i != 0 && str[i] == 'n')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
 
 void	ft_echo(t_head *head, t_cmd *copy)
 {
@@ -24,7 +41,7 @@ void	ft_echo(t_head *head, t_cmd *copy)
 		printf("\n");
 		return ;
 	}
-	if (0 == ft_strcmp(copy->arg[i], "-n"))
+	while (echo_newline(copy->arg[i]))
 	{
 		i++;
 		n++;
@@ -43,8 +60,10 @@ void	print_tab(t_head *head, char **arg, int i, int n)
 {
 	while (arg[i])
 	{
-		printf("%s", arg[i]);
+		ft_putstr(arg[i]);
 		i++;
+		if (arg[i])
+			write(1, " ", 1);
 	}
 	if (n == 0)
 		printf("\n");
