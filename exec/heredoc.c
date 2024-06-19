@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:45:32 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/19 16:03:36 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:04:53 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	heredoc(t_head *head)
 	//doesn't work do to parsing exiting before
 	if (!head->cmd->redir->arg)
 		return (ft_printf_fd(2, "bash: syntax error near unexpected token `newline'"), -1);
-	//create tmp file
 	head->cmd->redir->fd = open("tmp", O_WRONLY | O_CREAT, 0644);
 	eof = head->cmd->redir->arg;
 	while (42)
@@ -80,9 +79,7 @@ int	heredoc(t_head *head)
 		write(head->cmd->redir->fd, str, ft_strlen(str));
 		write(head->cmd->redir->fd, "\n", 1);
 		free(str);
-		//add to pipe
 	}
-//	head->cmd->redir->fd = 1;
 	return (1);
 	//verifier le EOF si il est avec ou sans ""
 	//gestion d'erreurs
