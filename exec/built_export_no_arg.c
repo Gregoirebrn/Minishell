@@ -21,7 +21,7 @@ void	ex_no_args(t_head *head)
 	tab = env_to_tab(copy);
 	if (!tab)
 	{
-		printf("Crash of Malloc\n");
+		write(2, "Crash of Malloc\n", 16);
 		ft_exit(head);
 	}
 	swap_this_tab(tab);
