@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:47:13 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/19 17:53:19 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:22:02 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ int	echo_newline(char *str)
 	return (1);
 }
 
+void	echo_pipe(void)
+{
+	char	*str;
+
+	str = get_next_line(0);
+	while (str)
+	{
+		free(str);
+		str = get_next_line(0);
+	}
+	write(1, "\n", 1);
+}
+
 void	ft_echo(t_head *head, t_cmd *copy)
 {
 	int		i;
@@ -38,8 +51,13 @@ void	ft_echo(t_head *head, t_cmd *copy)
 	n = 0;
 	if (!copy->arg[1])
 	{
-		printf("\n");
-		return ;
+		if (copy->prev)
+			echo_pipe();
+		else
+			printf("\n");
+		free_fnp(head, head->fnp);
+		ft_free_all(head);
+		exit (0);
 	}
 	while (echo_newline(copy->arg[i]))
 	{
