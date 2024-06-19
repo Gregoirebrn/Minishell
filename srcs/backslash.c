@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:10:02 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/19 14:14:52 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/19 18:08:52 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 void	remove_backslash(char *str)
 {
 	int	i;
-	int	offset;
+	int	j;
 
 	i = 0;
-	offset = 0;
-	while (str && str[i])
+	j = 0;
+	while (str && str[j])
 	{
-		if (str[i] == '\\' && str[i + 1] == '$')
-			offset++;
-		str[i] = str[i + offset];
+		if (str[j] == '\\' && (str[j + 1] == '$' || (j != 0 && str[j - 1] == '\\')))
+			j++;
+		str[i] = str[j];
 		i++;
+		j++;
 	}
+	str[i] = 0;
 }
 
 void	format_backslash(t_head *head)

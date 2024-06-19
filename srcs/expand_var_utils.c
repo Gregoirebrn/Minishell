@@ -20,8 +20,14 @@ int	find_var(char *str)
 	while (str[i])
 	{
 		if (str[i] == '$')
-			if (i == 0 || str[i - 1] != '\\')
+		{
+			if (i == 0)
 				return (i);
+			if (i > 0 && str[i - 1] != '\\')
+				return (i);
+			if (i > 1 && str[i - 1] == '\\' && str[i - 2] == '\\')
+				return (i);
+		}
 		single_index_up(str, &i);
 	}
 	return (-1);

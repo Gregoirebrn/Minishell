@@ -117,5 +117,4 @@ void		single_index_up(char *input, int *i);
 int			char_is_num(char c);
 void		index_up(char *input, int *i);
 
-
 #endif
