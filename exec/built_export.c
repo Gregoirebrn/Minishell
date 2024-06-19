@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:51:12 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 16:15:18 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:02:14 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_export(t_head *head)
 		{
 			c_env->value = replace_var_until(c_env->value, head->cmd->arg[1]);
 			if (!c_env->value)
-				return (ft_printf_fd(2, "Crash of Malloc\n"), 2);
+				return (write(2, "Crash of Malloc\n", 16), 2);
 			return (0);
 		}
 		c_env = c_env->next;
@@ -45,11 +45,10 @@ int	check_name(char *name)
 
 	i = 0;
 	if (ft_strcmp("", name) == 0)
-		return (ft_printf_fd(2, "bash: export: `': not a "\
-								"valid identifier\n"), 1);
+		return (write(2, "bash: export: `': not a valid identifier\n", 41), 1);
 	if (ft_strcmp("=", name) == 0)
-		return (g_error = 1, ft_printf_fd(2, "bash: export: `%s': not a "\
-								"valid identifier\n", name), 1);
+		return (g_error = 1, \
+				write(2, "bash: export: `=': not a valid identifier\n", 42), 1);
 	while (name && name[i] && name[i] != '=')
 	{
 		if (ft_isalpha(name[i]) == 0)
