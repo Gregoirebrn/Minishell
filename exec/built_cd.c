@@ -42,7 +42,7 @@ int	ft_cd(t_head *head)
 int	ft_cd_bis(t_head *head, char **str)
 {
 	if (head->cmd->arg[1] && head->cmd->arg[2])
-		return (ft_printf_fd(2, "Only one argument is taken by cd\n"), 2);
+		return (write(2, "Only one argument is taken by cd\n", 33), 2);
 	if (head->cmd->arg[1])
 	{
 		get_path(str);
@@ -54,10 +54,10 @@ int	ft_cd_bis(t_head *head, char **str)
 	{
 		cd_no_arg(head, str);
 		if (!*str)
-			return (ft_printf_fd(2, "bash: cd: HOME not set\n"), 2);
+			return (write(2, "bash: cd: HOME not set\n", 23), 2);
 	}
 	if (*str == NULL)
-		return (ft_printf_fd(2, "Crash of Malloc\n"), 2);
+		return (write(2, "Crash of Malloc\n", 16), 2);
 	return (0);
 }
 
