@@ -31,5 +31,7 @@ void	ft_env(t_head *head)
 	}
 	if (copy)
 		printf("%s=%s\n", copy->name, copy->value);
-	ft_exit(head);
+	free_fnp(head, head->fnp);
+	ft_free_all(head);
+	exit (0);
 }
