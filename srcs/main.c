@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/13 16:40:50 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/19 19:30:22 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	ft_header(void)
 		color = ft_color(i);
 		printf("%s%s", color, str);
 		free (str);
+		free (color);
 		str = get_next_line(fd);
 		i++;
 	}
@@ -108,25 +109,28 @@ int	main(int ac, char **av, char **env)
 		add_history(input);
 		if (ft_parse(input, head) == 0)
 		{
-			while (head->cmd)
-			{
-				printf("line: %s\n", head->cmd->line);
-				tab_display(head->cmd->arg);
-				while (head->cmd->redir)
-				{
-					printf("redir: %s | type: %d\n", head->cmd->redir->arg, head->cmd->redir->type);
-					if (head->cmd->redir->next == NULL)
-						break ;
-					head->cmd->redir = head->cmd->redir->next;
-				}
-				while (head->cmd->redir && head->cmd->redir->prev)
-					head->cmd->redir = head->cmd->redir->prev;
-				if (head->cmd->next == NULL)
-					break ;
-				head->cmd = head->cmd->next;
-			}
-			while (head->cmd->prev)
-				head->cmd = head->cmd->prev;
+			heredoc(head);
+			executable(head);
+			clear_heredoc(head);
+//			while (head->cmd)
+//			{
+//				printf("line: %s\n", head->cmd->line);
+//				tab_display(head->cmd->arg);
+//				while (head->cmd->redir)
+//				{
+//					printf("redir: %s | type: %d\n", head->cmd->redir->arg, head->cmd->redir->type);
+//					if (head->cmd->redir->next == NULL)
+//						break ;
+//					head->cmd->redir = head->cmd->redir->next;
+//				}
+//				while (head->cmd->redir && head->cmd->redir->prev)
+//					head->cmd->redir = head->cmd->redir->prev;
+//				if (head->cmd->next == NULL)
+//					break ;
+//				head->cmd = head->cmd->next;
+//			}
+//			while (head->cmd->prev)
+//				head->cmd = head->cmd->prev;
 			ft_free_cmd(head->cmd);
 		}
 	}
