@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/19 19:30:22 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:26:42 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ int	main(int ac, char **av, char **env)
 		add_history(input);
 		if (ft_parse(input, head) == 0)
 		{
-			heredoc(head);
 			executable(head);
-			clear_heredoc(head);
+			ft_free_cmd(head->cmd);
+		}
 //			while (head->cmd)
 //			{
 //				printf("line: %s\n", head->cmd->line);
@@ -131,8 +131,7 @@ int	main(int ac, char **av, char **env)
 //			}
 //			while (head->cmd->prev)
 //				head->cmd = head->cmd->prev;
-			ft_free_cmd(head->cmd);
-		}
+//		}
 	}
 	return (ft_free_all(head), 0);
 }

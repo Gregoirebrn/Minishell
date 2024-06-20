@@ -47,7 +47,7 @@ int	redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x)
 {
 	if (open_redir(copy, fd))
 		return (2);
-	if (copy->prev && !copy->redir)
+	if (copy->prev)
 		fd[0] = pipe[x - 1][0];
 	if (copy->next && !copy->redir)
 		fd[1] = pipe[x][1];
