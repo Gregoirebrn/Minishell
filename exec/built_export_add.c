@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 20:11:01 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/20 12:31:25 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:18:14 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 //addition in export
 // separate search of name in the export main function
 
-int	export_search_env(t_env *c_env, t_head *head)
+int	export_search_env(t_env *c_env, char *name)
 {
 	while (c_env)
 	{
-		if (0 == ft_strcmp_until(c_env->name, head->cmd->arg[1]))
+		if (0 == ft_strcmp_until(c_env->name, name))
 		{
-			c_env->value = replace_var_until(c_env->value, head->cmd->arg[1]);
+			c_env->value = replace_var_until(c_env->value, name);
 			if (!c_env->value)
 				return (write(2, "Crash of Malloc\n", 16), 2);
 			return (1);
@@ -57,6 +57,7 @@ char	*strcat_until(char *val, char *name)
 	while (val && val[++i])
 		new_val[i] = val[i];
 	x = ft_strlen_until(name);
+	x++;
 	while (name && name[x])
 		new_val[i++] = name[x++];
 	new_val[i] = 0;
@@ -79,4 +80,18 @@ int	add_var(t_head *head, char *name, t_env *c_env)
 	if (new_var(head, name))
 		return (write(2, "Crash of Malloc\n", 16), 2);
 	return (0);
+}
+
+int		no_plus(char *name)
+{
+	size_t	i;
+
+	i = 0;
+	while (name && name[i] && name[i] != '=')
+	{
+		if (name[i] == '+')
+			return (0);
+		i++;
+	}
+	return (1);
 }

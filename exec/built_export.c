@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:51:12 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/20 12:23:10 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:24:58 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,36 @@ int	ft_export(t_head *head)
 		return (ex_no_args(head));
 	if (head->cmd->next != NULL)
 		return (3);
-	i = 0;
+	i = 1;
 	while (head->cmd->arg[i])
 	{
-		if (check_name(head, head->cmd->arg[1], c_env))
+		if (check_name(head, head->cmd->arg[i], c_env))
 			return (1);
-		if (export_search_env(c_env, head) == 0)
+		if (no_plus(head->cmd->arg[i]))
 		{
-			if (2 == new_var(head, head->cmd->arg[1]))
-				return (write(2, "Crash of Malloc\n", 16), 2);
+			if (export_search_env(c_env, head->cmd->arg[i]) == 0)
+			{
+				if (2 == new_var(head, head->cmd->arg[i]))
+					return (write(2, "Crash of Malloc\n", 16), 2);
+			}
+			else
+				return (1);
 		}
-		else
-			return (1);
 		i++;
 	}
+	return (0);
+}
+
+int	check_name_errors(char *name)
+{
+	if (ft_strcmp("", name) == 0)
+		return (write(2, "bash: export: `': not a valid identifier\n", 41), 1);
+	if (ft_strcmp("=", name) == 0)
+		return (g_error = 1, write(2, "bash: export: `=': not a valid identifier\n", 42), 1);
+	if (ft_strcmp("+=", name) == 0)
+		return (g_error = 1, write(2, "bash: export: `+=': not a valid identifier\n", 43), 1);
+	if (ft_isdigit(name[0]))
+		return (error_handle(name), 1);
 	return (0);
 }
 
@@ -44,15 +60,11 @@ int	check_name(t_head *head, char *name, t_env *c_env)
 	int	i;
 
 	i = 0;
-	if (ft_strcmp("", name) == 0)
-		return (write(2, "bash: export: `': not a valid identifier\n", 41), 1);
-	if (ft_strcmp("=", name) == 0)
-		return (g_error = 1, write(2, "bash: export: `=': not a valid identifier\n", 42), 1);
-	if (ft_isdigit(name[0]))
-		return (error_handle(name), 1);
+	if (check_name_errors(name))
+		return (1);
 	while (name[i] && name[i] != '=')
 	{
-		if (name[i] == '+' && name[i + 1] == '=' && name[i + 2] != 0)
+		if (name[i] == '+' && name[i + 1] == '=')
 			return (add_var(head, name, c_env), 0);
 		if (ft_isalnum(name[i]) == 0)
 			return (error_handle(name), 1);
@@ -68,7 +80,9 @@ int	ft_strcmp_until(char *s1, const char *s2)
 	i = 0;
 	while (s1[i] != 0 || s2[i] != 0)
 	{
-		if ((s2[i] == '=' || s1[i] == '=') || (s1[i] == '+' && s2[i] == '='))
+		if (s1[i] == 0 && s2[i] == '+')
+			return (0);
+		if (s2[i] == '=' || s1[i] == '=')
 			return (0);
 		if (s1[i] != s2[i])
 			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
