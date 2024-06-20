@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:44:03 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/19 14:31:56 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/20 17:57:22 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@ int			spaces_to_add(char *str);
 void		ft_dupwithspace2(char *str, char *dup, int i, int j);
 char		*ft_dupwithspace(char *str);
 int			space_redir(t_cmd *cmd);
+
+// free_func.c
+
+void		ft_free_cmd(t_cmd *cmd);
+void		ft_free_all(t_head *head);
+
+// header.c
+
+char		*ft_color(int i);
+void		ft_header(void);
 
 // init.c
 
@@ -112,6 +122,7 @@ int			format(t_head *head);
 
 // utils.c
 
+int			str_is_empty(char *str);
 int			char_is_ws(char c);
 void		single_index_up(char *input, int *i);
 int			char_is_num(char c);

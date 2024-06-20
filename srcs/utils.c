@@ -12,6 +12,20 @@
 
 #include "../includes/minishell.h"
 
+int	str_is_empty(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if (str[i] != ' ' && str[i] != '	')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	char_is_ws(char c)
 {
 	if ((c > 7 && c < 13) || c == ' ')
