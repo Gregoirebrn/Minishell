@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_utils3.c                                  :+:      :+:    :+:   */
+/*   built_export_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 13:46:00 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 15:44:00 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:29:16 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*dup_until(char *str)
 	char	*ptr;
 
 	size = 0;
-	while (str && str[size] && str[size] != '=')
+	while (str && str[size] && str[size] != '=' && str[size] != '+')
 		size++;
 	ptr = malloc((size + 1) * sizeof(char));
 	if (ptr == NULL)
@@ -48,7 +48,7 @@ char	*dup_until(char *str)
 	return (ptr);
 }
 
-char	*dup_if(char *name, char *value)
+char	*dup_if(char *name)
 {
 	size_t	i;
 
@@ -56,11 +56,7 @@ char	*dup_if(char *name, char *value)
 	while (name && name[i] && name[i] != '=')
 		i++;
 	if (!(name[i] == '=' && name[i + 1] != '\0'))
-	{
-		if (!value)
-			return (ft_strdup("\0"));
-		return (ft_strdup(value));
-	}
+		return (ft_strdup("\0"));
 	return (ft_strdup(&name[i + 1]));
 }
 
