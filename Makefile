@@ -22,6 +22,7 @@ SRCS		:=	backslash.c			\
 EXEC		:=	built_cd.c				\
 				built_exit.c			\
 				built_export_utils.c	\
+				built_export_add.c		\
 				exec_main.c				\
 				exec_utils.c			\
 				built_echo.c			\
