@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:00:48 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/19 16:59:47 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/21 14:17:59 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int	format(t_head *head)
 	while (head->cmd)
 	{
 		if (trim_tab(head->cmd->arg) == 1)
+			return (1);
+		if (head->cmd->redir && trim_redir(head) == 1)
 			return (1);
 		if (head->cmd->next == NULL)
 			break ;

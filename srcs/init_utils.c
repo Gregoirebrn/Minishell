@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:59:12 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/14 15:00:25 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/21 13:58:44 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_redir	*ft_redir_new(char *line, int start, int end, int type)
 	s_new->next = NULL;
 	s_new->prev = NULL;
 	s_new->fd = -1;
+	s_new->quote = 0;
 	return (s_new);
 }
 

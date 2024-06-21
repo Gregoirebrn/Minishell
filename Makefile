@@ -17,6 +17,7 @@ SRCS		:=	backslash.c			\
 				pre_check.c			\
 				redir_utils.c		\
 				trim.c				\
+				trim_utils.c		\
 				free_func.c			\
 				header.c
 

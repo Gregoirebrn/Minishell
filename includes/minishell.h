@@ -47,6 +47,7 @@ typedef struct s_redir
 {
 	int				type;
 	int				fd;
+	int 			quote;
 	char			*arg;
 	struct s_redir	*next;
 	struct s_redir	*prev;

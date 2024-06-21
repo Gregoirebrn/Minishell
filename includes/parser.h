@@ -119,6 +119,10 @@ char		*trim_str(char *str);
 int			trim_tab(char **tab);
 int			format(t_head *head);
 
+// trim_utils.c
+
+int			trim_redir(t_head *head);
+
 // utils.c
 
 int			str_empty(char *str);
