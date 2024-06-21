@@ -110,7 +110,8 @@ int	main(int ac, char **av, char **env)
 		if (ft_parse(input, head) == 0)
 		{
 			executable(head);
-			ft_free_cmd(head->cmd);
+			if (head->cmd != NULL)
+				ft_free_cmd(head->cmd);
 		}
 //			while (head->cmd)
 //			{
