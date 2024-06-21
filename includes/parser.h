@@ -74,7 +74,6 @@ void		ft_rediradd_back(t_redir **lst, t_redir *new);
 // parser.c
 
 int			quote_skip(char *input, int *i, char find);
-int			str_empty(char *str);
 int			check_line(char *input);
 t_cmd		*split_pipe(char *input);
 int			ft_parse(char *input, t_head *head);
@@ -122,7 +121,7 @@ int			format(t_head *head);
 
 // utils.c
 
-int			str_is_empty(char *str);
+int			str_empty(char *str);
 int			char_is_ws(char c);
 void		single_index_up(char *input, int *i);
 int			char_is_num(char c);

@@ -22,20 +22,6 @@ int	quote_skip(char *input, int *i, char find)
 	return (0);
 }
 
-int	str_empty(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (char_is_ws(str[i]) == 0)
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 int	check_line(char *input)
 {
 	int	i;

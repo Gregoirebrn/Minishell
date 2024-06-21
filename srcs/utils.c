@@ -12,14 +12,14 @@
 
 #include "../includes/minishell.h"
 
-int	str_is_empty(char *str)
+int	str_empty(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (str && str[i])
+	while (str[i])
 	{
-		if (str[i] != ' ' && str[i] != '	')
+		if (char_is_ws(str[i]) == 0)
 			return (0);
 		i++;
 	}

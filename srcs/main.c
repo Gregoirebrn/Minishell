@@ -6,7 +6,7 @@
 /*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/20 18:12:50 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/21 13:18:11 by beroy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	g_error = 0;
 
 int	single_exec(t_head *head, char *input)
 {
-	if (input == NULL || str_is_empty(input) == 1)
+	if (input == NULL || str_empty(input) == 1)
 		return (0);
 	if (ft_parse(input, head) == 0)
 	{
@@ -39,9 +39,11 @@ int	main(int ac, char **av, char **env)
 	while (ac == 1)
 	{
 		input = readline("> ");
-		if (input == NULL || str_is_empty(input) == 1)
+		if (input == NULL)
 			continue ;
 		add_history(input);
+		if (str_empty(input) == 1)
+			continue ;
 		if (ft_parse(input, head) == 0)
 		{
 			heredoc(head);
