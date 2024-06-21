@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:28:49 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/21 18:54:23 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:55:20 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_exit(t_head *head)
 		write(2, "exit\n", 5);
 	if (!head->cmd->arg[1])
 	{
-
 		exit_shlvl(head, shlvl, 0);
 		return ;
 	}
