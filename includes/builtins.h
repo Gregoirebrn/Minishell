@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/20 16:17:38 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:47:33 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <dirent.h>
+# include <sys/ioctl.h>
 
 typedef struct s_env	t_env;
 typedef struct s_redir	t_redir;
@@ -31,6 +32,8 @@ int		ft_cd_bis(t_head *head, char **str);
 void	replace_value(t_head *head, char *value, char *replace);
 void	cd_no_arg(t_head *head, char **str);
 char	*ft_strcat(char *path, char *dir);
+//cd_back
+void	cd_back(t_head *head);
 
 void	ft_echo(t_head *head, t_cmd *copy);
 void	print_tab(t_head *head, char **arg, int i, int n);
@@ -42,7 +45,7 @@ int		ft_strnum(char *str);
 void	is_num(t_head *head);
 
 int		ft_export(t_head *head);
-int		check_name(t_head *head, char *name, t_env *c_env);
+int		export_bis(t_head *head, t_env *c_env, size_t i);
 int		ft_strcmp_until(char *s1, const char *s2);
 char	*replace_var_until(char *arg, char *result);
 int		new_var(t_head *head, char *name);
@@ -50,6 +53,9 @@ int		new_var(t_head *head, char *name);
 int		export_search_env(t_env *c_env, char *name);
 void	error_handle(char *str);
 int		add_var(t_head *head, char *str, t_env *c_env);
+//export_checker
+int		check_name_errors(char *name);
+int		check_name(t_head *head, char *name, t_env *c_env);
 int		no_plus(char *name);
 //export_utils
 int		check_equal(char *str);
@@ -66,6 +72,8 @@ int		ex_no_args(t_head *head);
 
 void	ft_pwd(t_head *head);
 int		get_path(char **str);
+int		check_dir(t_head *head);
+char	*value_of_name(t_env *env, char *name);
 
 void	ft_unset(t_head *head);
 void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *));
