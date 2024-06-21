@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:28:49 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/19 18:10:22 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:54:23 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,34 @@
 void	ft_exit(t_head *head)
 {
 	t_cmd	*copy;
+	int		shlvl;
 
+	shlvl = ft_atoi(value_of_name(head->env, "SHLVL"));
 	if (!head->cmd->next)
 		write(2, "exit\n", 5);
 	if (!head->cmd->arg[1])
 	{
-		free_fnp(head, head->fnp);
-		ft_free_all(head);
-		exit (0);
+
+		exit_shlvl(head, shlvl, 0);
+		return ;
 	}
 	copy = head->cmd;
 	if (ft_strnum(copy->arg[1]))
 	{
-		is_num(head);
-		exit(1);
+		if (is_num(head, shlvl))
+			return ;
+		exit_shlvl(head, shlvl, 1);
+		return ;
 	}
-	ft_printf_fd(2, "bash: exit: %s: "\
-					"numeric argument required\n", copy->arg[1]);
-	free_fnp(head, head->fnp);
-	ft_free_all(head);
-	exit (2);
+	exit_write(copy->arg[1]);
+	exit_shlvl(head, shlvl, 2);
+}
+
+void	exit_write(char *arg)
+{
+	write(2, "bash: exit: ", 12);
+	write(2, arg, ft_strlen(arg));
+	write(2, ": numeric argument required\n", 28);
 }
 
 int	ft_strnum(char *str)
@@ -51,17 +59,18 @@ int	ft_strnum(char *str)
 	return (1);
 }
 
-void	is_num(t_head *head)
+int	is_num(t_head *head, int shlvl)
 {
 	if (head->cmd->arg[2])
 	{
-		write(2, "bash: exit: numeric argument required\n", 38);
+		write(2, "bash: exit: too many arguments\n", 31);
 		g_error = 1;
-		return ;
+		return (1);
 	}
 	else
 	{
 		g_error = ft_atoi(head->cmd->arg[1]) % 256;
-		exit(g_error);
+		exit_shlvl(head, shlvl, g_error);
+		return (0);
 	}
 }
