@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:49:11 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 15:54:55 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:05:07 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ int	ft_cd_bis(t_head *head, char **str)
 		return (write(2, "Only one argument is taken by cd\n", 33), 2);
 	if (head->cmd->arg[1])
 	{
+		if (0 == ft_strcmp(head->cmd->arg[1], "../")
+			|| 0 == ft_strcmp(head->cmd->arg[1], ".."))
+			return (cd_back(head), 2);
 		get_path(str);
 		*str = ft_strcat(*str, head->cmd->arg[1]);
 		if (!*str)
