@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   backslash.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 16:10:02 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/19 18:08:52 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/20 17:33:09 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	remove_backslash(char *str)
 	j = 0;
 	while (str && str[j])
 	{
-		if (str[j] == '\\' && (str[j + 1] == '$' || (j != 0 && str[j - 1] == '\\')))
+		if (str[j] == '\\' && (str[j + 1] == '$'
+				|| (j != 0 && str[j - 1] == '\\')))
 			j++;
 		str[i] = str[j];
 		i++;
