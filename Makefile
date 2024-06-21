@@ -22,12 +22,14 @@ SRCS		:=	backslash.c			\
 EXEC		:=	built_cd.c				\
 				built_cd_back.c			\
 				built_exit.c			\
-				built_export_utils.c	\
+				built_export.c			\
 				built_export_add.c		\
+				built_export_checker.c	\
+				built_export_utils.c	\
+				built_inception.c		\
 				exec_main.c				\
 				exec_utils.c			\
 				built_echo.c			\
-				built_export.c			\
 				built_pwd.c				\
 				exec_redir.c			\
 				exec_wait.c				\
