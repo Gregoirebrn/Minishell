@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:51:28 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/18 16:44:16 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:03:17 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	wait_for_all(pid_t *pid, int x)
 		g_error = 130;
 	else
 		g_error = WEXITSTATUS(wstatus[1]);
+//	if (waitpid(pid[x], &wstatus[0], WIFSIGNALED(wstatus[0])) && WCOREDUMP(wstatus[0]))
 }
 
 size_t	envlen(t_env *base)
