@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:51:12 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/20 16:24:58 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:47:33 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,50 +25,26 @@ int	ft_export(t_head *head)
 	i = 1;
 	while (head->cmd->arg[i])
 	{
-		if (check_name(head, head->cmd->arg[i], c_env))
-			return (1);
-		if (no_plus(head->cmd->arg[i]))
-		{
-			if (export_search_env(c_env, head->cmd->arg[i]) == 0)
-			{
-				if (2 == new_var(head, head->cmd->arg[i]))
-					return (write(2, "Crash of Malloc\n", 16), 2);
-			}
-			else
-				return (1);
-		}
+		if (export_bis(head, c_env, i))
+			return (2);
 		i++;
 	}
 	return (0);
 }
 
-int	check_name_errors(char *name)
+int	export_bis(t_head *head, t_env *c_env, size_t i)
 {
-	if (ft_strcmp("", name) == 0)
-		return (write(2, "bash: export: `': not a valid identifier\n", 41), 1);
-	if (ft_strcmp("=", name) == 0)
-		return (g_error = 1, write(2, "bash: export: `=': not a valid identifier\n", 42), 1);
-	if (ft_strcmp("+=", name) == 0)
-		return (g_error = 1, write(2, "bash: export: `+=': not a valid identifier\n", 43), 1);
-	if (ft_isdigit(name[0]))
-		return (error_handle(name), 1);
-	return (0);
-}
-
-int	check_name(t_head *head, char *name, t_env *c_env)
-{
-	int	i;
-
-	i = 0;
-	if (check_name_errors(name))
+	if (check_name(head, head->cmd->arg[i], c_env))
 		return (1);
-	while (name[i] && name[i] != '=')
+	if (no_plus(head->cmd->arg[i]))
 	{
-		if (name[i] == '+' && name[i + 1] == '=')
-			return (add_var(head, name, c_env), 0);
-		if (ft_isalnum(name[i]) == 0)
-			return (error_handle(name), 1);
-		i++;
+		if (export_search_env(c_env, head->cmd->arg[i]) == 0)
+		{
+			if (2 == new_var(head, head->cmd->arg[i]))
+				return (write(2, "Crash of Malloc\n", 16), 2);
+		}
+		else
+			return (1);
 	}
 	return (0);
 }
