@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:48:06 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 15:48:06 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:25:54 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,18 @@ int	get_path(char **str)
 		size += 10;
 	}
 	return (0);
+}
+
+char	*value_of_name(t_env *env, char *name)
+{
+	t_env	*copy;
+
+	copy = env;
+	while (env)
+	{
+		if (0 == ft_strcmp(env->name, name))
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
 }
