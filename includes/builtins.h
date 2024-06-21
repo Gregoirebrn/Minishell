@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/21 16:47:33 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:54:23 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ void	print_tab(t_head *head, char **arg, int i, int n);
 void	ft_env(t_head *head);
 
 void	ft_exit(t_head *head);
+void	exit_write(char *arg);
 int		ft_strnum(char *str);
-void	is_num(t_head *head);
+int		is_num(t_head *head, int shlvl);
 
 int		ft_export(t_head *head);
 int		export_bis(t_head *head, t_env *c_env, size_t i);
@@ -69,6 +70,9 @@ char	**env_to_tab(t_env *copy);
 void	printf_tab(char **tab);
 void	swap_this_tab(char **tab);
 int		ex_no_args(t_head *head);
+//inception
+void	mini_inception(t_head *head, int value);
+void	exit_shlvl(t_head *, int shlvl, int ret);
 
 void	ft_pwd(t_head *head);
 int		get_path(char **str);
