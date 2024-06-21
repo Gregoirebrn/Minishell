@@ -14,9 +14,16 @@
 
 void	ft_unset(t_head *head)
 {
+	int		i;
+
 	if (head->cmd->next || !head->cmd->arg[1])
 		return ;
-	rem_env(&head->env, head->cmd->arg[1], &ft_strcmp);
+	i = 1;
+	while (head->cmd->arg[i])
+	{
+		rem_env(&head->env, head->cmd->arg[i], &ft_strcmp);
+		i++;
+	}
 }
 
 void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *))

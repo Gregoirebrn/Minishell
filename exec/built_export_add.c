@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 20:11:01 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/20 17:18:14 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:29:51 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,4 @@ int	add_var(t_head *head, char *name, t_env *c_env)
 	if (new_var(head, name))
 		return (write(2, "Crash of Malloc\n", 16), 2);
 	return (0);
-}
-
-int		no_plus(char *name)
-{
-	size_t	i;
-
-	i = 0;
-	while (name && name[i] && name[i] != '=')
-	{
-		if (name[i] == '+')
-			return (0);
-		i++;
-	}
-	return (1);
 }
