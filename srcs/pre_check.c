@@ -40,7 +40,11 @@ int	check_after(char *input, int pos)
 	int	i;
 
 	i = pos + 1;
-	while (input && input[i])
+	if (input == NULL)
+		return (1);
+	if (input[i] == 0)
+		return (0);
+	while (input[i])
 	{
 		if (valid_char(input[i]) == 1)
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:45:32 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/24 13:00:56 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:56:47 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	clear_heredoc(t_head *head)
 			break ;
 		copy = copy->next;
 	}
-	if (!copy)
+	if (!copy || !copy->redir->arg || !copy->redir->arg[0])
 		return (0);
 	if (unlink("tmp"))
 		return (perror("unlink"), 1);
@@ -64,14 +64,14 @@ int	heredoc(t_head *head)
 		copy = copy->next;
 	}
 	if (!(copy && copy->redir && copy->redir->type == 4))
-		return (0);
-	if (!copy->redir->arg)
+		return (1);
+	if (!copy->redir->arg || !copy->redir->arg[0])
 		return (write(2, "bash: syntax error "\
-		"near unexpected token `newline'\n", 51), -1);
+		"near unexpected token `newline'\n", 51), 0);
 	copy->redir->fd = open("tmp", O_WRONLY | O_CREAT, 0644);
 	eof = copy->redir->arg;
 	sig_main(head, 2);
 	if (here_read_print(eof, copy))
-		return (-1);
+		return (0);
 	return (1);
 }
