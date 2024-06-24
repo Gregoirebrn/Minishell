@@ -39,6 +39,7 @@ void	ft_echo(t_head *head, t_cmd *copy);
 void	print_tab(t_head *head, char **arg, int i, int n);
 
 void	ft_env(t_head *head);
+int		checker_env(char **arg);
 
 void	ft_exit(t_head *head);
 void	exit_write(char *arg);
