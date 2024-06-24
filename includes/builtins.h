@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/21 18:54:23 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:44:19 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	cd_no_arg(t_head *head, char **str);
 char	*ft_strcat(char *path, char *dir);
 //cd_back
 void	cd_back(t_head *head);
+int		cd_tild(t_head *head);
 
 void	ft_echo(t_head *head, t_cmd *copy);
 void	print_tab(t_head *head, char **arg, int i, int n);
