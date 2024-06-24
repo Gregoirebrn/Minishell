@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:53:49 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/24 13:28:41 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:14:09 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	sig(int sig)
 	if (sig == SIGINT)
 	{
 		g_error = 130;
-		write(1, "\n", 1);
+		write(2, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -27,7 +27,10 @@ void	sig(int sig)
 void	sig_child(int sig)
 {
 	if (sig == SIGINT)
+	{
 		g_error = 130;
+		write(1, "\n", 1);
+	}
 	if (sig == SIGQUIT)
 	{
 		g_error = 131;
