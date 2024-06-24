@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/24 14:07:48 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:32:55 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	no_fork_cmd(t_head *head, t_cmd *copy, char *str)
 {
 	if (ft_strcmp(str, "cd") == 0)
 		return (ft_cd(head), 0);
-	if (ft_strcmp(str, "./minishell") == 0)
-		return (mini_inception(head, +1), 0);
 	if ((ft_strcmp(str, "export") == 0) && copy->arg[1] != NULL)
 		return (ft_export(head), 0);
 	if (ft_strcmp(str, "unset") == 0)
