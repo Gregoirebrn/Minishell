@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir_utils.c                                      :+:      :+:    :+:   */
+/*   expand_var_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:55:23 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/19 14:06:05 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/24 17:10:51 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	str_cmp_var(char *str, int i, char *value)
 		j++;
 	}
 	if ((str[i] == 0 || str[i] == '$' || str[i] == 34
-			|| char_is_ws(str[i])) && value[j] == 0)
+			|| char_is_ws(str[i]) || str[i] == '=') && value[j] == 0)
 		return (1);
 	return (0);
 }
@@ -80,7 +80,8 @@ int	find_end_var(char *str, int i)
 	i++;
 	while (str && str[i])
 	{
-		if (char_is_ws(str[i]) == 1 || str[i] == '$' || str[i] == 34)
+		if (char_is_ws(str[i]) == 1 || str[i] == '$'
+			|| str[i] == 34 || str[i] == '=')
 			break ;
 		if (char_is_num(str[i]) == 1)
 			return (i + 1);
