@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:45:32 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/24 13:00:39 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:00:56 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	heredoc(t_head *head)
 		"near unexpected token `newline'\n", 51), -1);
 	copy->redir->fd = open("tmp", O_WRONLY | O_CREAT, 0644);
 	eof = copy->redir->arg;
+	sig_main(head, 2);
 	if (here_read_print(eof, copy))
 		return (-1);
 	return (1);
