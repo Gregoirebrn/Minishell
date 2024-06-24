@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:49:11 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/21 16:05:07 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:05:44 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	ft_cd(t_head *head)
 	{
 		g_error = 1;
 		ptr_dir = opendir(head->cmd->arg[1]);
-		return (write(2, "bash: cd: ", 10), perror(head->cmd->arg[1]), 1);
+		return (free(old_pwd), free(str), \
+				write(2, "bash: cd: ", 10), perror(head->cmd->arg[1]), 1);
 		closedir(ptr_dir);
 	}
 	replace_value(head, str, "PWD");
