@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/24 13:38:13 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:03:19 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,39 +103,19 @@ int	main(int ac, char **av, char **env)
 		return (0);
 	while (42)
 	{
+		sig_main(head, 0);
 		input = readline("> ");
 		if (input == NULL)
 			break ;
 		add_history(input);
 		if (ft_parse(input, head) == 0)
 		{
-			sig_main(head, 0);
 			if (heredoc(head))
 				executable(head);
 			clear_heredoc(head);
 			if (head->cmd != NULL)
 				ft_free_cmd(head->cmd);
 		}
-//			while (head->cmd)
-//			{
-//				printf("line: %s\n", head->cmd->line);
-//				tab_display(head->cmd->arg);
-//				while (head->cmd->redir)
-//				{
-//					printf("redir: %s | type: %d\n", head->cmd->redir->arg, head->cmd->redir->type);
-//					if (head->cmd->redir->next == NULL)
-//						break ;
-//					head->cmd->redir = head->cmd->redir->next;
-//				}
-//				while (head->cmd->redir && head->cmd->redir->prev)
-//					head->cmd->redir = head->cmd->redir->prev;
-//				if (head->cmd->next == NULL)
-//					break ;
-//				head->cmd = head->cmd->next;
-//			}
-//			while (head->cmd->prev)
-//				head->cmd = head->cmd->prev;
-//		}
 	}
 	return (ft_free_all(head), 0);
 }
