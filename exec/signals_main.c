@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 17:53:49 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/20 18:10:44 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:28:41 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sig_child(int sig)
 	if (sig == SIGQUIT)
 	{
 		g_error = 131;
-		write(1, "Quit (core dumped)\n", 19);
+		write(2, "Quit (core dumped)\n", 19);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 	}
@@ -43,7 +43,6 @@ void	sig_heredoc(int sig)
 	{
 		g_error = 130;
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
