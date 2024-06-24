@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:44:44 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/18 14:38:39 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:34:39 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,20 @@ int	open_files(t_redir *redir)
 
 int	open_redir(t_cmd *copy, int fd[2])
 {
+	t_redir	*parser;
+
 	fd[1] = 1;
 	fd[0] = 0;
-	if (!copy->redir)
-		return (0);
-	if (open_files(copy->redir))
-		return (2);
-	if (copy->redir->type == 1 || copy->redir->type == 2)
-		fd[1] = copy->redir->fd;
-	if (copy->redir->type == 3 || copy->redir->type == 4)
-		fd[0] = copy->redir->fd;
+	parser = copy->redir;
+	while (parser)
+	{
+		if (open_files(parser))
+			return (2);
+		if (parser->type == 1 || parser->type == 2)
+			fd[1] = parser->fd;
+		if (parser->type == 3 || parser->type == 4)
+			fd[0] = parser->fd;
+		parser = parser->next;
+	}
 	return (0);
 }
