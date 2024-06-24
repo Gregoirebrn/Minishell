@@ -79,4 +79,7 @@ typedef struct s_head
 void	ft_free_cmd(t_cmd *cmd);
 void	ft_free_all(t_head *head);
 
+//signal
+void	sig_main(t_head *head, int sig_val);
+
 #endif
