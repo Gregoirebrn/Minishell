@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:45:32 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/19 18:18:24 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:00:39 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	clear_heredoc(t_head *head)
 	return (g_error = 0, 0);
 }
 
-int	here_read_print(char *eof, t_head *head)
+int	here_read_print(char *eof, t_cmd *copy)
 {
 	char	*str;
 
@@ -44,8 +44,8 @@ int	here_read_print(char *eof, t_head *head)
 			free(str);
 			break ;
 		}
-		write(head->cmd->redir->fd, str, ft_strlen(str));
-		write(head->cmd->redir->fd, "\n", 1);
+		write(copy->redir->fd, str, ft_strlen(str));
+		write(copy->redir->fd, "\n", 1);
 		free(str);
 	}
 	return (0);
@@ -54,15 +54,23 @@ int	here_read_print(char *eof, t_head *head)
 int	heredoc(t_head *head)
 {
 	char	*eof;
+	t_cmd	*copy;
 
-	if (!(head->cmd->redir && head->cmd->redir->type == 4))
+	copy = head->cmd;
+	while (copy)
+	{
+		if (copy->redir && copy->redir->type == 4)
+			break ;
+		copy = copy->next;
+	}
+	if (!(copy && copy->redir && copy->redir->type == 4))
 		return (0);
-	if (!head->cmd->redir->arg)
+	if (!copy->redir->arg)
 		return (write(2, "bash: syntax error "\
 		"near unexpected token `newline'\n", 51), -1);
-	head->cmd->redir->fd = open("tmp", O_WRONLY | O_CREAT, 0644);
-	eof = head->cmd->redir->arg;
-	if (here_read_print(eof, head))
+	copy->redir->fd = open("tmp", O_WRONLY | O_CREAT, 0644);
+	eof = copy->redir->arg;
+	if (here_read_print(eof, copy))
 		return (-1);
 	return (1);
 }
