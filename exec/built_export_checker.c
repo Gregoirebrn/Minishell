@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:32:41 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/21 16:48:17 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:17:53 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ int	check_name_errors(char *name)
 				"`+=': not a valid identifier\n", 43), 1);
 	if (ft_isdigit(name[0]))
 		return (error_handle(name), 1);
+	if (name[0] == '=')
+	{
+		write(2, "bash: export: '", 15);
+		write(2, name, ft_strlen(name));
+		write(2, "': not a valid identifier\n", 26);
+		return (g_error = 1, 1);
+	}
 	return (0);
 }
 
