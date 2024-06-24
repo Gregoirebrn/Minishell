@@ -109,7 +109,9 @@ int	main(int ac, char **av, char **env)
 		add_history(input);
 		if (ft_parse(input, head) == 0)
 		{
+			heredoc(head);
 			executable(head);
+			clear_heredoc(head);
 			if (head->cmd != NULL)
 				ft_free_cmd(head->cmd);
 		}
