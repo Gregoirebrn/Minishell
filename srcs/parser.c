@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/19 16:27:44 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/24 15:00:45 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	check_line(char *input)
 
 	i = 0;
 	if (str_empty(input) == 1)
-		return (printf("Input string is empty!\n"), 1);
+		return (1);
 	if (check_redir_pipe(input) == 1)
-		return (printf("Invalid input!\n"), 1);
+		return (1);
 	while (input[i])
 	{
 		if (input[i] == '|')
