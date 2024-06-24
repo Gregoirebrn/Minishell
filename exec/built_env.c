@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:06:10 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/21 19:06:36 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:09:22 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 void	ft_env(t_head *head)
 {
 	t_env	*copy;
+	int		i;
 
 	copy = head->env;
-	if (head->cmd->arg[1])
+	i = checker_env(head->cmd->arg);
+	if (i != 0)
 	{
 		write(2, "env: '", 6);
-		write(2, head->cmd->arg[1], ft_strlen(head->cmd->arg[1]));
+		write(2, head->cmd->arg[i], ft_strlen(head->cmd->arg[i]));
 		write(2, "’: No such file or directory\n", 31);
 		free_fnp(head, head->fnp);
 		ft_free_all(head);
@@ -36,4 +38,18 @@ void	ft_env(t_head *head)
 	free_fnp(head, head->fnp);
 	ft_free_all(head);
 	exit (0);
+}
+
+int	checker_env(char **arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg && arg[i])
+	{
+		if (ft_strcmp(arg[i], "env"))
+			return (i);
+		i++;
+	}
+	return (0);
 }
