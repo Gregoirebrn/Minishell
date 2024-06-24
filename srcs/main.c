@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/24 15:03:19 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 19:15:33 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ int	main(int ac, char **av, char **env)
 		input = readline("> ");
 		if (input == NULL)
 			break ;
-		add_history(input);
+		if (input && input[0] != '\0')
+			add_history(input);
 		if (ft_parse(input, head) == 0)
 		{
 			if (heredoc(head))
