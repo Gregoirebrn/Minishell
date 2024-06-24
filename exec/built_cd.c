@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:49:11 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/24 12:05:44 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 18:12:56 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ int	ft_cd(t_head *head)
 int	ft_cd_bis(t_head *head, char **str)
 {
 	if (head->cmd->arg[1] && head->cmd->arg[2])
-		return (write(2, "Only one argument is taken by cd\n", 33), 2);
+		return (write(2, "bash: cd: too many arguments\n", 29), 2);
 	if (head->cmd->arg[1])
 	{
 		if (0 == ft_strcmp(head->cmd->arg[1], "../")
 			|| 0 == ft_strcmp(head->cmd->arg[1], ".."))
 			return (cd_back(head), 2);
+		if (0 == ft_strcmp(head->cmd->arg[1], "~/"))
+			return (cd_tild(head), 2);
 		get_path(str);
 		*str = ft_strcat(*str, head->cmd->arg[1]);
 		if (!*str)
