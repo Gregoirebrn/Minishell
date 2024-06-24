@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/21 17:12:37 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:07:48 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	there_cmd(char **arg, char *str, char **env)
 
 	path = ft_split(str, ':');
 	i = 0;
+	if (!(access(arg[0], F_OK)) && !(access(arg[0], X_OK)))
+		execve(arg[0], arg, env);
 	while (path[i])
 	{
 		cmd = join_with_char(path[i], arg[0], '/');
@@ -104,6 +106,7 @@ int	executable(t_head *head)
 	int		x;
 
 	x = 0;
+	sig_main(head, 1);
 	malloc_fnp(head);
 	open_the_pipe(head->fnp->pipe, head);
 	copy = head->cmd;
