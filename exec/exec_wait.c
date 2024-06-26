@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:51:28 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/21 13:03:17 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/26 19:11:13 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	wait_for_all(pid_t *pid, int x)
 	while (i < x)
 	{
 		last = waitpid(0, &wstatus[0], 0);
-		if (x != 1 && last == pid[x - 1])
+		if (last == pid[x - 1])
 			wstatus[1] = wstatus[0];
 		i++;
 	}
@@ -32,7 +32,6 @@ void	wait_for_all(pid_t *pid, int x)
 		g_error = 130;
 	else
 		g_error = WEXITSTATUS(wstatus[1]);
-//	if (waitpid(pid[x], &wstatus[0], WIFSIGNALED(wstatus[0])) && WCOREDUMP(wstatus[0]))
 }
 
 size_t	envlen(t_env *base)

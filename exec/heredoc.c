@@ -6,11 +6,40 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:45:32 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/24 14:56:47 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/26 18:59:30 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char	*replace_var_heredoc(char *str, t_head *head)
+{
+	int		start;
+	int		end;
+	char	*value;
+	char	*dup;
+
+	start = find_var(str);
+	end = find_end_var(str, start);
+	value = var_value(str, start + 1, head->env);
+	if (value == NULL)
+		return (NULL);
+	dup = str_dup_var(str, start, end, value);
+	if (dup == NULL)
+		return (NULL);
+	return (dup);
+}
+
+int	expand_heredoc(char **str, t_head *head)
+{
+	while (find_var(*str) != -1)
+	{
+		*str = replace_var_heredoc(*str, head);
+		if (*str == NULL)
+			return (1);
+	}
+	return (0);
+}
 
 int	clear_heredoc(t_head *head)
 {
@@ -27,10 +56,10 @@ int	clear_heredoc(t_head *head)
 		return (0);
 	if (unlink("tmp"))
 		return (perror("unlink"), 1);
-	return (g_error = 0, 0);
+	return (0);
 }
 
-int	here_read_print(char *eof, t_cmd *copy)
+int	here_read_print(char *eof, t_cmd *copy, t_head *head)
 {
 	char	*str;
 
@@ -44,6 +73,11 @@ int	here_read_print(char *eof, t_cmd *copy)
 			free(str);
 			break ;
 		}
+		if (head->cmd->redir->quote == 0)
+		{
+			if (expand_heredoc(&str, head) == 1)
+				return (-1);
+		}
 		write(copy->redir->fd, str, ft_strlen(str));
 		write(copy->redir->fd, "\n", 1);
 		free(str);
@@ -53,7 +87,6 @@ int	here_read_print(char *eof, t_cmd *copy)
 
 int	heredoc(t_head *head)
 {
-	char	*eof;
 	t_cmd	*copy;
 
 	copy = head->cmd;
@@ -69,9 +102,8 @@ int	heredoc(t_head *head)
 		return (write(2, "bash: syntax error "\
 		"near unexpected token `newline'\n", 51), 0);
 	copy->redir->fd = open("tmp", O_WRONLY | O_CREAT, 0644);
-	eof = copy->redir->arg;
 	sig_main(head, 2);
-	if (here_read_print(eof, copy))
+	if (here_read_print(head->cmd->redir->arg, copy, head))
 		return (0);
 	return (1);
 }

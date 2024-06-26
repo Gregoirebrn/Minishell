@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:14:37 by beroy             #+#    #+#             */
-/*   Updated: 2024/05/21 15:13:42 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/26 19:38:31 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env	*ft_env_new(char *env)
 	int		equal;
 
 	equal = find_equal(env) + 1;
-	s_new = malloc(sizeof(t_env));
+	s_new = ft_calloc(1, sizeof(t_env));
 	if (s_new == NULL)
 		return (s_new);
 	s_new->name = ft_substr(env, 0, equal - 1);
@@ -26,7 +26,7 @@ t_env	*ft_env_new(char *env)
 		return (free(s_new), NULL);
 	s_new->value = ft_substr(env, equal, ft_strlen(env) - equal);
 	if (s_new->value == NULL)
-		return (free(s_new->name), free(s_new), NULL);
+		return (ft_free(s_new->name), ft_free(s_new), NULL);
 	s_new->next = NULL;
 	s_new->prev = NULL;
 	return (s_new);
@@ -64,6 +64,8 @@ t_env	*env_init(char **env_tab)
 	t_env	*new;
 	t_env	*env;
 
+	if (env_tab && !env_tab[0])
+		return (env_if_empty());
 	i = 0;
 	env = NULL;
 	while (env_tab[i])
@@ -81,7 +83,7 @@ t_head	*head_init(char **env)
 {
 	t_head	*head;
 
-	head = calloc(1, sizeof(t_head));
+	head = ft_calloc(1, sizeof(t_head));
 	if (head == NULL)
 		return (printf("Malloc failed!\n"), NULL);
 	head->env = env_init(env);

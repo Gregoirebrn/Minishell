@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:24:43 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/11 17:47:56 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:16:08 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_redir
 {
 	int				type;
 	int				fd;
+	int				quote;
 	char			*arg;
 	struct s_redir	*next;
 	struct s_redir	*prev;
@@ -54,7 +55,7 @@ typedef struct s_redir
 
 typedef struct s_cmd
 {
-	char 			*line;
+	char			*line;
 	char			**arg;
 	t_redir			*redir;
 	struct s_cmd	*next;
@@ -73,11 +74,6 @@ typedef struct s_head
 	t_env	*env;
 	t_fnp	*fnp;
 }	t_head;
-
-// main.c
-
-void	ft_free_cmd(t_cmd *cmd);
-void	ft_free_all(t_head *head);
 
 //signal
 void	sig_main(t_head *head, int sig_val);

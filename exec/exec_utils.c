@@ -77,6 +77,7 @@ char	**make_env(t_env *env)
 		if (tab[i] == NULL)
 			return (NULL);
 		i++;
+		copy = copy->next;
 	}
 	tab[i] = NULL;
 	return (tab);

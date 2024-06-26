@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 10:40:49 by beroy             #+#    #+#             */
-/*   Updated: 2023/11/08 11:50:04 by beroy            ###   ########.fr       */
+/*   Created: 2024/06/26 17:41:19 by grebrune          #+#    #+#             */
+/*   Updated: 2024/06/26 17:44:02 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-char	*ft_strdup(const char *s)
+void	ft_free(void *ptr)
 {
-	size_t	size;
-	size_t	i;
-	char	*ptr;
-
-	size = ft_strlen((char *)s);
-	ptr = ft_calloc(size + 1, sizeof(char));
-	if (ptr == NULL)
-		return (ptr);
-	i = 0;
-	while (i < size)
-	{
-		ptr[i] = s[i];
-		i++;
-	}
-	ptr[i] = 0;
-	return (ptr);
+	if (!ptr)
+		return ;
+	free(ptr);
+	ptr = NULL;
 }

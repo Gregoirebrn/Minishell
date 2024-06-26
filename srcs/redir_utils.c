@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   format_utils.c                                     :+:      :+:    :+:   */
+/*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:00:16 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/17 17:08:12 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/26 20:22:45 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,19 @@ char	*dup_without_redir(char *line, int end)
 	start = 0;
 	while (redir_type(line, start) == 0)
 		index_up(line, &start);
-	dup = calloc(ft_strlen(line) - end + start + 1, sizeof(char));
+	dup = ft_calloc(ft_strlen(line) - end + start + 1, sizeof(char));
 	if (dup == NULL)
-		return (free(line), NULL);
+		return (ft_free(line), NULL);
 	while (line[i])
 	{
 		if (i == start)
 			i = end + 1;
 		dup[j] = line[i];
-		i++;
+		if (line[i] != 0)
+			i++;
 		j++;
 	}
-	return (free(line), dup);
+	return (ft_free(line), dup);
 }
 
 int	extract_redir(t_cmd *cmd)

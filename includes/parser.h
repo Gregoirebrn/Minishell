@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:44:03 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/19 14:31:56 by beroy            ###   ########.fr       */
+/*   Updated: 2024/06/26 20:16:08 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,16 @@ void		ft_dupwithspace2(char *str, char *dup, int i, int j);
 char		*ft_dupwithspace(char *str);
 int			space_redir(t_cmd *cmd);
 
+// free_func.c
+
+void		ft_free_cmd(t_cmd **cmd);
+void		ft_free_all(t_head *head);
+
+// header.c
+
+char		*ft_color(int i);
+void		ft_header(void);
+
 // init.c
 
 t_env		*ft_env_new(char *env);
@@ -56,15 +66,19 @@ t_head		*head_init(char **env);
 
 // init_utils.c
 
+t_env		*ft_env_new_bis(char *name, char *value);
 int			find_equal(char *str);
 t_redir		*ft_redir_new(char *line, int start, int end, int type);
 t_redir		*ft_redirlast(t_redir *lst);
 void		ft_rediradd_back(t_redir **lst, t_redir *new);
 
+// init_utils2.c
+
+t_env		*env_if_empty(void);
+
 // parser.c
 
 int			quote_skip(char *input, int *i, char find);
-int			str_empty(char *str);
 int			check_line(char *input);
 t_cmd		*split_pipe(char *input);
 int			ft_parse(char *input, t_head *head);
@@ -110,8 +124,13 @@ char		*trim_str(char *str);
 int			trim_tab(char **tab);
 int			format(t_head *head);
 
+// trim_utils.c
+
+int			trim_redir(t_head *head);
+
 // utils.c
 
+int			str_empty(char *str);
 int			char_is_ws(char c);
 void		single_index_up(char *input, int *i);
 int			char_is_num(char c);

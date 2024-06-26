@@ -48,7 +48,7 @@ static char	*ft_superdup(char *s, int *j)
 	int		i;
 
 	len = ft_wdlen(s, *j);
-	str = malloc(sizeof(char) * (len - *j + 1));
+	str = ft_calloc(len - *j + 1, sizeof(char));
 	if (str == NULL)
 		return (str);
 	i = 0;

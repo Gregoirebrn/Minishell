@@ -12,18 +12,6 @@
 
 #include "../includes/minishell.h"
 
-void	tab_display(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		printf("tab %d: %s\n", i, tab[i]);
-		i++;
-	}
-}
-
 int	spaces_to_add(char *str)
 {
 	int	i;
@@ -86,11 +74,11 @@ char	*ft_dupwithspace(char *str)
 
 	i = 0;
 	j = 0;
-	dup = calloc(ft_strlen(str) + spaces_to_add(str) + 1, sizeof(char));
+	dup = ft_calloc(ft_strlen(str) + spaces_to_add(str) + 1, sizeof(char));
 	if (dup == NULL)
 		return (NULL);
 	ft_dupwithspace2(str, dup, i, j);
-	return (free(str), dup);
+	return (ft_free(str), dup);
 }
 
 int	space_redir(t_cmd *cmd)

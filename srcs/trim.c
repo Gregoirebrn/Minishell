@@ -71,12 +71,12 @@ char	*trim_str(char *str)
 	nbr = nbr_quote(str);
 	if (nbr <= 1)
 		return (str);
-	len = (int)strlen(str);
-	trim = calloc(len - nbr + 1, sizeof(char));
+	len = (int)ft_strlen(str);
+	trim = ft_calloc(len - nbr + 1, sizeof(char));
 	if (trim == NULL)
 		return (NULL);
 	trim_str_2(str, trim, len, nbr);
-	free(str);
+	ft_free(str);
 	return (trim);
 }
 
@@ -100,6 +100,8 @@ int	format(t_head *head)
 	while (head->cmd)
 	{
 		if (trim_tab(head->cmd->arg) == 1)
+			return (1);
+		if (head->cmd->redir && trim_redir(head) == 1)
 			return (1);
 		if (head->cmd->next == NULL)
 			break ;

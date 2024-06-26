@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/24 17:32:55 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/26 19:47:26 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,23 @@ void	there_cmd(char **arg, char *str, char **env)
 	char	*cmd;
 
 	path = ft_split(str, ':');
-	i = 0;
 	if (!(access(arg[0], F_OK)) && !(access(arg[0], X_OK)))
 		execve(arg[0], arg, env);
+	i = 0;
 	while (path[i])
 	{
 		cmd = join_with_char(path[i], arg[0], '/');
 		if (!(access(cmd, F_OK)) && !(access(cmd, X_OK)))
 			execve(cmd, arg, env);
 		i++;
+		ft_free(cmd);
 	}
-	g_error = 127;
 	perror(arg[0]);
-	exit (2);
+	free_tab(env);
+	free_tab(path);
+	free_tab(arg);
+	ft_free(str);
+	exit (127);
 }
 
 int	no_fork_cmd(t_head *head, t_cmd *copy, char *str)
@@ -65,7 +69,7 @@ int	exec_shell(t_head *head, t_cmd *copy, t_fnp *fnp)
 	}
 	path = find_path(head);
 	if (!path)
-		return (free(env), free(tab), ft_free_all(head), 1);
+		return (free_tab(env), free_tab(tab), ft_free_all(head), 1);
 	ft_free_all(head);
 	there_cmd(tab, path, env);
 	return (0);

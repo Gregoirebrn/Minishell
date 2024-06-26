@@ -5,13 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 21:41:07 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/24 18:44:19 by grebrune         ###   ########.fr       */
+/*   Created: 2024/06/26 19:52:23 by grebrune          #+#    #+#             */
+/*   Updated: 2024/06/26 19:53:06 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_BUILTINS_H
-# define MINISHELL_BUILTINS_H
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
 # include "minishell.h"
 # include "errno.h"
@@ -25,7 +25,6 @@ typedef struct s_redir	t_redir;
 typedef struct s_cmd	t_cmd;
 typedef struct s_fnp	t_fnp;
 typedef struct s_head	t_head;
-
 
 int		ft_cd(t_head *head);
 int		ft_cd_bis(t_head *head, char **str);
@@ -45,7 +44,7 @@ int		checker_env(char **arg);
 void	ft_exit(t_head *head);
 void	exit_write(char *arg);
 int		ft_strnum(char *str);
-int		is_num(t_head *head, int shlvl);
+int		is_num(t_head *head);
 
 int		ft_export(t_head *head);
 int		export_bis(t_head *head, t_env *c_env, size_t i);
@@ -73,8 +72,7 @@ void	printf_tab(char **tab);
 void	swap_this_tab(char **tab);
 int		ex_no_args(t_head *head);
 //inception
-void	mini_inception(t_head *head, int value);
-void	exit_shlvl(t_head *, int shlvl, int ret);
+void	exit_free(t_head *head, int status);
 
 void	ft_pwd(t_head *head);
 int		get_path(char **str);

@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/24 19:15:33 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:12:22 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,85 +14,46 @@
 
 int	g_error = 0;
 
-void	ft_free_cmd(t_cmd *cmd)
+int	single_exec(t_head *head, char *input)
 {
-	t_redir	*tmp;
-
-	if (cmd->arg != NULL)
-		ft_splitdestroy(cmd->arg);
-	if (cmd->line)
-		free(cmd->line);
-	while (cmd->redir != NULL)
+	if (input == NULL || str_empty(input) == 1)
+		return (0);
+	if (ft_parse(input, head) == 0)
 	{
-		tmp = cmd->redir->next;
-		free(cmd->redir->arg);
-		free(cmd->redir);
-		cmd->redir = tmp;
+		heredoc(head);
+		executable(head);
+		clear_heredoc(head);
 	}
-	if (cmd != NULL)
-		free(cmd);
+	return (0);
 }
 
-void	ft_free_all(t_head *head)
+void	main_loop(t_head *head)
 {
-	t_env	*tmp;
+	char	*input;
 
-	if (head->cmd != NULL)
-		ft_free_cmd(head->cmd);
-	while (head->env != NULL)
+	while (42)
 	{
-		tmp = head->env->next;
-		free(head->env->name);
-		free(head->env->value);
-		free(head->env);
-		head->env = tmp;
+		input = readline("> ");
+		if (input == NULL)
+			break ;
+		add_history(input);
+		if (str_empty(input) == 1)
+			continue ;
+		if (ft_parse(input, head) == 0)
+		{
+			if (heredoc(head))
+				executable(head);
+			clear_heredoc(head);
+		}
+		if (head->cmd != NULL)
+			ft_free_cmd(&(head->cmd));
+		sig_main(head, 0);
 	}
-	if (head != NULL)
-		free(head);
-}
-
-char	*ft_color(int i)
-{
-	if (i % 6 == 0)
-		return (ft_strdup(YELLOW));
-	if (i % 6 == 1)
-		return (ft_strdup(GREEN));
-	if (i % 6 == 2)
-		return (ft_strdup(CYAN));
-	if (i % 6 == 3)
-		return (ft_strdup(BLUE));
-	if (i % 6 == 4)
-		return (ft_strdup(PURPLE));
-	else
-		return (ft_strdup(RED));
-}
-
-void	ft_header(void)
-{
-	char	*str;
-	char	*color;
-	int		fd;
-	int		i;
-
-	fd = open("data/header.txt", O_RDONLY);
-	str = get_next_line(fd);
-	i = 0;
-	while (str)
-	{
-		color = ft_color(i);
-		printf("%s%s", color, str);
-		free (str);
-		free (color);
-		str = get_next_line(fd);
-		i++;
-	}
-	printf("\033[0m\n");
-	close (fd);
+	write(1, "exit\n", 5);
 }
 
 int	main(int ac, char **av, char **env)
 {
-	char	*input;
 	t_head	*head;
 
 	(void)ac;
@@ -101,22 +62,10 @@ int	main(int ac, char **av, char **env)
 	head = head_init(env);
 	if (head == NULL)
 		return (0);
-	while (42)
-	{
-		sig_main(head, 0);
-		input = readline("> ");
-		if (input == NULL)
-			break ;
-		if (input && input[0] != '\0')
-			add_history(input);
-		if (ft_parse(input, head) == 0)
-		{
-			if (heredoc(head))
-				executable(head);
-			clear_heredoc(head);
-			if (head->cmd != NULL)
-				ft_free_cmd(head->cmd);
-		}
-	}
+	sig_main(head, 0);
+	if (ac == 1)
+		main_loop(head);
+	if (ac == 2)
+		single_exec(head, av[1]);
 	return (ft_free_all(head), 0);
 }

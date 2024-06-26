@@ -6,11 +6,33 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/24 15:00:45 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/06/26 18:02:23 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	cmd_is_empty(t_cmd *cmd)
+{
+	int	i;
+
+	while (cmd)
+	{
+		i = 0;
+		while (cmd->arg[i])
+		{
+			if (str_empty(cmd->arg[i]) == 0)
+				return (0);
+			i++;
+		}
+		if (cmd->next == NULL)
+			break ;
+		cmd = cmd->next;
+	}
+	while (cmd->prev)
+		cmd = cmd->prev;
+	return (1);
+}
 
 int	quote_skip(char *input, int *i, char find)
 {
@@ -20,20 +42,6 @@ int	quote_skip(char *input, int *i, char find)
 	if (input[*i] == 0)
 		return (1);
 	return (0);
-}
-
-int	str_empty(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (char_is_ws(str[i]) == 0)
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 int	check_line(char *input)
@@ -78,10 +86,10 @@ t_cmd	*split_pipe(char *input)
 		find_pipe(input, &i);
 		extract = ft_substr(input, offset, i - offset);
 		if (extract == NULL)
-			return (ft_free_cmd(cmd), NULL);
+			return (ft_free_cmd(&cmd), NULL);
 		new = ft_cmd_new(extract);
 		if (new == NULL)
-			return (ft_free_cmd(cmd), NULL);
+			return (ft_free_cmd(&cmd), NULL);
 		ft_cmdadd_back(&cmd, new);
 		if (input[i] != 0)
 			i++;
@@ -94,27 +102,21 @@ int	ft_parse(char *input, t_head *head)
 {
 	if (check_line(input) == 1)
 		return (1);
-	// split par rapport au pipe - un bloc par maillon de la liste
 	head->cmd = split_pipe(input);
 	if (head->cmd == NULL)
 		return (1);
-	// Add spaces before and after redirs
 	if (space_redir(head->cmd) == 1)
 		return (1);
-	// sortir les redirections de line et les stocker dans la struct redir
 	if (format_redir(head->cmd) == 1)
 		return (1);
-	// Transformer les $variables par leur valeur
 	if (format_var(head) == 1)
 		return (1);
-	// Retirer les \ si \$
 	format_backslash(head);
-	// split dans chaque bloc par rapport au whitespaces
 	if (split_ws(head->cmd) == 1)
 		return (1);
-	// format le contenu des blocs - redirection + variable env etc
 	if (format(head) == 1)
 		return (1);
-	// trim les quotes
+	if (cmd_is_empty(head->cmd) == 1)
+		return (1);
 	return (0);
 }

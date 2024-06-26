@@ -48,7 +48,7 @@ static char	*ft_superdup(char const *s, char c, size_t *j)
 	size_t	i;
 
 	len = ft_wdlen(s, c, *j);
-	str = malloc(sizeof(char) * (len - *j + 1));
+	str = ft_calloc(len - *j + 1, sizeof(char));
 	if (str == NULL)
 		return (str);
 	i = 0;
@@ -69,11 +69,11 @@ void	*ft_splitdestroy(char **split)
 	i = 0;
 	while (split[i] != NULL)
 	{
-		free(split[i]);
+		ft_free(split[i]);
 		i++;
 	}
 	if (split != NULL)
-		free(split);
+		ft_free(split);
 	return (NULL);
 }
 

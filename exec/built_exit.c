@@ -15,26 +15,24 @@
 void	ft_exit(t_head *head)
 {
 	t_cmd	*copy;
-	int		shlvl;
 
-	shlvl = ft_atoi(value_of_name(head->env, "SHLVL"));
 	if (!head->cmd->next)
 		write(2, "exit\n", 5);
 	if (!head->cmd->arg[1])
 	{
-		exit_shlvl(head, shlvl, 0);
+		exit_free(head, 0);
 		return ;
 	}
 	copy = head->cmd;
 	if (ft_strnum(copy->arg[1]))
 	{
-		if (is_num(head, shlvl))
+		if (is_num(head))
 			return ;
-		exit_shlvl(head, shlvl, 1);
+		exit_free(head, 1);
 		return ;
 	}
 	exit_write(copy->arg[1]);
-	exit_shlvl(head, shlvl, 2);
+	exit_free(head, 2);
 }
 
 void	exit_write(char *arg)
@@ -58,7 +56,7 @@ int	ft_strnum(char *str)
 	return (1);
 }
 
-int	is_num(t_head *head, int shlvl)
+int	is_num(t_head *head)
 {
 	if (head->cmd->arg[2])
 	{
@@ -69,7 +67,7 @@ int	is_num(t_head *head, int shlvl)
 	else
 	{
 		g_error = ft_atoi(head->cmd->arg[1]) % 256;
-		exit_shlvl(head, shlvl, g_error);
+		exit_free(head, g_error);
 		return (0);
 	}
 }

@@ -16,7 +16,7 @@ t_cmd	*ft_cmd_new(char *input)
 {
 	t_cmd	*s_new;
 
-	s_new = malloc(sizeof(t_cmd));
+	s_new = ft_calloc(1, sizeof(t_cmd));
 	if (s_new == NULL)
 		return (s_new);
 	s_new->line = input;

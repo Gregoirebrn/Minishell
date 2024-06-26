@@ -30,7 +30,7 @@ char	*str_dup_var(char *str, int s, int e, char *val)
 		dup[j++] = val[i++];
 	while (str[e])
 		dup[j++] = str[e++];
-	return (free(str), free(val), dup);
+	return (ft_free(str), ft_free(val), dup);
 }
 
 int	replace_var_redir(char *str, t_head *head)
