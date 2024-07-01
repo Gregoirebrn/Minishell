@@ -49,7 +49,7 @@ int	here_read_print(int fd, char *eof, t_cmd *copy, t_head *head)
 	{
 		str = readline(">> ");
 		if (g_error == 130 || !str)
-			return (0);
+			return (free(str), 0);
 		if (ft_strcmp(str, eof) == 0)
 		{
 			free(str);
