@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:48:06 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/28 16:58:52 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/01 17:53:49 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ char	*value_of_name(t_env *env, char *name)
 	t_env	*copy;
 
 	copy = env;
-	while (env)
+	while (copy)
 	{
-		if (0 == ft_strcmp(env->name, name))
-			return (env->value);
-		env = env->next;
+		if (0 == ft_strcmp(copy->name, name))
+			return (copy->value);
+		copy = copy->next;
 	}
 	return (NULL);
 }
