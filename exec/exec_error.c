@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:44:43 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 20:12:08 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:24:11 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	exec_error_exit(char **arg, char *str, char **env, char **path)
 {
+	write(2, "bash: ", 6);
 	perror(arg[0]);
 	free_tab(env);
 	free_tab(path);
