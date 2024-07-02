@@ -6,13 +6,13 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:51:28 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 17:39:14 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:52:08 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 
-void	wait_for_all(pid_t *pid, int x)
+int	wait_for_all(pid_t *pid, int x)
 {
 	int		i;
 	int		wstatus[2];
@@ -28,15 +28,16 @@ void	wait_for_all(pid_t *pid, int x)
 			wstatus[1] = wstatus[0];
 		i++;
 	}
-	if (WIFEXITED(wstatus[1]) == 0)
+	if (WIFSIGNALED(wstatus[1]) && WCOREDUMP(wstatus[1]))
 	{
 		write(2, "Quit (core dumped)\n", 19);
 		g_error = 131;
 	}
-	else if (wstatus[1] == 0)
-		return ;
-	else
+	else if (WIFSIGNALED(wstatus[1]))
+		return (write(2, "\n", 1), g_error = 130, 0);
+	if (WIFEXITED(wstatus[1]))
 		g_error = WEXITSTATUS(wstatus[1]);
+	return (0);
 }
 
 size_t	envlen(t_env *base)

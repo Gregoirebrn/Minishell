@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:52:23 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 14:48:46 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:51:30 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	**make_env(t_env *env);
 void	no_path_to_hapiness(t_head *head, char **env, char **tab);
 void	free_malloc_fnp(t_head *head, int to_free);
 //exec_wait
-void	wait_for_all(pid_t *pid, int x);
+int		wait_for_all(pid_t *pid, int x);
 size_t	envlen(t_env *base);
 size_t	cmdlen(t_cmd *base);
 char	**redir_arg(t_cmd *cmd, int type);
