@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:51:28 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/28 13:31:36 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:39:14 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	wait_for_all(pid_t *pid, int x)
 		i++;
 	}
 	if (WIFEXITED(wstatus[1]) == 0)
-		g_error = 130;
+	{
+		write(2, "Quit (core dumped)\n", 19);
+		g_error = 131;
+	}
 	else if (wstatus[1] == 0)
 		return ;
 	else
