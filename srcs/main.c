@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/07/01 17:56:19 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:02:02 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	ft_header();
+//	ft_header();
 	head = head_init(env);
 	if (head == NULL)
 		return (0);
@@ -75,5 +75,5 @@ int	main(int ac, char **av, char **env)
 		main_loop(head);
 	if (ac == 2)
 		single_exec(head, av[1]);
-	return (ft_free_all(head), 0);
+	return (ft_free_all(head), g_error);
 }
