@@ -108,7 +108,7 @@ char	**make_arg(t_cmd *cmd);
 //exec_redir
 void	fail_malloc(t_head *head, int **fd, size_t i);
 int		open_the_pipe(int **fd, t_head *head);
-int		open_files(t_redir *redir);
+int		open_files(t_redir *redir, int err_print);
 int		open_redir(t_cmd *copy, int fd[2]);
 
 //exec_redir_utils
