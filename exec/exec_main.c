@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/28 17:09:41 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:08:21 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	find_cmd(t_head *head, t_cmd *copy, t_fnp *fnp, int x)
 		return (0);
 	sig_main(head, 1);
 	if (redir_with_fd(fd, fnp->pipe, copy, x))
-		return (2);
+		return (close_pipe(head, fnp->pipe), exit_free(head, 1), 2);
 	close_pipe(head, fnp->pipe);
 	if (ft_strcmp(copy->arg[0], "echo") == 0)
 		return (ft_echo(head, copy), 1);
