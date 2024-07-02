@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 13:57:10 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/14 16:44:09 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:48:46 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,12 @@ int	malloc_fnp(t_head *head)
 {
 	head->fnp = malloc(sizeof(t_fnp));
 	if (!head->fnp)
-		return (ft_free_all(head), exit(1), 1);
+		return (free_malloc_fnp(head, 0), 1);
 	head->fnp->pid = malloc(sizeof(int) * cmdlen(head->cmd));
 	if (!head->fnp->pid)
-		return (ft_free_all(head), exit(1), 1);
+		return (free_malloc_fnp(head, 1), 1);
 	head->fnp->pipe = malloc(sizeof(int *) * cmdlen(head->cmd));
-	if (!head->fnp->pid)
-		return (ft_free_all(head), exit(1), 1);
+	if (!head->fnp->pipe)
+		return (free_malloc_fnp(head, 2), 1);
 	return (0);
 }
