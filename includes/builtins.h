@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:52:23 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 19:51:30 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:54:45 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *));
 //exec_error
 void	exec_error_exit(char **arg, char *str, char **env, char **path);
 //exec_main
+void	exec_shell(char **arg, char *str, char **env);
 int		find_cmd(t_head *head, t_cmd *copy, t_fnp *fnp, int x);
-void	there_cmd(char **arg, char *str, char **env);
-int		exec_shell(t_head *head, t_cmd *copy, t_fnp *fnp);
+int		exec_shell_malloc(t_head *head, t_cmd *copy, t_fnp *fnp);
 int		executable(t_head *head);
 
 //exec_utils
