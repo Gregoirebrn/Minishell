@@ -6,21 +6,19 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 17:08:21 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:32:56 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/builtins.h"
 
-void	there_cmd(char **arg, char *str, char **env)
+void	exec_shell(char **arg, char *str, char **env)
 {
 	char	**path;
 	int		i;
 	char	*cmd;
 
 	path = ft_split(str, ':');
-	if (!(access(arg[0], F_OK)) && !(access(arg[0], X_OK)))
-		execve(arg[0], arg, env);
 	i = 0;
 	while (path[i])
 	{
@@ -30,12 +28,9 @@ void	there_cmd(char **arg, char *str, char **env)
 		i++;
 		ft_free(cmd);
 	}
-	perror(arg[0]);
-	free_tab(env);
-	free_tab(path);
-	free_tab(arg);
-	ft_free(str);
-	exit (127);
+	if (!(access(arg[0], F_OK)) && !(access(arg[0], X_OK)))
+		execve(arg[0], arg, env);
+	exec_error_exit(arg, str, env, path);
 }
 
 int	no_fork_cmd(t_head *head, t_cmd *copy, char *str)
@@ -53,7 +48,7 @@ int	no_fork_cmd(t_head *head, t_cmd *copy, char *str)
 	return (3);
 }
 
-int	exec_shell(t_head *head, t_cmd *copy, t_fnp *fnp)
+int	exec_shell_malloc(t_head *head, t_cmd *copy, t_fnp *fnp)
 {
 	char	**env;
 	char	**tab;
@@ -73,7 +68,7 @@ int	exec_shell(t_head *head, t_cmd *copy, t_fnp *fnp)
 		no_path_to_hapiness(head, env, tab);
 	free_fnp(head, fnp);
 	ft_free_all(head);
-	there_cmd(tab, path, env);
+	exec_shell(tab, path, env);
 	return (0);
 }
 
@@ -102,7 +97,7 @@ int	find_cmd(t_head *head, t_cmd *copy, t_fnp *fnp, int x)
 		return (ft_export(head));
 	if (ft_strcmp(copy->arg[0], "exit") == 0)
 		return (ft_exit(head), 0);
-	return (exec_shell(head, copy, fnp));
+	return (exec_shell_malloc(head, copy, fnp));
 }
 
 int	executable(t_head *head)
