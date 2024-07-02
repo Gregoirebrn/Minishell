@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:31:24 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/26 21:44:03 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:43:43 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,14 @@ void	no_path_to_hapiness(t_head *head, char **env, char **tab)
 	free_fnp(head, head->fnp);
 	ft_free_all(head);
 	exit (127);
+}
+
+void	free_malloc_fnp(t_head *head, int to_free)
+{
+	if (to_free > 1)
+		free(head->fnp->pid);
+	if (to_free > 0)
+		free(head->fnp);
+	ft_free_all(head);
+	exit (0);
 }
