@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:44:44 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/28 14:05:23 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:36:20 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	fail_malloc(t_head *head, int **fd, size_t i)
 	free(head->fnp->pid);
 	free(head->fnp->pipe);
 	free(head->fnp);
+	ft_free_all(head);
+	exit(0);
 }
 
 int	open_the_pipe(int **pipe, t_head *head)
