@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:28:49 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/21 18:55:20 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:24:07 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_exit(t_head *head)
 		exit_free(head, g_error);
 		return ;
 	}
+
 	copy = head->cmd;
 	if (ft_strnum(copy->arg[1]))
 	{
@@ -47,6 +48,8 @@ int	ft_strnum(char *str)
 	int	i;
 
 	i = 0;
+	if (str && !str[0])
+		return (0);
 	while (str && str[i])
 	{
 		if (!(str[i] >= 48 && str[i] <= 57))
