@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:52:23 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 14:43:43 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:48:46 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ char	*value_of_name(t_env *env, char *name);
 
 void	ft_unset(t_head *head);
 void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *));
+//exec_error
+void	exec_error_exit(char **arg, char *str, char **env, char **path);
 //exec_main
 int		find_cmd(t_head *head, t_cmd *copy, t_fnp *fnp, int x);
 void	there_cmd(char **arg, char *str, char **env);
