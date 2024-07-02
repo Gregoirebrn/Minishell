@@ -32,6 +32,7 @@ EXEC		:=	built_cd.c				\
 				built_export_checker.c	\
 				built_export_utils.c	\
 				exec_main.c				\
+				exec_error.c			\
 				exec_utils.c			\
 				built_echo.c			\
 				built_pwd.c				\
