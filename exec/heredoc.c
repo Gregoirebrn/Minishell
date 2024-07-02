@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:45:32 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 15:34:40 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 21:17:45 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	heredoc(t_head *head)
 				sig_main(head, 2);
 				if (checker_heredoc(head, c_redir, c_cmd) == 0)
 					return (0);
-				sig_main(head, 1);
+				sig_main(head, 0);
 			}
 			c_redir = c_redir->next;
 		}
