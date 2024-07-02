@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:45:32 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 14:33:22 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:34:40 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,12 @@ int	here_read_print(int fd, char *eof, t_cmd *copy, t_head *head)
 	{
 		str = readline(">> ");
 		if (!str)
-			return (free(str), 0);
+			return (free(str), close(fd), 0);
 		//replace strstr by ft_strstr
 		if (strstr("^C", str) != NULL)
-			return (free(str), 2);
+			return (free(str), close(fd), 2);
 		if (ft_strcmp(str, eof) == 0)
-		{
-			free(str);
-			break ;
-		}
+			return (free(str), close(fd), 0);
 		if (copy->redir->quote == 0)
 		{
 			if (expand_heredoc(&str, head) == 1)
@@ -67,8 +64,7 @@ int	here_read_print(int fd, char *eof, t_cmd *copy, t_head *head)
 		write(fd, "\n", 1);
 		free(str);
 	}
-	close(fd);
-	return (0);
+	return (close(fd), 0);
 }
 
 int	checker_heredoc(t_head *head, t_redir *c_redir, t_cmd *c_cmd)
