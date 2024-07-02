@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 17:28:49 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 15:24:07 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:26:09 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_exit(t_head *head)
 		exit_free(head, g_error);
 		return ;
 	}
-
 	copy = head->cmd;
 	if (ft_strnum(copy->arg[1]))
 	{
