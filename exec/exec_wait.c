@@ -30,6 +30,8 @@ void	wait_for_all(pid_t *pid, int x)
 	}
 	if (WIFEXITED(wstatus[1]) == 0)
 		g_error = 130;
+	else if (wstatus[1] == 0)
+		return ;
 	else
 		g_error = WEXITSTATUS(wstatus[1]);
 }
