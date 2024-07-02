@@ -95,6 +95,7 @@ char	*find_path(t_head *head);
 char	*join_with_char(char const *s1, char const *s2, char c);
 char	**make_env(t_env *env);
 void	no_path_to_hapiness(t_head *head, char **env, char **tab);
+void	free_malloc_fnp(t_head *head);
 
 //exec_wait
 void	wait_for_all(pid_t *pid, int x);
