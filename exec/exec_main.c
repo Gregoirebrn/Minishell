@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 20:32:56 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 23:10:51 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	find_cmd(t_head *head, t_cmd *copy, t_fnp *fnp, int x)
 		return (fnp->pid[x] = 0, 0);
 	fnp->pid[x] = fork();
 	if (fnp->pid[x] < 0)
-		ft_exit(head);
+		return (write(2, "Crash of Fork\n", 14), exit_free(head, 0), 0);
 	if (fnp->pid[x] != 0)
 		return (0);
 	sig_main(head, 1);
