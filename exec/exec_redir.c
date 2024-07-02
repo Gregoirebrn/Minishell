@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 14:44:44 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 22:38:47 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 22:40:24 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	open_files(t_redir *redir, int err_print)
 		redir->fd = open(redir->arg, O_RDONLY);
 	if (redir->fd == -1)
 	{
-		if (err_print == 0)
+		if (err_print != 0)
 			perror(redir->arg);
 		return (2);
 	}
