@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:45:32 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/28 16:38:01 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:28:29 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	here_read_print(int fd, char *eof, t_cmd *copy, t_head *head)
 	while (42)
 	{
 		str = readline(">> ");
-		if (g_error == 130 || !str)
+		//replace strstr by ft_strstr
+		if (!str || strstr("^C", str) != NULL)
 			return (free(str), 0);
 		if (ft_strcmp(str, eof) == 0)
 		{
