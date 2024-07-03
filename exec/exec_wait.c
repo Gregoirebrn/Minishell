@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:51:28 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 20:52:08 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/02 21:16:03 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	wait_for_all(pid_t *pid, int x)
 	}
 	else if (WIFSIGNALED(wstatus[1]))
 		return (write(2, "\n", 1), g_error = 130, 0);
-	if (WIFEXITED(wstatus[1]))
+	if (WIFEXITED(wstatus[1]) && last != -1)
 		g_error = WEXITSTATUS(wstatus[1]);
 	return (0);
 }
