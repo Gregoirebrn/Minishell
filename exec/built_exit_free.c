@@ -40,3 +40,21 @@ void	new_pwd(t_head *head, char *value, char *name)
 		return ;
 	return ;
 }
+
+int	replace_value(t_head *head, char *value, char *replace)
+{
+	t_env	*copy;
+
+	copy = head->env;
+	while (copy->next != NULL)
+	{
+		if (ft_strcmp(copy->name, replace) == 0)
+		{
+			free(copy->value);
+			copy->value = value;
+			return (0);
+		}
+		copy = copy->next;
+	}
+	return (1);
+}

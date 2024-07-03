@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:52:23 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/03 18:33:38 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:56:36 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_head	t_head;
 
 int		ft_cd(t_head *head);
 char	*cd_relative(t_head *head);
-int		replace_value(t_head *head, char *value, char *replace);
 char	*cd_find_var(t_head *head, char *name);
 char	*cd_cat_backslash(char *path, char *dir);
 //cd_back
@@ -50,6 +49,7 @@ int		is_num(t_head *head);
 //exit_free
 void	exit_free(t_head *head, int status);
 void	new_pwd(t_head *head, char *value, char *name);
+int		replace_value(t_head *head, char *value, char *replace);
 
 int		ft_export(t_head *head);
 int		export_bis(t_head *head, t_env *c_env, size_t i);
