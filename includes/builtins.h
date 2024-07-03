@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:52:23 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 20:54:45 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:14:59 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,16 @@ typedef struct s_fnp	t_fnp;
 typedef struct s_head	t_head;
 
 int		ft_cd(t_head *head);
-int		ft_cd_bis(t_head *head, char **str);
+char	*cd_relative(t_head *head);
 int		replace_value(t_head *head, char *value, char *replace);
-void	cd_no_arg(t_head *head, char **str);
+char	*cd_find_var(t_head *head, char *name);
 char	*ft_strcat(char *path, char *dir);
 //cd_back
-void	cd_back(t_head *head);
-int		cd_tild(t_head *head);
+char	*cd_tild_trim(t_head *head);
+char	*cd_back_trim();
+void	cd_chdir_error(t_head *head, char *old_pwd, char *new_pwd);
+void	cd_not_found(char *name);
+char	*cd_minus(t_head *head);
 
 void	ft_echo(t_head *head, t_cmd *copy);
 void	print_tab(t_head *head, char **arg, int i, int n);
@@ -48,7 +51,6 @@ int		is_num(t_head *head);
 //exit_free
 void	exit_free(t_head *head, int status);
 void	new_pwd(t_head *head, char *value, char *name);
-void	cd_rep_or_new(t_head *head, char *n_pwd, char *old_pwd);
 
 int		ft_export(t_head *head);
 int		export_bis(t_head *head, t_env *c_env, size_t i);

@@ -6,64 +6,78 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:49:11 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/28 17:46:19 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:42:01 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_cd(t_head *head)
-{
-	int		err;
-	char	*str;
-	char	*old_pwd;
-	DIR		*ptr_dir;
+//tild
+//minus
 
-	old_pwd = NULL;
-	str = NULL;
-	if (head->cmd->next || !head->cmd->arg[1])
+int	cd_error(t_head *head)
+{
+	if (head->cmd->next || (head->cmd->arg[1] && head->cmd->arg[1][0] == 0))
 		return (1);
-	if (ft_cd_bis(head, &str) == 2)
-		return (2);
-	get_path(&old_pwd);
-	err = chdir(str);
-	if (err != 0)
-	{
-		g_error = 1;
-		ptr_dir = opendir(head->cmd->arg[1]);
-		return (free(old_pwd), free(str), \
-				write(2, "bash: cd: ", 10), perror(head->cmd->arg[1]), 1);
-		closedir(ptr_dir);
-	}
-	cd_rep_or_new(head, str, old_pwd);
+	if (head->cmd->arg[1] && head->cmd->arg[2])
+		return (write(2, "bash: cd: too many arguments\n", 29), g_error = 1, 1);
 	return (0);
 }
 
-int	ft_cd_bis(t_head *head, char **str)
+void	cd_rep_or_new(t_head *head, char *n_pwd, char *old_pwd)
 {
-	if (head->cmd->arg[1] && head->cmd->arg[2])
-		return (write(2, "bash: cd: too many arguments\n", 29), 2);
-	if (head->cmd->arg[1])
+	if (replace_value(head, n_pwd, "PWD"))
 	{
-		if (0 == ft_strcmp(head->cmd->arg[1], "../")
-			|| 0 == ft_strcmp(head->cmd->arg[1], ".."))
-			return (cd_back(head), 2);
-		if (0 == ft_strcmp(head->cmd->arg[1], "~/"))
-			return (cd_tild(head), 2);
-		get_path(str);
-		*str = ft_strcat(*str, head->cmd->arg[1]);
-		if (!*str)
-			return (ft_free_all(head), exit(1), 1);
+		new_pwd(head, n_pwd, "PWD");
+		free(n_pwd);
 	}
-	else
+	if (replace_value(head, old_pwd, "OLDPWD"))
 	{
-		cd_no_arg(head, str);
-		if (!*str)
-			return (write(2, "bash: cd: HOME not set\n", 23), 2);
+		new_pwd(head, old_pwd, "OLDPWD");
+		free(old_pwd);
 	}
-	if (*str == NULL)
-		return (write(2, "Crash of Malloc\n", 16), 2);
+}
+
+int	ft_cd(t_head *head)
+{
+	int		err;
+	char	*new;
+	char	*old;
+
+	old = NULL;
+	if (cd_error(head))
+		return (1);
+	new = cd_relative(head);
+	if (!new)
+		return (2);
+	get_path(&old);
+	err = chdir(new);
+	if (err != 0)
+		return (cd_chdir_error(head, old, new), 1);
+	cd_rep_or_new(head, new, old);
 	return (0);
+}
+
+char	*cd_relative(t_head *head)
+{
+	char	*new;
+
+	new = NULL;
+	if (!head->cmd->arg[1])
+		return (cd_find_var(head, "HOME"));
+	if (0 == ft_strcmp(head->cmd->arg[1], "../")
+		|| 0 == ft_strcmp(head->cmd->arg[1], ".."))
+		return (cd_back_trim());
+	if (0 == ft_strcmp(head->cmd->arg[1], "~/")
+		|| 0 == ft_strcmp(head->cmd->arg[1], "~"))
+		return (cd_tild_trim(head));
+	if (0 == ft_strcmp(head->cmd->arg[1], "-"))
+		return (cd_find_var(head, "OLDPWD"));
+	get_path(&new);
+	new = ft_strcat(new, head->cmd->arg[1]);
+	if (!new)
+		return (write(2, "Crash of Malloc\n", 16), ft_free_all(head), NULL);
+	return (new);
 }
 
 int	replace_value(t_head *head, char *value, char *replace)
@@ -84,20 +98,27 @@ int	replace_value(t_head *head, char *value, char *replace)
 	return (1);
 }
 
-void	cd_no_arg(t_head *head, char **str)
+char	*cd_find_var(t_head *head, char *name)
 {
 	t_env	*env;
+	char	*str;
 
+	str = NULL;
 	env = head->env;
 	while (env)
 	{
-		if (ft_strcmp(env->name, "HOME") == 0)
+		if (ft_strcmp(env->name, name) == 0)
 		{
-			*str = env->value;
+			str = ft_strdup(env->value);
+			if (!str)
+				return (write(2, "Crash of Malloc\n", 16), NULL);
 			break ;
 		}
 		env = env->next;
 	}
+	if (!str)
+		return (cd_not_found(name), NULL);
+	return (str);
 }
 
 char	*ft_strcat(char *path, char *dir)
@@ -106,7 +127,7 @@ char	*ft_strcat(char *path, char *dir)
 	size_t	i;
 	size_t	x;
 
-	dest = malloc(sizeof (char) * (ft_strlen(dir) + ft_strlen(path) + 2));
+	dest = ft_calloc(sizeof (char), (ft_strlen(dir) + ft_strlen(path) + 2));
 	if (dest == NULL)
 		return (dest);
 	i = 0;
