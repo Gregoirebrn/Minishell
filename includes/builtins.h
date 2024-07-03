@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:52:23 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/03 18:56:36 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:58:27 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*cd_find_var(t_head *head, char *name);
 char	*cd_cat_backslash(char *path, char *dir);
 //cd_back
 char	*cd_tild_trim(t_head *head);
-char	*cd_back_trim();
+char	*cd_back_trim(void);
 void	cd_chdir_error(t_head *head, char *old_pwd, char *new_pwd);
 void	cd_not_found(char *name);
 

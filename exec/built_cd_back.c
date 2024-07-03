@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:35:38 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/03 18:37:49 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:41:12 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,32 @@ void	cd_chdir_error(t_head *head, char *old_pwd, char *new_pwd)
 	closedir(ptr_dir);
 	free(old_pwd);
 	free(new_pwd);
+}
+
+char	*cd_cat_backslash(char *path, char *dir)
+{
+	char	*dest;
+	size_t	i;
+	size_t	x;
+
+	dest = ft_calloc(sizeof (char), (ft_strlen(dir) + ft_strlen(path) + 2));
+	if (!dest)
+		return (NULL);
+	i = 0;
+	while (path && path[i])
+	{
+		dest[i] = path[i];
+		i++;
+	}
+	x = 0;
+	dest[i++] = '/';
+	while (dir && dir[x])
+	{
+		dest[i] = dir[x];
+		i++;
+		x++;
+	}
+	dest[i] = '\0';
+	free(path);
+	return (dest);
 }

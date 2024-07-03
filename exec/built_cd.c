@@ -6,14 +6,11 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:49:11 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/03 18:42:01 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:56:36 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-//tild
-//minus
 
 int	cd_error(t_head *head)
 {
@@ -74,28 +71,10 @@ char	*cd_relative(t_head *head)
 	if (0 == ft_strcmp(head->cmd->arg[1], "-"))
 		return (cd_find_var(head, "OLDPWD"));
 	get_path(&new);
-	new = ft_strcat(new, head->cmd->arg[1]);
+	new = cd_cat_backslash(new, head->cmd->arg[1]);
 	if (!new)
-		return (write(2, "Crash of Malloc\n", 16), ft_free_all(head), NULL);
+		return (write(2, "Crash of Malloc\n", 16), NULL);
 	return (new);
-}
-
-int	replace_value(t_head *head, char *value, char *replace)
-{
-	t_env	*copy;
-
-	copy = head->env;
-	while (copy->next != NULL)
-	{
-		if (ft_strcmp(copy->name, replace) == 0)
-		{
-			free(copy->value);
-			copy->value = value;
-			return (0);
-		}
-		copy = copy->next;
-	}
-	return (1);
 }
 
 char	*cd_find_var(t_head *head, char *name)
@@ -119,32 +98,4 @@ char	*cd_find_var(t_head *head, char *name)
 	if (!str)
 		return (cd_not_found(name), NULL);
 	return (str);
-}
-
-char	*ft_strcat(char *path, char *dir)
-{
-	char	*dest;
-	size_t	i;
-	size_t	x;
-
-	dest = ft_calloc(sizeof (char), (ft_strlen(dir) + ft_strlen(path) + 2));
-	if (dest == NULL)
-		return (dest);
-	i = 0;
-	while (path && path[i])
-	{
-		dest[i] = path[i];
-		i++;
-	}
-	x = 0;
-	dest[i++] = '/';
-	while (dir && dir[x])
-	{
-		dest[i] = dir[x];
-		i++;
-		x++;
-	}
-	dest[i] = '\0';
-	free(path);
-	return (dest);
 }
