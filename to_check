@@ -1,0 +1,7 @@
+
+valgrind --leak-check=full --show-leak-kinds=all --show-mismatched-frees=yes --read-var-info=yes -s --trace-children=yes ./minishell
+
+
+heredoc strstr replace by ft_strstr
+
+if malloc fail exit totally ?
