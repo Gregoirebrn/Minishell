@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:52:23 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/03 18:14:59 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:33:38 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,12 @@ int		ft_cd(t_head *head);
 char	*cd_relative(t_head *head);
 int		replace_value(t_head *head, char *value, char *replace);
 char	*cd_find_var(t_head *head, char *name);
-char	*ft_strcat(char *path, char *dir);
+char	*cd_cat_backslash(char *path, char *dir);
 //cd_back
 char	*cd_tild_trim(t_head *head);
 char	*cd_back_trim();
 void	cd_chdir_error(t_head *head, char *old_pwd, char *new_pwd);
 void	cd_not_found(char *name);
-char	*cd_minus(t_head *head);
 
 void	ft_echo(t_head *head, t_cmd *copy);
 void	print_tab(t_head *head, char **arg, int i, int n);
