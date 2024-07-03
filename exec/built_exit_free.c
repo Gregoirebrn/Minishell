@@ -40,17 +40,3 @@ void	new_pwd(t_head *head, char *value, char *name)
 		return ;
 	return ;
 }
-
-void	cd_rep_or_new(t_head *head, char *n_pwd, char *old_pwd)
-{
-	if (replace_value(head, n_pwd, "PWD"))
-	{
-		new_pwd(head, n_pwd, "PWD");
-		free(n_pwd);
-	}
-	if (replace_value(head, old_pwd, "OLDPWD"))
-	{
-		new_pwd(head, old_pwd, "OLDPWD");
-		free(old_pwd);
-	}
-}
