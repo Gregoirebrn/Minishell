@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 17:31:24 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 14:43:43 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/09 01:14:30 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ char	**make_env(t_env *env)
 	size_t	i;
 
 	size = envlen(env);
+	if (size == 0)
+		return (NULL);
 	tab = malloc(sizeof (char *) * (size + 1));
 	if (tab == NULL)
 		return (NULL);
@@ -74,8 +76,8 @@ char	**make_env(t_env *env)
 	while (i < size)
 	{
 		tab[i] = join_with_char(copy->name, copy->value, '=');
-		if (tab[i] == NULL)
-			return (NULL);
+		if (!tab[i])
+			return (ft_splitdestroy(tab), NULL);
 		i++;
 		copy = copy->next;
 	}
@@ -83,17 +85,25 @@ char	**make_env(t_env *env)
 	return (tab);
 }
 
-void	no_path_to_hapiness(t_head *head, char **env, char **tab)
+void	no_path_to_hapiness(t_head *head, char **env, char **tab, t_cmd *copy)
 {
-	if (!(access(head->cmd->arg[0], F_OK))
-		&& !(access(head->cmd->arg[0], X_OK)))
-		execve(head->cmd->arg[0], head->cmd->arg, env);
-	perror(head->cmd->arg[0]);
-	free_tab(env);
-	free_tab(tab);
+	char	*exec;
+
+	exec = ft_strdup(copy->arg[0]);
+	if (!exec)
+		exec_error_exit(tab, env, NULL);
 	free_fnp(head, head->fnp);
 	ft_free_all(head);
-	exit (127);
+	if (!(access(exec, F_OK)) && !(access(exec, X_OK)))
+		execve(exec, tab, env);
+	perror(exec);
+	free_tab(env);
+	free_tab(tab);
+	ft_free(exec);
+	if (errno == EACCES)
+		exit (126);
+	else
+		exit (127);
 }
 
 void	free_malloc_fnp(t_head *head, int to_free)
