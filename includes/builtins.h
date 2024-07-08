@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:52:23 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/08 17:31:52 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/09 00:58:08 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*value_of_name(t_env *env, char *name);
 void	ft_unset(t_head *head);
 void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *));
 //exec_error
-void	exec_error_exit(char **arg, char *str, char **env, char **path);
+void	exec_error_exit(char **arg, char **env, char **path);
 //exec_main
 void	exec_shell(char **arg, char *str, char **env);
 int		find_cmd(t_head *head, t_cmd *copy, t_fnp *fnp, int x);
@@ -98,7 +98,7 @@ int		executable(t_head *head);
 char	*find_path(t_head *head);
 char	*join_with_char(char const *s1, char const *s2, char c);
 char	**make_env(t_env *env);
-void	no_path_to_hapiness(t_head *head, char **env, char **tab);
+void	no_path_to_hapiness(t_head *head, char **env, char **tab, t_cmd *copy);
 void	free_malloc_fnp(t_head *head, int to_free);
 //exec_wait
 int		wait_for_all(pid_t *pid, int x);
