@@ -18,7 +18,7 @@ void	ft_env(t_head *head)
 	int		i;
 
 	if (!head->env)
-		return ;
+		exit_free(head, 0);
 	copy = head->env;
 	i = checker_env(head->cmd->arg);
 	if (i != 0)
@@ -26,9 +26,7 @@ void	ft_env(t_head *head)
 		write(2, "env: '", 6);
 		write(2, head->cmd->arg[i], ft_strlen(head->cmd->arg[i]));
 		write(2, "’: No such file or directory\n", 31);
-		free_fnp(head, head->fnp);
-		ft_free_all(head);
-		exit (0);
+		exit_free(head, 0);
 	}
 	while (copy->next)
 	{
