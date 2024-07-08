@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:48:06 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/01 17:53:49 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:11:24 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ void	ft_pwd(t_head *head)
 	str = NULL;
 	err = get_path(&str);
 	if (err == 2)
-	{
-		write(2, "bash: pwd: ", 11);
-		perror(str);
-	}
+		exit_free(head, 2);
 	if (str)
 		printf("%s\n", str);
 	free(str);
@@ -43,7 +40,7 @@ int	get_path(char **str)
 			free(*(str));
 			*(str) = NULL;
 			if (errno != ERANGE)
-				return (2);
+				return (perror("bash: getcwd"), 2);
 		}
 		size += 10;
 	}

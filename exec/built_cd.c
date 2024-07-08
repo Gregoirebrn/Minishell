@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:49:11 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/03 18:56:36 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:29:32 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ int	ft_cd(t_head *head)
 	new = cd_relative(head);
 	if (!new)
 		return (2);
-	get_path(&old);
+	err = get_path(&old);
+	if (err == 2)
+		exit_free(head, 0);
 	err = chdir(new);
 	if (err != 0)
 		return (cd_chdir_error(head, old, new), 1);
@@ -64,12 +66,16 @@ char	*cd_relative(t_head *head)
 		return (cd_find_var(head, "HOME"));
 	if (0 == ft_strcmp(head->cmd->arg[1], "../")
 		|| 0 == ft_strcmp(head->cmd->arg[1], ".."))
-		return (cd_back_trim());
+		return (cd_back_trim(head));
 	if (0 == ft_strcmp(head->cmd->arg[1], "~/")
 		|| 0 == ft_strcmp(head->cmd->arg[1], "~"))
 		return (cd_tild_trim(head));
 	if (0 == ft_strcmp(head->cmd->arg[1], "-"))
 		return (cd_find_var(head, "OLDPWD"));
+	if (!ft_strncmp(head->cmd->arg[1], "~/", 2))
+		return (cat_of_tild(head, head->cmd->arg[1]));
+	if (!ft_strncmp(head->cmd->arg[1], "/home", 5))
+		return (ft_strdup(head->cmd->arg[1]));
 	get_path(&new);
 	new = cd_cat_backslash(new, head->cmd->arg[1]);
 	if (!new)

@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:52:23 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/03 18:58:27 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:31:52 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*cd_find_var(t_head *head, char *name);
 char	*cd_cat_backslash(char *path, char *dir);
 //cd_back
 char	*cd_tild_trim(t_head *head);
-char	*cd_back_trim(void);
+char	*cd_back_trim(t_head *head);
 void	cd_chdir_error(t_head *head, char *old_pwd, char *new_pwd);
 void	cd_not_found(char *name);
 
@@ -50,6 +50,7 @@ int		is_num(t_head *head);
 void	exit_free(t_head *head, int status);
 void	new_pwd(t_head *head, char *value, char *name);
 int		replace_value(t_head *head, char *value, char *replace);
+char	*cat_of_tild(t_head *head, char *str);
 
 int		ft_export(t_head *head);
 int		export_bis(t_head *head, t_env *c_env, size_t i);
@@ -115,7 +116,7 @@ int		open_redir(t_cmd *copy, int fd[2]);
 //exec_redir_utils
 int		fill_pipe(size_t numb, int **fd, t_head *head);
 int		redir_with_fd(int fd[2], int **pipe, t_cmd *copy, int x);
-void	close_pipe(t_head *head, int **fd);
+void	close_pipe(void);
 void	free_fnp(t_head *head, t_fnp *fnp);
 int		malloc_fnp(t_head *head);
 //heredoc

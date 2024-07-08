@@ -33,7 +33,7 @@ int	ex_no_args(t_head *head)
 	swap_this_tab(tab);
 	printf_tab(tab);
 	free_tab(tab);
-	close_pipe(head, head->fnp->pipe);
+	close_pipe();
 	free_fnp(head, head->fnp);
 	ft_free_all(head);
 	exit(0);

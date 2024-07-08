@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/07/08 14:47:24 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:09:18 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,6 @@ int	ft_parse(char *input, t_head *head)
 	if (format(head) == 1)
 		return (1);
 	if (cmd_is_empty(head->cmd, 1) == 1)
-		return (1);
+		return (write(2, "bash: syntax error\n", 19), 1);
 	return (0);
 }

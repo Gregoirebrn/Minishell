@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/07/08 14:46:01 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:31:02 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,30 @@ int	single_exec(t_head *head, char *input)
 	return (0);
 }
 
+int	open_on_err(t_cmd *cmd)
+{
+	t_cmd	*c_cmd;
+	t_redir	*c_red;
+
+	c_cmd = cmd;
+	while (c_cmd)
+	{
+		c_red = c_cmd->redir;
+		while (c_red)
+		{
+			if (c_red->type == 1)
+				c_red->fd = open(c_red->arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (c_red->type == 2)
+				c_red->fd = open(c_red->arg, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if ((c_red->type == 2 || c_red->type == 1) && c_red->fd == -1)
+				return (perror(c_red->arg), 2);
+			c_red = c_red->next;
+		}
+		c_cmd = c_cmd->next;
+	}
+	return (0);
+}
+
 void	here_exec(t_head *head, char *input)
 {
 	if (ft_parse(input, head) == 0)
@@ -36,9 +60,12 @@ void	here_exec(t_head *head, char *input)
 		{
 			if (cmd_is_empty(head->cmd, 0) == 0)
 				executable(head);
+			else
+			{
+				open_on_err(head->cmd);
+				close_pipe();
+			}
 		}
-		else
-			write(2, "bash: syntax error\n", 19);
 	}
 	if (head->cmd != NULL)
 		ft_free_cmd(&(head->cmd));

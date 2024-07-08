@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 13:57:10 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 14:48:46 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:31:01 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,10 @@ int	fill_pipe(size_t numb, int **fd, t_head *head)
 	return (0);
 }
 
-void	close_pipe(t_head *head, int **pipe)
+void	close_pipe(void)
 {
 	int	i;
 
-	(void)head;
-	(void)pipe;
 	i = 2;
 	while (++i < 1024)
 		close(i);

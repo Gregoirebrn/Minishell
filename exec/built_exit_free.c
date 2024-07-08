@@ -46,7 +46,7 @@ int	replace_value(t_head *head, char *value, char *replace)
 	t_env	*copy;
 
 	copy = head->env;
-	while (copy->next != NULL)
+	while (copy)
 	{
 		if (ft_strcmp(copy->name, replace) == 0)
 		{
@@ -57,4 +57,30 @@ int	replace_value(t_head *head, char *value, char *replace)
 		copy = copy->next;
 	}
 	return (1);
+}
+
+char	*cat_of_tild(t_head *head, char *str)
+{
+	size_t	i;
+	size_t	x;
+	char	*new;
+	char	*home;
+
+	i = 0;
+	home = cd_find_var(head, "HOME");
+	if (!home)
+		return (NULL);
+	i = ft_strlen(str) - 1;
+	x = ft_strlen(home);
+	new = ft_calloc(sizeof (char), x + i + 1);
+	if (!new)
+		return (free(home), NULL);
+	i = -1;
+	while (home[++i])
+		new[i] = home[i];
+	x = 1;
+	while (str[x])
+		new[i++] = str[x++];
+	new[i] = '\0';
+	return (free(home), new);
 }
