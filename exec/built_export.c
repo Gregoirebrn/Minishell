@@ -35,7 +35,7 @@ int	ft_export(t_head *head)
 int	export_bis(t_head *head, t_env *c_env, size_t i)
 {
 	if (check_name(head, head->cmd->arg[i], c_env))
-		return (0);
+		return (g_error = 1, 0);
 	if (no_plus(head->cmd->arg[i]))
 	{
 		if (export_search_env(c_env, head->cmd->arg[i]) == 0)
