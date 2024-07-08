@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:51:28 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/08 21:15:06 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/09 01:26:35 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ size_t	cmdlen(t_cmd *base)
 
 	copy = base;
 	size = 0;
-	if (copy != NULL)
-		size++;
-	while (copy->next != NULL)
+	while (copy)
 	{
 		size++;
 		copy = copy->next;
@@ -87,6 +85,8 @@ char	**make_arg(t_cmd *cmd)
 	while (cmd->arg && cmd->arg[x])
 	{
 		arg[x] = ft_strdup(cmd->arg[x]);
+		if (!arg[x])
+			return (ft_splitdestroy(arg), NULL);
 		x++;
 	}
 	arg[x] = NULL;
