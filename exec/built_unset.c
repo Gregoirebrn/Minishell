@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:03:36 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/08 19:55:05 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 22:26:11 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *))
 		{
 			remove = current->next;
 			current->next = current->next->next;
+			if (!current->next)
+			{
+				current->next = NULL;
+				free(remove->name);
+				free(remove->value);
+				free(remove);
+				return ;
+			}
 			current->next->prev = current;
 			free(remove->name);
 			free(remove->value);
@@ -49,6 +57,8 @@ void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *))
 	if (current && (*cmp)(current->name, ref) == 0)
 	{
 		*env = current->next;
+		if (current->next)
+			current->next->prev = NULL;
 		free(current->value);
 		free(current->name);
 		free(current);
