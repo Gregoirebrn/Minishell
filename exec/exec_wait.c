@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 18:51:28 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 21:16:03 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 21:15:06 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ size_t	envlen(t_env *base)
 
 	copy = base;
 	size = 0;
-	if (copy != NULL)
-		size++;
-	while (copy->next != NULL)
+	while (copy)
 	{
 		size++;
 		copy = copy->next;
