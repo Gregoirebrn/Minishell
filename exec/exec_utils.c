@@ -22,7 +22,7 @@ char	*find_path(t_head *head)
 	{
 		if (ft_strcmp("PATH", copy->name) == 0)
 		{
-			path = strdup(copy->value);
+			path = ft_strdup(copy->value);
 			return (path);
 		}
 		copy = copy->next;
@@ -37,7 +37,7 @@ char	*join_with_char(char const *s1, char const *s2, char c)
 	size_t	j;
 	char	*str;
 
-	len = strlen((char *)s1) + strlen((char *)s2);
+	len = ft_strlen((char *)s1) + ft_strlen((char *)s2);
 	i = 0;
 	str = malloc (sizeof(char) * (len + 2));
 	if (str == NULL)
