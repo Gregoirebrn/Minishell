@@ -1,6 +1,9 @@
 
 valgrind --leak-check=full --show-leak-kinds=all --show-mismatched-frees=yes --read-var-info=yes -s --trace-children=yes ./minishell
 
+/bin/valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes --suppressions=supp.supp ./minishell
+
+------------------------------------------------------------------------------------
 - Message d'erreur si infile inexistant :
   - < Makefile > out < in < Makefile > out1 cat
 
