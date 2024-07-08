@@ -12,14 +12,15 @@
 
 #include "../includes/minishell.h"
 
-void	exec_error_exit(char **arg, char *str, char **env, char **path)
+void	exec_error_exit(char **arg, char **env, char **path)
 {
 	write(2, "bash: ", 6);
 	perror(arg[0]);
-	free_tab(env);
-	free_tab(path);
+	if (env)
+		free_tab(env);
+	if (path)
+		free_tab(path);
 	free_tab(arg);
-	ft_free(str);
 	if (errno == EACCES)
 		exit (126);
 	else
