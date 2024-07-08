@@ -18,7 +18,7 @@ char	*find_path(t_head *head)
 	char	*path;
 
 	copy = head->env;
-	while (copy->next != NULL)
+	while (copy)
 	{
 		if (ft_strcmp("PATH", copy->name) == 0)
 		{
