@@ -47,8 +47,10 @@ int	ft_strnum(char *str)
 	int	i;
 
 	i = 0;
-	if (str && !str[0])
+	if (!str || (str && !str[0]))
 		return (0);
+	if (str[i] == '+' || str[i] == '-')
+		i++;
 	while (str && str[i])
 	{
 		if (!(str[i] >= 48 && str[i] <= 57))

@@ -24,7 +24,7 @@ int	wait_for_all(pid_t *pid, int x)
 	while (i < x)
 	{
 		last = waitpid(0, &wstatus[0], 0);
-		if (last == pid[x - 1])
+		if (last != -1 && last == pid[x - 1])
 			wstatus[1] = wstatus[0];
 		i++;
 	}
