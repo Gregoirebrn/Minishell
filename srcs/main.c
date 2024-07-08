@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:11:53 by beroy             #+#    #+#             */
-/*   Updated: 2024/07/02 13:02:02 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:46:01 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,23 @@ int	single_exec(t_head *head, char *input)
 			executable(head);
 	}
 	return (0);
+}
+
+void	here_exec(t_head *head, char *input)
+{
+	if (ft_parse(input, head) == 0)
+	{
+		if (heredoc(head))
+		{
+			if (cmd_is_empty(head->cmd, 0) == 0)
+				executable(head);
+		}
+		else
+			write(2, "bash: syntax error\n", 19);
+	}
+	if (head->cmd != NULL)
+		ft_free_cmd(&(head->cmd));
+	free(input);
 }
 
 void	main_loop(t_head *head)
@@ -48,15 +65,7 @@ void	main_loop(t_head *head)
 			free(input);
 			continue ;
 		}
-		if (ft_parse(input, head) == 0)
-		{
-			if (heredoc(head))
-				if (cmd_is_empty(head->cmd, 0) == 0)
-					executable(head);
-		}
-		if (head->cmd != NULL)
-			ft_free_cmd(&(head->cmd));
-		free(input);
+		here_exec(head, input);
 	}
 	write(1, "exit\n", 5);
 }
@@ -67,7 +76,7 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-//	ft_header();
+	ft_header();
 	head = head_init(env);
 	if (head == NULL)
 		return (0);

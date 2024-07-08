@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:19:51 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/27 13:29:29 by beroy            ###   ########.fr       */
+/*   Updated: 2024/07/08 14:47:24 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ int	check_line(char *input)
 		if (input[i] == '|')
 		{
 			if (input[i + 1] == '|')
-				return (printf("Double pipe not handled by minishell!\n"), 1);
+				return (1);
 		}
 		else if (input[i] == 34 || input[i] == 39)
 		{
 			if (quote_skip(input, &i, input[i]) == 1)
-				return (printf("Quote unterminated!\n"), 1);
+				return (1);
 		}
 		i++;
 	}
@@ -107,7 +107,7 @@ t_cmd	*split_pipe(char *input)
 int	ft_parse(char *input, t_head *head)
 {
 	if (check_line(input) == 1)
-		return (1);
+		return (write(2, "bash: syntax error\n", 19), 1);
 	head->cmd = split_pipe(input);
 	if (head->cmd == NULL)
 		return (1);

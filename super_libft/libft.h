@@ -73,6 +73,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_strnstr(const char *big, const char *little, size_t len);
+char	*ft_strstr(char *str, char *to_find);
 
 char	**ft_split(char const *s, char c);
 

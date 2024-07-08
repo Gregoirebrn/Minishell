@@ -50,8 +50,7 @@ int	here_read_print(int fd, char *eof, t_cmd *copy, t_head *head)
 		str = readline(">> ");
 		if (!str)
 			return (free(str), close(fd), 0);
-		//replace strstr by ft_strstr
-		if (strstr("^C", str) != NULL)
+		if (ft_strstr("^C", str) != NULL)
 			return (free(str), close(fd), 2);
 		if (ft_strcmp(str, eof) == 0)
 			return (free(str), close(fd), 0);

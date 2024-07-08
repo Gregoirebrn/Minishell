@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:55:23 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/24 17:10:51 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:34:22 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*var_value(char *str, int i, t_env *env)
 			break ;
 		env = env->next;
 	}
-	if (value == NULL && str_cmp_var(str, i, "?"))
+	if (value == NULL && str[i] == '?')
 		value = ft_itoa(g_error);
 	if (value == NULL)
 		value = ft_strdup("");
@@ -82,6 +82,8 @@ int	find_end_var(char *str, int i)
 	j = i;
 	while (str && str[i])
 	{
+		if (str[i] == '?')
+			return (i + 1);
 		if (end_of_var(str[i]) == 1)
 			break ;
 		if (j == i && char_is_num(str[i]) == 1)

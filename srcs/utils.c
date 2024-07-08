@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beroy <beroy@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 14:16:23 by beroy             #+#    #+#             */
-/*   Updated: 2024/06/19 14:17:17 by beroy            ###   ########.fr       */
+/*   Updated: 2024/07/08 14:53:09 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	single_index_up(char *input, int *i)
 {
 	if (input[*i] == 39)
 		quote_skip(input, i, 39);
-	*i += 1;
+	if (input[*i] != 0)
+		*i += 1;
 }
 
 int	char_is_num(char c)
@@ -53,5 +54,6 @@ void	index_up(char *input, int *i)
 		quote_skip(input, i, 34);
 	else if (input[*i] == 39)
 		quote_skip(input, i, 39);
-	*i += 1;
+	if (input[*i] != 0)
+		*i += 1;
 }
