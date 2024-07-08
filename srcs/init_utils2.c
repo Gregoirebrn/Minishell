@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 20:10:22 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/26 20:10:22 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 21:58:20 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ t_env	*env_if_empty(void)
 	char	*str;
 
 	env = NULL;
-	get_path(&str);
+	str = NULL;
+	if (get_path(&str) == 2)
+		return (NULL);
 	new = ft_env_new_bis("PWD", str);
-	ft_free(str);
+//	ft_free(str);
 	if (new == NULL)
 		return (NULL);
 	ft_envadd_back(&env, new);
