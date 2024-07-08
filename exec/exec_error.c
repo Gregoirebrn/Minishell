@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 19:44:43 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/02 20:24:11 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/09 01:14:30 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	exec_error_exit(char **arg, char **env, char **path)
 		free_tab(env);
 	if (path)
 		free_tab(path);
-	free_tab(arg);
+	if (arg)
+		free_tab(arg);
 	if (errno == EACCES)
 		exit (126);
 	else
