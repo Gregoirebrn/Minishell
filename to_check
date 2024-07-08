@@ -65,22 +65,3 @@ valgrind --leak-check=full --show-leak-kinds=all --show-mismatched-frees=yes --r
     > /^Cdir supp
     > exit
     > exit
-
-- on heredoc interrupted with SIGINT
-    > cat << 0
-    ==140494== Warning: noted but unhandled ioctl 0x5412 with no size/direction hints.
-    ==140494==    This could cause spurious value errors to appear.
-    ==140494==    See README_MISSING_SYSCALL_OR_IOCTL for guidance on writing a proper wrapper.
-
-        >
-        exit
-        ==140494==
-        ==140494== FILE DESCRIPTORS: 4 open (3 std) at exit.
-        ==140494== Open file descriptor 3:
-        ==140494==    at 0x4AD007D: pipe (pipe.c:29)
-        ==140494==    by 0x408FF1: checker_heredoc (heredoc.c:76)
-        ==140494==    by 0x4090C7: heredoc (heredoc.c:101)
-        ==140494==    by 0x401FDE: here_exec (main.c:59)
-        ==140494==    by 0x4020D6: main_loop (main.c:92)
-        ==140494==    by 0x402155: main (main.c:108)
-        ==140494==
