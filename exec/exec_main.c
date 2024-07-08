@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:34:19 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/08 17:32:16 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/09 01:23:33 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	exec_shell(char **arg, char *str, char **env)
 	char	*cmd;
 
 	path = ft_split(str, ':');
+	ft_free(str);
+	if (!path)
+		exec_error_exit(arg, env, path);
 	i = 0;
 	while (path[i])
 	{
@@ -30,7 +33,7 @@ void	exec_shell(char **arg, char *str, char **env)
 	}
 	if (!(access(arg[0], F_OK)) && !(access(arg[0], X_OK)))
 		execve(arg[0], arg, env);
-	exec_error_exit(arg, str, env, path);
+	exec_error_exit(arg, env, path);
 }
 
 int	no_fork_cmd(t_head *head, t_cmd *copy, char *str)
@@ -55,17 +58,14 @@ int	exec_shell_malloc(t_head *head, t_cmd *copy, t_fnp *fnp)
 	char	*path;
 
 	env = make_env(head->env);
+	if (!env)
+		exit_free(head, 1);
 	tab = make_arg(copy);
-	if (!env || !tab)
-	{
-		if (!env)
-			return (free(tab), ft_free_all(head), 1);
-		else
-			return (free(env), ft_free_all(head), 1);
-	}
+	if (!tab)
+		return (free_tab(env), exit_free(head, 1), 0);
 	path = find_path(head);
 	if (!path)
-		no_path_to_hapiness(head, env, tab);
+		no_path_to_hapiness(head, env, tab, copy);
 	free_fnp(head, fnp);
 	ft_free_all(head);
 	exec_shell(tab, path, env);
