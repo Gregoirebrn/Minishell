@@ -51,6 +51,7 @@ void	sig_heredoc(int sig)
 	{
 		g_error = 130;
 		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		close_pipe();
 	}
 }
 
