@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:03:36 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/24 16:53:16 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 19:55:05 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *))
 		{
 			remove = current->next;
 			current->next = current->next->next;
+			current->next->prev = current;
 			free(remove->name);
 			free(remove->value);
 			free(remove);
