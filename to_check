@@ -8,29 +8,6 @@ valgrind --leak-check=full --show-leak-kinds=all --show-mismatched-frees=yes --r
     - env alone prints env;
     - env in pipe (> env | /bin/grep "PATH") says : env: No such file or directory
 
-- on unset USER, cd ~ :
-    -> cd ~
-     bash: cd: USER not set
-     > echo $?
-     ==139176== Invalid read of size 8
-
-- cd doesnt accept absolute path from root (?)
-> cd
-  > pwd
-  /home/grebrune
-  > cd /home/grebrune/Documents/github/4_Circle/minishell
-  bash: cd: No such file or directory
-  >
-
-- expand segfaults on unset env variable
-    > echo $OLDPWD
-    /home/grebrune
-    > unset OLDPWD
-    > echo $OLDPWD
-    [1]    139575 segmentation fault (core dumped)  ./minishell
-   ==139826== Invalid read of size 8
-   ==139826==    at 0x40181C: var_value (expand_var_utils.c:72)
-
 - mystery child does not die
     ld: No such file or directory
     > ls

@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:49:11 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/08 18:29:32 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 20:13:12 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_cd(t_head *head)
 		return (2);
 	err = get_path(&old);
 	if (err == 2)
-		exit_free(head, 0);
+		return (2);
 	err = chdir(new);
 	if (err != 0)
 		return (cd_chdir_error(head, old, new), 1);
@@ -66,7 +66,7 @@ char	*cd_relative(t_head *head)
 		return (cd_find_var(head, "HOME"));
 	if (0 == ft_strcmp(head->cmd->arg[1], "../")
 		|| 0 == ft_strcmp(head->cmd->arg[1], ".."))
-		return (cd_back_trim(head));
+		return (cd_back_trim());
 	if (0 == ft_strcmp(head->cmd->arg[1], "~/")
 		|| 0 == ft_strcmp(head->cmd->arg[1], "~"))
 		return (cd_tild_trim(head));
@@ -76,7 +76,8 @@ char	*cd_relative(t_head *head)
 		return (cat_of_tild(head, head->cmd->arg[1]));
 	if (!ft_strncmp(head->cmd->arg[1], "/home", 5))
 		return (ft_strdup(head->cmd->arg[1]));
-	get_path(&new);
+	if (get_path(&new) == 2)
+		return (NULL);
 	new = cd_cat_backslash(new, head->cmd->arg[1]);
 	if (!new)
 		return (write(2, "Crash of Malloc\n", 16), NULL);

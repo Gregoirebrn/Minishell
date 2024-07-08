@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:35:38 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/08 17:39:15 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 20:13:12 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*cd_tild_trim(t_head *head)
 	return (free(pwd), new);
 }
 
-char	*cd_back_trim(t_head *head)
+char	*cd_back_trim(void)
 {
 	char	*pwd;
 	char	*new;
@@ -36,7 +36,7 @@ char	*cd_back_trim(t_head *head)
 	i = 0;
 	pwd = NULL;
 	if (get_path(&pwd) == 2)
-		exit_free(head, 0);
+		return (NULL);
 	while (pwd && pwd[i])
 		i++;
 	while (pwd && pwd[i] != '/')

@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:48:06 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/08 16:11:24 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:15:58 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_pwd(t_head *head)
 	str = NULL;
 	err = get_path(&str);
 	if (err == 2)
-		exit_free(head, 2);
+		return ;
 	if (str)
 		printf("%s\n", str);
 	free(str);
