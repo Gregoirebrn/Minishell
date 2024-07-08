@@ -1,0 +1,13 @@
+{
+	ignore_libreadline_leaks
+	Memcheck:Leak
+	...
+	obj:*/libreadline.so.*
+}
+
+{
+	leaks bash
+	Memcheck:Leak
+	...
+	obj:*/usr/bin*
+}
