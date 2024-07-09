@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:03:36 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/09 14:16:20 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/09 16:15:07 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,27 @@ void	free_rem(t_env *remove)
 
 void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *))
 {
-	t_env	*remove;
-	t_env	*current;
+	t_env	*tmp;
 
-	current = *env;
-	while (current)
+	tmp = *env;
+	if ((*cmp)((*env)->name, ref) == 0)
 	{
-		if (!(*cmp)(current->name, ref))
-		{
-			remove = current;
-			current->prev = current->prev->prev;
-			free_rem(remove);
-			current = current->next;
-			if (!current)
-			{
-				current = NULL;
-				return ;
-			}
-		}
-		current = current->next;
+		*env = (*env)->next;
+		(*env)->prev = NULL;
+		return (free_rem(tmp), (void)0);
 	}
-//	current = *env;
-//	if (current && (*cmp)(current->name, ref) == 0)
-//	{
-//		*env = current->next;
-//		if (current->next)
-//			current->next->prev = NULL;
-//		free_rem(current);
-//	}
+	while (tmp)
+	{
+		if ((*cmp)(tmp->name, ref) == 0)
+		{
+			if (tmp->prev)
+				tmp->prev->next = tmp->next;
+			if (tmp->next)
+				tmp->next->prev = tmp->prev;
+			return (free_rem(tmp), (void)0);
+		}
+		if (tmp->next == NULL)
+			break ;
+		tmp = tmp->next;
+	}
 }
