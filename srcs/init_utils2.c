@@ -23,7 +23,6 @@ t_env	*env_if_empty(void)
 	if (get_path(&str) == 2)
 		return (NULL);
 	new = ft_env_new_bis("PWD", str);
-//	ft_free(str);
 	if (new == NULL)
 		return (NULL);
 	ft_envadd_back(&env, new);
