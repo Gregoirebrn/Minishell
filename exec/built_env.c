@@ -28,7 +28,7 @@ void	ft_env(t_head *head)
 		write(2, "’: No such file or directory\n", 31);
 		exit_free(head, 0);
 	}
-	while (copy->next)
+	while (copy && copy->next)
 	{
 		printf("%s=%s\n", copy->name, copy->value);
 		copy = copy->next;
