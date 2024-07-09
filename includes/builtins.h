@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:52:23 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/09 00:58:08 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/09 01:14:30 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	**make_arg(t_cmd *cmd);
 //exec_redir
 void	fail_malloc(t_head *head, int **fd, size_t i);
 int		open_the_pipe(int **fd, t_head *head);
-int		open_files(t_redir *redir, int err_print);
+int		open_files(t_redir *redir, int *err_print);
 int		open_redir(t_cmd *copy, int fd[2]);
 
 //exec_redir_utils

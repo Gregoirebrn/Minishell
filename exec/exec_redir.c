@@ -43,7 +43,7 @@ int	open_the_pipe(int **pipe, t_head *head)
 	return (0);
 }
 
-int	open_files(t_redir *redir, int err_print)
+int	open_files(t_redir *redir, int *err_print)
 {
 	if (redir->type == 1)
 		redir->fd = open(redir->arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -53,8 +53,9 @@ int	open_files(t_redir *redir, int err_print)
 		redir->fd = open(redir->arg, O_RDONLY);
 	if (redir->fd == -1)
 	{
-		if (err_print != 0)
+		if (*err_print == 0)
 			perror(redir->arg);
+		*err_print = 1;
 		return (2);
 	}
 	return (0);
@@ -75,7 +76,7 @@ int	open_redir(t_cmd *copy, int fd[2])
 		parser = c_cmd->redir;
 		while (parser)
 		{
-			if (open_files(parser, err_print))
+			if (open_files(parser, &err_print))
 				return (2);
 			if (parser->type == 1 || parser->type == 2)
 				fd[1] = parser->fd;
@@ -84,7 +85,6 @@ int	open_redir(t_cmd *copy, int fd[2])
 			parser = parser->next;
 		}
 		c_cmd = c_cmd->next;
-		err_print++;
 	}
 	return (0);
 }
