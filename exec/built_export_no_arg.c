@@ -18,25 +18,19 @@ int	ex_no_args(t_head *head)
 	t_env	*copy;
 
 	if (!head->env)
-	{
-		free_fnp(head, head->fnp);
-		ft_free_all(head);
-		exit(0);
-	}
+		exit_free(head, 0);
 	copy = head->env;
 	tab = env_to_tab(copy);
 	if (!tab)
 	{
 		write(2, "Crash of Malloc\n", 16);
-		ft_exit(head);
+		exit_free(head, 0);
 	}
 	swap_this_tab(tab);
 	printf_tab(tab);
 	free_tab(tab);
 	close_pipe();
-	free_fnp(head, head->fnp);
-	ft_free_all(head);
-	exit(0);
+	exit_free(head, 0);
 }
 
 char	**env_to_tab(t_env *copy)
@@ -52,7 +46,7 @@ char	**env_to_tab(t_env *copy)
 	{
 		tab[x] = join_equal(copy->name, copy->value);
 		if (!tab[x])
-			return (free_tab(tab), NULL);
+			return (ft_splitdestroy(tab), NULL);
 		x++;
 		copy = copy->next;
 	}
