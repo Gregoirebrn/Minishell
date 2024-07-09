@@ -64,13 +64,6 @@ void	ft_echo(t_head *head, t_cmd *copy)
 		i++;
 		n++;
 	}
-	if (ft_strcmp("$?", copy->arg[i]) == 0)
-	{
-		printf("%d", g_error);
-		if (n == 0)
-			printf("\n");
-		exit(0);
-	}
 	print_tab(head, copy->arg, i, n);
 }
 

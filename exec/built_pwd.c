@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:48:06 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/08 21:57:10 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/09 12:50:59 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_pwd(t_head *head)
 	str = NULL;
 	err = get_path(&str);
 	if (err == 2)
-		return ;
+		exit_free(head, 1);
 	if (str)
 		printf("%s\n", str);
 	free(str);
@@ -45,18 +45,4 @@ int	get_path(char **str)
 		size += 10;
 	}
 	return (0);
-}
-
-char	*value_of_name(t_env *env, char *name)
-{
-	t_env	*copy;
-
-	copy = env;
-	while (copy)
-	{
-		if (0 == ft_strcmp(copy->name, name))
-			return (copy->value);
-		copy = copy->next;
-	}
-	return (NULL);
 }
