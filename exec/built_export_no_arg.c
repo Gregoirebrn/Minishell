@@ -30,7 +30,7 @@ int	ex_no_args(t_head *head)
 	printf_tab(tab);
 	free_tab(tab);
 	close_pipe();
-	exit_free(head, 0);
+	return (exit_free(head, 0), 0);
 }
 
 char	**env_to_tab(t_env *copy)
