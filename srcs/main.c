@@ -31,21 +31,21 @@ int	single_exec(t_head *head, char *input)
 int	open_on_err(t_cmd *cmd)
 {
 	t_cmd	*c_cmd;
-	t_redir	*c_red;
+	t_redir	*red;
 
 	c_cmd = cmd;
 	while (c_cmd)
 	{
-		c_red = c_cmd->redir;
-		while (c_red)
+		red = c_cmd->redir;
+		while (red)
 		{
-			if (c_red->type == 1)
-				c_red->fd = open(c_red->arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (c_red->type == 2)
-				c_red->fd = open(c_red->arg, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if ((c_red->type == 2 || c_red->type == 1) && c_red->fd == -1)
-				return (perror(c_red->arg), 2);
-			c_red = c_red->next;
+			if (red->type == 1)
+				red->fd = open(red->arg, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (red->type == 2)
+				red->fd = open(red->arg, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if ((red->type == 2 || red->type == 1) && red->fd == -1)
+				return (perror(red->arg), 2);
+			red = red->next;
 		}
 		c_cmd = c_cmd->next;
 	}

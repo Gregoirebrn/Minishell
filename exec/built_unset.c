@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 16:03:36 by grebrune          #+#    #+#             */
-/*   Updated: 2024/07/08 22:26:11 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:16:20 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,41 +26,41 @@ void	ft_unset(t_head *head)
 	}
 }
 
+void	free_rem(t_env *remove)
+{
+	ft_free(remove->name);
+	ft_free(remove->value);
+	ft_free(remove);
+}
+
 void	rem_env(t_env **env, void *ref, int (*cmp)(char *, const char *))
 {
 	t_env	*remove;
 	t_env	*current;
 
 	current = *env;
-	while (current && current->next)
+	while (current)
 	{
-		if ((*cmp)(current->next->name, ref) == 0)
+		if (!(*cmp)(current->name, ref))
 		{
-			remove = current->next;
-			current->next = current->next->next;
-			if (!current->next)
+			remove = current;
+			current->prev = current->prev->prev;
+			free_rem(remove);
+			current = current->next;
+			if (!current)
 			{
-				current->next = NULL;
-				free(remove->name);
-				free(remove->value);
-				free(remove);
+				current = NULL;
 				return ;
 			}
-			current->next->prev = current;
-			free(remove->name);
-			free(remove->value);
-			free(remove);
 		}
 		current = current->next;
 	}
-	current = *env;
-	if (current && (*cmp)(current->name, ref) == 0)
-	{
-		*env = current->next;
-		if (current->next)
-			current->next->prev = NULL;
-		free(current->value);
-		free(current->name);
-		free(current);
-	}
+//	current = *env;
+//	if (current && (*cmp)(current->name, ref) == 0)
+//	{
+//		*env = current->next;
+//		if (current->next)
+//			current->next->prev = NULL;
+//		free_rem(current);
+//	}
 }
