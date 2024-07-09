@@ -6,7 +6,7 @@
 /*   By: grebrune <grebrune@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:32:41 by grebrune          #+#    #+#             */
-/*   Updated: 2024/06/24 17:17:53 by grebrune         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:36:17 by grebrune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_name(t_head *head, char *name, t_env *c_env)
 	{
 		if (name[i] == '+' && name[i + 1] == '=')
 			return (add_var(head, name, c_env), 0);
-		if (ft_isalnum(name[i]) == 0)
+		if (!ft_isalnum(name[i]) && name[i] != '_')
 			return (error_handle(name), 1);
 		i++;
 	}
